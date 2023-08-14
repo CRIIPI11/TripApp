@@ -5,6 +5,9 @@
       "bundler": "metro"
     },
     "name": "TripRouter",
-    "slug": "TripRouter"
+    "slug": "TripRouter",
+    "splash": {
+      "backgroundColor": "#5f3e24"
+    }
   }
 }
