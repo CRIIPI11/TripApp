@@ -1,3 +1,4 @@
+import { Stack } from "expo-router";
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
 
 const profile = () => {
