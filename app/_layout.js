@@ -4,6 +4,7 @@ import { Link, Slot, Stack, Tabs } from "expo-router";
 import { COLORS, icons, images, SIZES } from "../constants";
 
 import style from "../components/common/navBar/navBar.style";
+import Forum from "./forum/index";
 
 export default function Layout() {
   // if (Platform.OS === "web") {
@@ -16,8 +17,9 @@ export default function Layout() {
         tabBarStyle: { backgroundColor: COLORS.lightWhite, color: "#004950" },
       }}
     >
+      <Tabs.Screen name="index" options={{ href: null }} />
       <Tabs.Screen
-        name="index"
+        name="discover"
         options={{
           title: "Discover",
           tabBarIcon: ({ focused, color, size }) => (
