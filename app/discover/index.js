@@ -9,28 +9,37 @@ import {
 import { useState } from "react";
 import { Stack, useRouter } from "expo-router";
 
-import { COLORS, icons, images, SIZES } from "../../constants";
+import { COLORS, icons, images, SIZES, SHADOWS } from "../../constants";
 import { SearchBar } from "../../components";
+import FilterBar from "../../components/filterbar/FilterBar";
 
 const Home = () => {
   const router = useRouter();
-
   const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState([]);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.nicegray }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Stack.Screen options={{ headerShown: false }} />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ flex: 1, padding: SIZES.xLarge }}>
-          <SearchBar
-            onchange={setSearch}
-            search={search}
-            onclick={() => {
-              if (search) {
-                router.push(`discover/search/${search}`);
-              }
+        <View>
+          <View
+            style={{
+              flex: 1,
+              padding: SIZES.small,
             }}
-          />
+          >
+            <SearchBar
+              onchange={setSearch}
+              search={search}
+              onclick={() => {
+                if (search) {
+                  router.push(`discover/search/${search}`);
+                }
+              }}
+            />
+          </View>
+          <FilterBar onPress={setFilter} />
         </View>
       </ScrollView>
     </SafeAreaView>

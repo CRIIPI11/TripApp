@@ -17,7 +17,7 @@ const SearchResult = () => {
           headerShadowVisible: false,
           headerLeft: () => (
             <ScreenHeaderBtn
-              iconUrl={icons.chevronLeft}
+              iconUrl={icons.left}
               dimension="60%"
               handlePress={() => router.back()}
             />

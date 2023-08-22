@@ -16,6 +16,13 @@ import forum from "../assets/icons/Chat_alt_light.png";
 import forumFocused from "../assets/icons/Chat_alt_light_focused.png";
 import profile from "../assets/icons/User_cicrle_light.png";
 import profileFocused from "../assets/icons/User_cicrle_light_focused.png";
+import montain from "../assets/icons/montain.png";
+import arch from "../assets/icons/arch.png";
+import art from "../assets/icons/art&culture.png";
+import fork from "../assets/icons/fork.png";
+import history from "../assets/icons/history.png";
+import museum from "../assets/icons/museum.png";
+import sign from "../assets/icons/sign.png";
 
 export default {
   heart,
@@ -36,4 +43,11 @@ export default {
   discoverFocused,
   forumFocused,
   profileFocused,
+  montain,
+  arch,
+  art,
+  fork,
+  history,
+  museum,
+  sign,
 };

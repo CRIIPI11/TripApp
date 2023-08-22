@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS, SIZES, FONT } from "../../../constants";
+import { COLORS, SIZES, FONT, SHADOWS } from "../../../constants";
 
 const styles = StyleSheet.create({
   searchContainer: {
@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     marginTop: SIZES.large,
-    height: 50,
   },
   searchWrapper: {
     flex: 1,
@@ -18,6 +17,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: SIZES.small,
     height: "100%",
+    height: 50,
+    ...SHADOWS.bar,
   },
   searchInput: {
     width: "100%",
@@ -32,7 +33,6 @@ const stylesWeb = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     marginTop: SIZES.large,
-    height: 50,
   },
   searchWrapper: {
     backgroundColor: COLORS.white,
@@ -41,7 +41,9 @@ const stylesWeb = StyleSheet.create({
     alignItems: "center",
     borderRadius: SIZES.small,
     height: "100%",
+    height: 50,
     width: 500,
+    ...SHADOWS.medium,
   },
   searchInput: {
     width: "100%",
