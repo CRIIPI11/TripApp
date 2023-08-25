@@ -32,7 +32,7 @@ const Home = () => {
             search={search}
             onclick={() => {
               if (search) {
-                router.push(`discover/search/${search}`);
+                router.push(`discover/(search)/${search}`);
               }
             }}
           />

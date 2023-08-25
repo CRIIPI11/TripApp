@@ -1,11 +1,10 @@
-import { Platform, Image } from "react-native";
-import { Link, Slot, Stack, Tabs } from "expo-router";
+import { Image } from "react-native";
+import { Tabs } from "expo-router";
 import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 
-import { COLORS, icons, images, SIZES } from "../constants";
-
+import { COLORS, icons } from "../constants";
 import style from "../components/common/navBar/navBar.style";
-import Forum from "./forum/index";
 
 export default function Layout() {
   // if (Platform.OS === "web") {

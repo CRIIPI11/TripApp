@@ -11,7 +11,7 @@ const SubCard = (props) => {
     <TouchableOpacity
       activeOpacity={1}
       onPress={() => {
-        router.push(`discover/search/${props.name}`);
+        router.push(`discover/(search)/${props.name}`);
       }}
     >
       <View style={styles.subCarContainer}>
