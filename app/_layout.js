@@ -1,5 +1,6 @@
 import { Platform, Image } from "react-native";
 import { Link, Slot, Stack, Tabs } from "expo-router";
+import { useFonts } from "expo-font";
 
 import { COLORS, icons, images, SIZES } from "../constants";
 
@@ -10,6 +11,18 @@ export default function Layout() {
   // if (Platform.OS === "web") {
   //   return <Slot />;
   // }
+
+  const [fontsLoaded] = useFonts({
+    DMBold: require("../assets/fonts/DMSans-Bold.ttf"),
+    DMMedium: require("../assets/fonts/DMSans-Medium.ttf"),
+    DMRegular: require("../assets/fonts/DMSans-Regular.ttf"),
+    HomenajeRegular: require("../assets/fonts/Homenaje-Regular.ttf"),
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <Tabs
       screenOptions={{

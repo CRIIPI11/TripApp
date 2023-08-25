@@ -23,6 +23,7 @@ import fork from "../assets/icons/fork.png";
 import history from "../assets/icons/history.png";
 import museum from "../assets/icons/museum.png";
 import sign from "../assets/icons/sign.png";
+import star from "../assets/icons/star.png";
 
 export default {
   heart,
@@ -50,4 +51,5 @@ export default {
   history,
   museum,
   sign,
+  star,
 };

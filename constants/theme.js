@@ -15,6 +15,7 @@ const FONT = {
   regular: "DMRegular",
   medium: "DMMedium",
   bold: "DMBold",
+  homenaje: "HomenajeRegular",
 };
 
 const SIZES = {
@@ -29,10 +30,10 @@ const SIZES = {
 
 const SHADOWS = {
   bar: {
-    shadowColor: "#000",
+    shadowColor: "#999",
     shadowOffset: {
       width: 0,
-      height: 5,
+      height: 3,
     },
     shadowOpacity: 0.2,
     shadowRadius: 1.84,
