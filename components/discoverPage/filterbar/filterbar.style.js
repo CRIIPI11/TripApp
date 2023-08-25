@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS, SIZES, SHADOWS } from "../../constants";
+import { COLORS, SIZES, SHADOWS } from "../../../constants";
 
 const styles = StyleSheet.create({
   barContainer: {
@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
   itemWrapper: {
     borderRadius: SIZES.small,
     margin: SIZES.xxSmall,
+    marginEnd: SIZES.medium,
   },
   icon: {
     width: 40,
@@ -23,7 +24,7 @@ const stylesWeb = StyleSheet.create({
   barContainer: {
     backgroundColor: COLORS.lightWhite,
     marginTop: SIZES.xSmall,
-    ...SHADOWS.small,
+    ...SHADOWS.bar,
   },
   itemWrapper: {
     borderRadius: SIZES.small,

@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    marginTop: SIZES.large,
   },
   searchWrapper: {
     flex: 1,

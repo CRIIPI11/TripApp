@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { styles, stylesWeb } from "./filterbar.style";
 
-import { icons } from "../../constants";
+import { icons } from "../../../constants";
 
 const DATA = [
   {
