@@ -1,5 +1,5 @@
 import { Image } from "react-native";
-import { Tabs } from "expo-router";
+import { Tabs, Slot } from "expo-router";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
@@ -7,10 +7,6 @@ import { COLORS, icons } from "../constants";
 import style from "../components/common/navBar/navBar.style";
 
 export default function Layout() {
-  // if (Platform.OS === "web") {
-  //   return <Slot />;
-  // }
-
   const [fontsLoaded] = useFonts({
     DMBold: require("../assets/fonts/DMSans-Bold.ttf"),
     DMMedium: require("../assets/fonts/DMSans-Medium.ttf"),
@@ -20,6 +16,10 @@ export default function Layout() {
 
   if (!fontsLoaded) {
     return null;
+  }
+
+  if (Platform.OS === "web") {
+    return <Slot />;
   }
 
   return (

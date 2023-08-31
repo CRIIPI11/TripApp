@@ -1,10 +1,15 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 
 import { COLORS, SIZES, SHADOWS, FONT } from "../../../constants";
 
+const { width, height } = Dimensions.get("window");
+
 const styles = StyleSheet.create({
-  cardContainer: { padding: SIZES.xSmall, height: 500 },
-  subCarContainer: { maxWidth: 390, height: 80, marginEnd: SIZES.xSmall },
+  cardContainer: { padding: SIZES.xSmall, height: height / 1.8 },
+  subCarContainer: {
+    width: width * 0.95,
+    marginEnd: SIZES.xSmall,
+  },
   titletext: {
     fontSize: SIZES.xxLarge,
     fontFamily: FONT.homenaje,
@@ -20,12 +25,10 @@ const styles = StyleSheet.create({
   placeTitle: {
     fontSize: SIZES.xxLarge,
     fontFamily: FONT.homenaje,
-    fontWeight: "bold",
     marginStart: SIZES.xxSmall,
   },
   desc: { fontFamily: FONT.homenaje, color: COLORS.secondary },
-  NRContainer: { flexDirection: "row" },
-  nameContainer: { flex: 1 },
+  NRContainer: { flexDirection: "row", justifyContent: "space-between" },
   ratingContainer: { flexDirection: "row", alignItems: "baseline" },
   ratingText: {
     fontFamily: FONT.homenaje,
@@ -36,6 +39,56 @@ const styles = StyleSheet.create({
   icon: { width: 20, height: 20 },
 });
 
-const stylesWeb = StyleSheet.create({});
+const stylesWeb = StyleSheet.create({
+  cardContainer: {
+    margin: SIZES.medium,
+  },
+  subCardsCont: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    width: "100%",
+    justifyContent: "space-evenly",
+  },
+  subCarContainer: {
+    width: width / 7,
+    height: height / 2.4,
+    marginBottom: SIZES.medium,
+  },
+  titletext: {
+    fontSize: 40,
+    fontFamily: FONT.homenaje,
+    textDecorationLine: "underline",
+    marginBottom: SIZES.medium,
+  },
+  image: {
+    width: "100%",
+    height: 300,
+    borderRadius: SIZES.medium,
+    marginBottom: SIZES.xxSmall,
+  },
+  placeTitle: {
+    fontFamily: FONT.homenaje,
+    fontSize: 25,
+    fontWeight: "bold",
+  },
+  desc: {
+    color: COLORS.gray,
+    padding: SIZES.xxSmall,
+  },
+  NRContainer: {
+    flexDirection: "row",
+    paddingLeft: 3,
+    paddingRight: SIZES.small,
+    justifyContent: "space-between",
+  },
+  ratingContainer: { flexDirection: "row", alignItems: "baseline" },
+  ratingText: {
+    fontFamily: FONT.homenaje,
+    marginEnd: SIZES.xxSmall,
+    fontSize: SIZES.medium,
+    color: COLORS.gray,
+  },
+  icon: { width: 20, height: 20 },
+});
 
 export { styles, stylesWeb };

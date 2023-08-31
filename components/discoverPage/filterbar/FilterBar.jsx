@@ -65,24 +65,28 @@ const Item = (props) => (
 );
 
 const FilterBar = (props) => {
+  if (Platform.OS === "web") {
+    return (
+      <SafeAreaView style={stylesWeb.barContainer}>
+        {DATA.map((it) => (
+          <Item onPress={props.onPress} icon={it.icon} category={it.title} />
+        ))}
+      </SafeAreaView>
+    );
+  }
+
   return (
-    <SafeAreaView
-      style={
-        Platform.OS == "web" ? stylesWeb.barContainer : styles.barContainer
-      }
-    >
+    <SafeAreaView style={styles.barContainer}>
       <FlatList
         horizontal={true}
         data={DATA}
-        renderItem={({ item }) => {
-          return (
-            <Item
-              onPress={props.onPress}
-              icon={item.icon}
-              category={item.title}
-            />
-          );
-        }}
+        renderItem={({ item }) => (
+          <Item
+            onPress={props.onPress}
+            icon={item.icon}
+            category={item.title}
+          />
+        )}
         keyExtractor={(item) => item.id}
       ></FlatList>
     </SafeAreaView>
