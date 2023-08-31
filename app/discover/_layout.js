@@ -6,8 +6,8 @@ import { Link, Slot, Stack, Tabs } from "expo-router";
 // import style from "../components/common/navBar/navBar.style";
 
 export default function Layout() {
-  // if (Platform.OS === "web") {
-  //   return <Slot />;
-  // }
+  if (Platform.OS === "web") {
+    return <Slot />;
+  }
   return <Stack />;
 }

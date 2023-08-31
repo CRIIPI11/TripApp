@@ -1,13 +1,10 @@
+import React from "react";
+import { Slot } from "expo-router";
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
+import Map from "../../components/map/Map";
 
 const map = () => {
-  return (
-    <SafeAreaView style={{}}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Text>map</Text>
-      </ScrollView>
-    </SafeAreaView>
-  );
+  return <Map />;
 };
 
 export default map;

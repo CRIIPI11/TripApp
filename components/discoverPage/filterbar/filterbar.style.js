@@ -22,13 +22,17 @@ const styles = StyleSheet.create({
 
 const stylesWeb = StyleSheet.create({
   barContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
     backgroundColor: COLORS.lightWhite,
-    marginTop: SIZES.xSmall,
+    margin: SIZES.medium,
+    flexWrap: "wrap",
     ...SHADOWS.bar,
   },
   itemWrapper: {
     borderRadius: SIZES.small,
     margin: SIZES.xxSmall,
+    marginEnd: SIZES.xxLarge,
   },
   icon: {
     width: 40,
