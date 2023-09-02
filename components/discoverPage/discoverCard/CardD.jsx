@@ -1,23 +1,27 @@
-import {
-  TouchableOpacity,
-  View,
-  Text,
-  Image,
-  ScrollView,
-  FlatList,
-} from "react-native";
+import { TouchableOpacity, View, Text, Image, FlatList } from "react-native";
 import { useRouter } from "expo-router";
 import { styles } from "./cardd.style";
-
 import { icons } from "../../../constants";
+import { useDispatch } from "react-redux";
+import { setInfo } from "../../../redux/infoSlice";
 
 export const SubCard = (props) => {
   const router = useRouter();
+  const dispatch = useDispatch();
+
   return (
     <TouchableOpacity
       activeOpacity={1}
       onPress={() => {
-        router.push(`discover/(search)/${props.name}`);
+        dispatch(
+          setInfo({
+            name: props.name,
+            img: props.img,
+            desc: props.desc,
+            popular: props.popular,
+          })
+        );
+        router.push(`discover/(info)/${props.name}`);
       }}
     >
       <View style={styles.subCarContainer}>
@@ -45,6 +49,7 @@ const CardD = (props) => {
       desc={item.desc}
       img={item.img}
       rating={item.rating}
+      popular={item.popular}
     />
   );
 

@@ -24,6 +24,7 @@ import history from "../assets/icons/history.png";
 import museum from "../assets/icons/museum.png";
 import sign from "../assets/icons/sign.png";
 import star from "../assets/icons/star.png";
+import fire from "../assets/icons/fire.png";
 
 export default {
   heart,
@@ -52,4 +53,5 @@ export default {
   museum,
   sign,
   star,
+  fire,
 };
