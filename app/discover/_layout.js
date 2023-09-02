@@ -1,9 +1,5 @@
-import { Platform, Image } from "react-native";
-import { Link, Slot, Stack, Tabs } from "expo-router";
-
-// import { COLORS, icons, images, SIZES } from "../constants";
-
-// import style from "../components/common/navBar/navBar.style";
+import { Platform } from "react-native";
+import { Slot, Stack } from "expo-router";
 
 export default function Layout() {
   if (Platform.OS === "web") {

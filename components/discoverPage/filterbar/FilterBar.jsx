@@ -8,6 +8,8 @@ import {
 import { styles, stylesWeb } from "./filterbar.style";
 
 import { icons } from "../../../constants";
+import { useDispatch } from "react-redux";
+import { setFilter } from "../../../redux/filterSlice";
 
 const DATA = [
   {
@@ -47,29 +49,31 @@ const DATA = [
   },
 ];
 
-const check = (cat) => {};
-
-const Item = (props) => (
-  <TouchableOpacity
-    style={Platform.OS == "web" ? stylesWeb.itemWrapper : styles.itemWrapper}
-    onPress={() => {
-      props.onPress((val) =>
-        val.find((e) => e === props.category) === undefined
-          ? [...val, props.category]
-          : val.filter((e) => e !== props.category)
-      );
-    }}
-  >
-    <Image source={props.icon} style={styles.icon} />
-  </TouchableOpacity>
-);
+const Item = (props) => {
+  const dispatch = useDispatch();
+  return (
+    <TouchableOpacity
+      style={Platform.OS == "web" ? stylesWeb.itemWrapper : styles.itemWrapper}
+      onPress={() => {
+        dispatch(setFilter(props.category));
+      }}
+    >
+      <Image source={props.icon} style={styles.icon} />
+    </TouchableOpacity>
+  );
+};
 
 const FilterBar = (props) => {
   if (Platform.OS === "web") {
     return (
       <SafeAreaView style={stylesWeb.barContainer}>
         {DATA.map((it) => (
-          <Item onPress={props.onPress} icon={it.icon} category={it.title} />
+          <Item
+            key={it.title}
+            onPress={props.onPress}
+            icon={it.icon}
+            category={it.title}
+          />
         ))}
       </SafeAreaView>
     );
