@@ -59,7 +59,7 @@ const DATA = [
 ];
 
 const SearchResult = () => {
-  const params = useSearchParams();
+  // const params = useSearchParams();
   const router = useRouter();
   const info = useSelector((state) => state.info);
 
@@ -81,7 +81,7 @@ const SearchResult = () => {
               handlePress={() => router.back()}
             />
           ),
-          headerTitle: params.id,
+          headerTitle: "",
         }}
       />
       {Platform.OS === "web" && <Header />}
