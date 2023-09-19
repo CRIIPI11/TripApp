@@ -20,7 +20,7 @@ const DATA = [
   {
     id: "AC1",
     title: "Art & Culture",
-    icon: icons.share,
+    icon: icons.art,
   },
   {
     id: "ARCH",
