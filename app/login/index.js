@@ -30,18 +30,23 @@ const styles = StyleSheet.create({
         height: 40,
         margin: 12,
         borderWidth: 1,
-        padding: 10
+        padding: 10,
+        marginHorizontal: 50
     },
 
     primaryButton: {
         backgroundColor: COLORS.primary,
         padding: 10,
-        borderRadius: SIZES.radius
+        borderRadius: 50,
+        marginHorizontal: 90,
+        marginVertical: 10
     },
     secondaryButton: {
         backgroundColor: COLORS.secondary,
         padding: 10,
-        borderRadius: SIZES.radius
+        borderRadius: 50,
+        marginHorizontal: 90,
+        marginVertical: 10
     },
     buttonText: {
         color: COLORS.white,
