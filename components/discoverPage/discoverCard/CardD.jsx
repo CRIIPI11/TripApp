@@ -1,9 +1,18 @@
-import { TouchableOpacity, View, Text, Image, FlatList } from "react-native";
+import {
+  TouchableOpacity,
+  View,
+  Text,
+  Image,
+  FlatList,
+  Dimensions,
+} from "react-native";
 import { useRouter } from "expo-router";
 import { styles } from "./cardd.style";
 import { icons } from "../../../constants";
 import { useDispatch } from "react-redux";
 import { setInfo } from "../../../redux/infoSlice";
+
+const { width, height } = Dimensions.get("screen");
 
 export const SubCard = (props) => {
   const router = useRouter();
@@ -60,9 +69,10 @@ const CardD = (props) => {
         data={props.places}
         renderItem={renderItem}
         horizontal={true}
-        snapToInterval={400}
+        snapToInterval={width * 0.96}
         decelerationRate="fast"
         keyExtractor={(item) => item.place}
+        showsHorizontalScrollIndicator={false}
       />
     </View>
   );

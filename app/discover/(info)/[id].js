@@ -1,20 +1,13 @@
-import {
-  Text,
-  View,
-  SafeAreaView,
-  ScrollView,
-  Dimensions,
-  Platform,
-} from "react-native";
+import { Text, View, ScrollView, Dimensions, Platform } from "react-native";
 import { Stack, useRouter, useSearchParams } from "expo-router";
 import { COLORS, FONT, icons, SIZES } from "../../../constants";
 import ScreenHeaderBtn from "../../../components/common/stackheader/ScreenHeaderBtn";
 import Cover from "../../../components/infoPage/cover/Cover";
 import { useSelector } from "react-redux";
-import Header from "../../../components/common/header/Header";
 import Options from "../../../components/infoPage/options/Options";
 import Recomended from "../../../components/infoPage/recomended/Recomended";
-const { width, height } = Dimensions.get("window");
+import SearchBar from "../../../components/common/searchBar/SearchBar";
+const { width, height } = Dimensions.get("screen");
 
 const DATA = [
   {
@@ -64,7 +57,7 @@ const SearchResult = () => {
   const info = useSelector((state) => state.info);
 
   return (
-    <SafeAreaView
+    <View
       style={{
         alignSelf: "center",
         width: Platform.OS === "web" ? width * 0.6 : width,
@@ -84,7 +77,7 @@ const SearchResult = () => {
           headerTitle: "",
         }}
       />
-      {Platform.OS === "web" && <Header />}
+      {Platform.OS === "web" && <SearchBar />}
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
@@ -114,7 +107,7 @@ const SearchResult = () => {
           <Recomended places={DATA} />
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

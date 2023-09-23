@@ -50,7 +50,6 @@ const styles =
         },
         nameText: {
           fontFamily: FONT.homenaje,
-          fontWeight: "bold",
           fontSize: SIZES.large,
           marginStart: SIZES.xSmall,
         },
