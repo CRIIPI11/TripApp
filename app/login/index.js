@@ -6,10 +6,8 @@ const Login = () => {
     <SafeAreaView>
         <Image style={styles.logo} source={require('../../assets/images/navinomad_logo.png')} />
 
-        <Text style={ styles.label }>Email</Text>
-        <TextInput style={ styles.input } value='Enter username' />
-        <Text style={ styles.label }>Password</Text>
-        <TextInput style={ styles.input } value='Enter password' />
+        <TextInput style={ styles.input } value='Email' />
+        <TextInput style={ styles.input } value='Password' />
         
         <TouchableOpacity style={ styles.primaryButton }>
             <Text style={ styles.buttonText }>Sign in</Text>
@@ -33,12 +31,6 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 1,
         padding: 10
-    },
-
-    label: {
-        textAlign: 'center',
-        textAlign: 'left',
-        paddingLeft: 12
     },
 
     primaryButton: {
