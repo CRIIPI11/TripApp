@@ -1,14 +1,16 @@
-import { StyleSheet, TouchableOpacity, Text, TextInput, SafeAreaView } from "react-native";
+import { StyleSheet, Image, TouchableOpacity, Text, TextInput, SafeAreaView } from "react-native";
 import { COLORS, SIZES } from "../../constants";
 
 const Login = () => {
   return (
     <SafeAreaView>
-        <Text style={{ textAlign: 'center' }}>Email</Text>
-        <TextInput style={ styles.input } value='Enter username' />
-        <Text style={{ textAlign: 'center' }}>Password</Text>
-        <TextInput style={ styles.input } value='Enter password' />
+        <Image style={styles.logo} source={require('../../assets/images/navinomad_logo.png')} />
 
+        <Text style={ styles.label }>Email</Text>
+        <TextInput style={ styles.input } value='Enter username' />
+        <Text style={ styles.label }>Password</Text>
+        <TextInput style={ styles.input } value='Enter password' />
+        
         <TouchableOpacity style={ styles.primaryButton }>
             <Text style={ styles.buttonText }>Sign in</Text>
         </TouchableOpacity>
@@ -20,11 +22,23 @@ const Login = () => {
 };
 
 const styles = StyleSheet.create({
+    logo : {
+        alignSelf: 'center',
+        width: 300,
+        height: 300
+    },
+
     input: {
         height: 40,
         margin: 12,
         borderWidth: 1,
         padding: 10
+    },
+
+    label: {
+        textAlign: 'center',
+        textAlign: 'left',
+        paddingLeft: 12
     },
 
     primaryButton: {
