@@ -2,13 +2,14 @@ import { Dimensions, StyleSheet } from "react-native";
 
 import { COLORS, SIZES, SHADOWS, FONT } from "../../../constants";
 
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get("screen");
 
 const styles = StyleSheet.create({
-  cardContainer: { padding: SIZES.xSmall, height: height / 1.8 },
+  cardContainer: { padding: SIZES.xSmall, height: height * 0.6 },
   subCarContainer: {
     width: width * 0.95,
-    marginEnd: SIZES.xSmall,
+    height: "100%",
+    marginEnd: SIZES.xxSmall,
   },
   titletext: {
     fontSize: SIZES.xxLarge,
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: 350,
+    height: "78%",
     borderRadius: SIZES.medium,
     marginBottom: SIZES.xxSmall,
   },

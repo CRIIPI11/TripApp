@@ -30,7 +30,7 @@ const styles =
         optionsContainer: {
           flexDirection: "row",
           justifyContent: "space-between",
-          width: "60%",
+          width: "80%",
           alignSelf: "center",
           marginTop: SIZES.xxLarge,
         },

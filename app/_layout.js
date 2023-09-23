@@ -1,4 +1,4 @@
-import { Image } from "react-native";
+import { Image, StatusBar } from "react-native";
 import { Tabs, Slot } from "expo-router";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
@@ -29,6 +29,7 @@ export default function Layout() {
 
   return (
     <Provider store={store}>
+      <StatusBar barStyle={"dark-content"} />
       <Tabs
         screenOptions={{
           headerShown: false,

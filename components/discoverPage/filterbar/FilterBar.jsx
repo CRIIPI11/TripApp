@@ -3,12 +3,11 @@ import {
   Platform,
   FlatList,
   TouchableOpacity,
-  SafeAreaView,
+  View,
 } from "react-native";
 import { styles, stylesWeb } from "./filterbar.style";
-
 import { icons } from "../../../constants";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setFilter } from "../../../redux/filterSlice";
 
 const DATA = [
@@ -51,9 +50,22 @@ const DATA = [
 
 const Item = (props) => {
   const dispatch = useDispatch();
+  const filter = useSelector((state) => state.filter.filter);
+
   return (
     <TouchableOpacity
-      style={Platform.OS == "web" ? stylesWeb.itemWrapper : styles.itemWrapper}
+      style={
+        Platform.OS == "web"
+          ? filter.find((e) => e === props.category) === undefined
+            ? stylesWeb.itemWrapper
+            : [
+                stylesWeb.itemWrapper,
+                { borderBottomWidth: 2, borderColor: "#ff" },
+              ]
+          : filter.find((e) => e === props.category) === undefined
+          ? styles.itemWrapper
+          : [styles.itemWrapper, { borderBottomWidth: 2, borderColor: "#ff" }]
+      }
       onPress={() => {
         dispatch(setFilter(props.category));
       }}
@@ -64,9 +76,10 @@ const Item = (props) => {
 };
 
 const FilterBar = (props) => {
+  //Web version
   if (Platform.OS === "web") {
     return (
-      <SafeAreaView style={stylesWeb.barContainer}>
+      <View style={stylesWeb.barContainer}>
         {DATA.map((it) => (
           <Item
             key={it.title}
@@ -75,25 +88,23 @@ const FilterBar = (props) => {
             category={it.title}
           />
         ))}
-      </SafeAreaView>
+      </View>
     );
   }
-
+  //Mobile version
   return (
-    <SafeAreaView style={styles.barContainer}>
+    <View style={styles.barContainer}>
       <FlatList
         horizontal={true}
         data={DATA}
         renderItem={({ item }) => (
-          <Item
-            onPress={props.onPress}
-            icon={item.icon}
-            category={item.title}
-          />
+          <Item icon={item.icon} category={item.title} />
         )}
         keyExtractor={(item) => item.id}
-      ></FlatList>
-    </SafeAreaView>
+        showsHorizontalScrollIndicator={false}
+        fadingEdgeLength={50}
+      />
+    </View>
   );
 };
 

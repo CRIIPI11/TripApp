@@ -8,6 +8,9 @@ const Options = () => {
         <Text style={styles.optionText}>Plan Trip</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => {}} style={styles.buttonContainer}>
+        <Text style={styles.optionText}>Visit</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => {}} style={styles.buttonContainer}>
         <Text style={styles.optionText}>Save</Text>
       </TouchableOpacity>
     </View>
