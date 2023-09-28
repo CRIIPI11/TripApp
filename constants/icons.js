@@ -25,6 +25,9 @@ import museum from "../assets/icons/museum.png";
 import sign from "../assets/icons/sign.png";
 import star from "../assets/icons/star.png";
 import fire from "../assets/icons/fire.png";
+import navigationfill from "../assets/icons/navigationfill.png";
+import navigation from "../assets/icons/navigation.png";
+import close from "../assets/icons/close.png";
 
 export default {
   heart,
@@ -54,4 +57,7 @@ export default {
   sign,
   star,
   fire,
+  navigationfill,
+  navigation,
+  close,
 };

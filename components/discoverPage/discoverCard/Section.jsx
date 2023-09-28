@@ -7,12 +7,12 @@ import {
   Dimensions,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { styles } from "./cardd.style";
+import { styles } from "./section.style";
 import { icons } from "../../../constants";
 import { useDispatch } from "react-redux";
 import { setInfo } from "../../../redux/infoSlice";
 
-const { width, height } = Dimensions.get("screen");
+const { width } = Dimensions.get("screen");
 
 export const SubCard = (props) => {
   const router = useRouter();
@@ -50,7 +50,7 @@ export const SubCard = (props) => {
   );
 };
 
-const CardD = (props) => {
+const Section = (props) => {
   const renderItem = ({ item }) => (
     <SubCard
       id={item.place}
@@ -65,17 +65,31 @@ const CardD = (props) => {
   return (
     <View style={styles.cardContainer}>
       <Text style={styles.titletext}>{props.title}</Text>
-      <FlatList
-        data={props.places}
-        renderItem={renderItem}
-        horizontal={true}
-        snapToInterval={width * 0.96}
-        decelerationRate="fast"
-        keyExtractor={(item) => item.place}
-        showsHorizontalScrollIndicator={false}
-      />
+      <View style={styles.subCardsCont}>
+        {props.permission && props.permission !== "granted" ? (
+          <View style={styles.errorConatainer}>
+            <Text style={styles.errortexttitle}>
+              Please Allow Location Permission
+            </Text>
+            <Text style={styles.errortextmsg}>
+              To show places near your location, update your settings to a
+              "always" o or "while using"
+            </Text>
+          </View>
+        ) : (
+          <FlatList
+            data={props.places}
+            renderItem={renderItem}
+            horizontal={true}
+            snapToInterval={width * 0.96}
+            decelerationRate="fast"
+            keyExtractor={(item) => item.place}
+            showsHorizontalScrollIndicator={false}
+          />
+        )}
+      </View>
     </View>
   );
 };
 
-export default CardD;
+export default Section;
