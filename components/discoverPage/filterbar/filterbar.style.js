@@ -23,7 +23,7 @@ const stylesWeb = StyleSheet.create({
   barContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    backgroundColor: COLORS.lightWhite,
+    backgroundColor: COLORS.accents8,
     margin: SIZES.medium,
     flexWrap: "wrap",
     height: 60,
