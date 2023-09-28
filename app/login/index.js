@@ -1,4 +1,5 @@
-import { StyleSheet, Image, TouchableOpacity, Text, TextInput, SafeAreaView } from "react-native";
+import { StyleSheet, Image, TouchableOpacity, Text, TextInput } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context'; // Expo's SDK
 import { COLORS, SIZES } from "../../constants";
 
 const Login = () => {
