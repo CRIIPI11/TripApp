@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     fontSize: SIZES.xxLarge,
     fontFamily: FONT.homenaje,
     textDecorationLine: "underline",
-    marginBottom: SIZES.xxSmall,
+    marginBottom: SIZES.medium,
   },
   errorConatainer: { padding: SIZES.large },
   errortexttitle: {
@@ -38,18 +38,21 @@ const styles = StyleSheet.create({
   placeTitle: {
     fontSize: SIZES.xxLarge,
     fontFamily: FONT.homenaje,
-    marginStart: SIZES.xxSmall,
+    marginTop: SIZES.xxSmall,
   },
-  desc: { fontFamily: FONT.homenaje, color: COLORS.secondary },
-  NRContainer: { flexDirection: "row", justifyContent: "space-between" },
-  ratingContainer: { flexDirection: "row", alignItems: "baseline" },
-  ratingText: {
+  desc: {
     fontFamily: FONT.homenaje,
+    color: COLORS.accents5,
+    marginTop: SIZES.xxSmall,
+  },
+  NRContainer: { flexDirection: "row", justifyContent: "space-between" },
+  ratingContainer: { flexDirection: "row", alignItems: "center" },
+  ratingText: {
     marginEnd: SIZES.xxSmall,
     fontSize: SIZES.medium,
-    color: COLORS.accents6,
+    color: COLORS.accents2,
   },
-  icon: { width: 20, height: 20 },
+  icon: { width: 15, height: 15, marginEnd: 4 },
 });
 
 const stylesWeb = StyleSheet.create({

@@ -4,6 +4,7 @@ import {
   FlatList,
   TouchableOpacity,
   View,
+  Text,
 } from "react-native";
 import { styles, stylesWeb } from "./filterbar.style";
 import { icons } from "../../../constants";
@@ -39,7 +40,7 @@ const DATA = [
   {
     id: "NTRE",
     title: "Nature",
-    icon: icons.montain,
+    icon: icons.nature,
   },
   {
     id: "HSTR",
@@ -71,6 +72,7 @@ const Item = (props) => {
       }}
     >
       <Image source={props.icon} style={styles.icon} />
+      <Text style={styles.itemName}>{props.category}</Text>
     </TouchableOpacity>
   );
 };

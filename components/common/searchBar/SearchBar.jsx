@@ -1,27 +1,17 @@
-import { View, TextInput, Platform } from "react-native";
-import { styles, stylesWeb } from "./searchBar.style";
+import { View, TextInput, Image } from "react-native";
+import styles from "./searchBar.style";
+import { COLORS, icons } from "../../../constants";
 
 const SearchBar = (props) => {
   return (
-    <View
-      style={
-        Platform.OS == "web"
-          ? stylesWeb.searchContainer
-          : styles.searchContainer
-      }
-    >
-      <View
-        style={
-          Platform.OS == "web" ? stylesWeb.searchWrapper : styles.searchWrapper
-        }
-      >
+    <View style={styles.searchContainer}>
+      <View style={styles.searchWrapper}>
+        <Image source={icons.search} style={styles.icon} />
         <TextInput
           placeholder="Where is life taking you?"
-          placeholderTextColor="black"
+          placeholderTextColor={COLORS.accents6}
           clearButtonMode="always"
-          style={
-            Platform.OS == "web" ? stylesWeb.searchInput : styles.searchInput
-          }
+          style={styles.searchInput}
           value={props.search}
           onChange={(text) => {
             props.onchange(text.nativeEvent.text);

@@ -38,8 +38,8 @@ export const SubCard = (props) => {
         <View style={styles.NRContainer}>
           <Text style={styles.placeTitle}>{props.name}</Text>
           <View style={styles.ratingContainer}>
-            <Text style={styles.ratingText}>{props.rating}/5</Text>
             <Image source={icons.star} style={styles.icon} />
+            <Text style={styles.ratingText}>{props.rating}</Text>
           </View>
         </View>
         <Text numberOfLines={3} ellipsizeMode="tail" style={styles.desc}>
