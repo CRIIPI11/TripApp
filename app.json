@@ -1,14 +1,41 @@
 {
   "expo": {
+    "owner": "navinomad",
     "scheme": "acme",
     "web": {
       "bundler": "metro"
     },
-    "name": "TripRouter",
-    "slug": "TripRouter",
+    "name": "navinomad",
+    "slug": "navinomad",
     "splash": {
       "backgroundColor": "#000000"
     },
-    "icon": "./assets/Logo.png"
+    "icon": "./assets/Logo.png",
+    "plugins": [
+      [
+        "@rnmapbox/maps",
+        {
+          "RNMapboxMapsImpl": "mapbox",
+          "RNMapboxMapsDownloadToken": "sk.eyJ1IjoiY3JpaXBpMTEiLCJhIjoiY2xteXp0azM4MWF0NjJobnZwOTlucGE1aiJ9.MijNqtfGCAb4V_ixv09vFg"
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow me to use your location."
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "ec10b3e6-fd3c-4ac1-ad3c-02e4c6fd6e7c"
+      }
+    },
+    "android": {
+      "package": "com.criipi.TripRouter"
+    },
+    "ios": {
+      "bundleIdentifier": "com.criipi.TripRouter"
+    }
   }
 }

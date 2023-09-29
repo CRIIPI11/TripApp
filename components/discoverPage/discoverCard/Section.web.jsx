@@ -1,13 +1,6 @@
-import {
-  TouchableOpacity,
-  View,
-  Text,
-  Image,
-  ScrollView,
-  FlatList,
-} from "react-native";
+import { TouchableOpacity, View, Text, Image } from "react-native";
 import { useRouter } from "expo-router";
-import { stylesWeb } from "./cardd.style";
+import { stylesWeb } from "./section.style";
 import { icons } from "../../../constants";
 import { useDispatch } from "react-redux";
 import { setInfo } from "../../../redux/infoSlice";
@@ -48,24 +41,36 @@ export const SubCard = (props) => {
   );
 };
 
-const CardD = (props) => {
+const Section = (props) => {
   return (
     <View style={stylesWeb.cardContainer}>
       <Text style={stylesWeb.titletext}>{props.title}</Text>
       <View style={stylesWeb.subCardsCont}>
-        {props.places?.map((item) => (
-          <SubCard
-            key={item.place}
-            name={item.place}
-            desc={item.desc}
-            img={item.img}
-            rating={item.rating}
-            popular={item.popular}
-          />
-        ))}
+        {props.permission && props.permission !== "granted" ? (
+          <View style={stylesWeb.errorConatainer}>
+            <Text style={stylesWeb.errortexttitle}>
+              Please Allow Location Permission
+            </Text>
+            <Text style={stylesWeb.errortextmsg}>
+              To show places near your location, update your settings to a
+              "always" o or "while using"
+            </Text>
+          </View>
+        ) : (
+          props.places?.map((item) => (
+            <SubCard
+              key={item.place}
+              name={item.place}
+              desc={item.desc}
+              img={item.img}
+              rating={item.rating}
+              popular={item.popular}
+            />
+          ))
+        )}
       </View>
     </View>
   );
 };
 
-export default CardD;
+export default Section;

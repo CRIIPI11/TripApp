@@ -10,7 +10,7 @@ const map = () => {
   const [infos, setInfos] = useState("");
 
   return (
-    <SafeAreaView style={{ backgroundColor: COLORS.lightWhite }}>
+    <SafeAreaView style={{ backgroundColor: COLORS.accents8 }}>
       <View
         style={{
           padding: 12,

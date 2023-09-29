@@ -1,12 +1,12 @@
-import { View } from "react-native";
+import { Text, View } from "react-native";
 
 import { styles } from "./discoversection.style";
 
-import CardD from "../discoverCard/CardD";
+import Section from "../discoverCard/Section";
+import { useUserStore } from "../../../hooks";
 
 const DATA = [
   {
-    title: "Popular Near Places",
     data: [
       {
         place: "Miami",
@@ -23,8 +23,9 @@ const DATA = [
       },
     ],
   },
+];
+const DATA2 = [
   {
-    title: "Popular Cities",
     data: [
       {
         place: "New York",
@@ -40,8 +41,9 @@ const DATA = [
       },
     ],
   },
+];
+const DATA3 = [
   {
-    title: "Based on Previous Places",
     data: [
       {
         place: "Washignton",
@@ -60,10 +62,31 @@ const DATA = [
 ];
 
 const DiscoverSection = () => {
+  const { location } = useUserStore();
+
   return (
     <View style={styles.container}>
       {DATA.map((item) => (
-        <CardD key={item.title} title={item.title} places={item.data} />
+        <Section
+          key={"Popular Near Places"}
+          title={"Popular Near Places"}
+          places={item.data}
+          permission={location.permission}
+        />
+      ))}
+      {DATA2.map((item) => (
+        <Section
+          key={"Popular Cities"}
+          title={"Popular Cities"}
+          places={item.data}
+        />
+      ))}
+      {DATA3.map((item) => (
+        <Section
+          key={"Based on Previous Places"}
+          title={"Based on Previous Places"}
+          places={item.data}
+        />
       ))}
     </View>
   );
