@@ -16,7 +16,7 @@ import forum from "../assets/icons/Chat_alt_light.png";
 import forumFocused from "../assets/icons/Chat_alt_light_focused.png";
 import profile from "../assets/icons/User_cicrle_light.png";
 import profileFocused from "../assets/icons/User_cicrle_light_focused.png";
-import montain from "../assets/icons/montain.png";
+import nature from "../assets/icons/nature.png";
 import arch from "../assets/icons/arch.png";
 import art from "../assets/icons/artCulture.png";
 import fork from "../assets/icons/fork.png";
@@ -48,7 +48,7 @@ export default {
   discoverFocused,
   forumFocused,
   profileFocused,
-  montain,
+  nature,
   arch,
   art,
   fork,

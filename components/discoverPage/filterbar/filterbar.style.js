@@ -4,18 +4,24 @@ import { COLORS, SIZES, SHADOWS } from "../../../constants";
 
 const styles = StyleSheet.create({
   barContainer: {
-    backgroundColor: COLORS.white,
-    marginTop: SIZES.xSmall,
-    height: 50,
-    ...SHADOWS.bar,
+    borderBottomWidth: 0.5,
+    borderBottomColor: COLORS.accents6,
+    padding: SIZES.small,
+    height: 80,
   },
   itemWrapper: {
-    marginEnd: SIZES.medium,
-    padding: SIZES.xxSmall,
+    marginEnd: SIZES.large,
+    alignItems: "center",
   },
   icon: {
-    width: 40,
-    height: 40,
+    width: 35,
+    height: 35,
+  },
+  itemName: {
+    marginTop: SIZES.xxSmall,
+    fontSize: SIZES.xSmall,
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
 

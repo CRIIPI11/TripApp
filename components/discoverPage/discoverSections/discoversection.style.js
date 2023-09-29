@@ -5,12 +5,10 @@ import { Platform } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 0,
+    marginTop: SIZES.small,
     margin: Platform.OS === "web" ? SIZES.medium : 0,
     justifyContent: "center",
   },
 });
 
-const stylesWeb = StyleSheet.create({});
-
-export { styles, stylesWeb };
+export { styles };
