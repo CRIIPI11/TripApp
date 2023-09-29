@@ -65,7 +65,7 @@ const SearchResult = () => {
     >
       <Stack.Screen
         options={{
-          headerStyle: { backgroundColor: COLORS.lightWhite },
+          headerStyle: { backgroundColor: COLORS.accents8 },
           headerShadowVisible: false,
           headerLeft: () => (
             <ScreenHeaderBtn

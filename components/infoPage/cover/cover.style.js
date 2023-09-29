@@ -30,7 +30,7 @@ const styles =
           marginEnd: SIZES.large,
         },
         subTitleText: { fontFamily: FONT.regular, marginLeft: SIZES.xxSmall },
-        bulletsText: { fontSize: SIZES.small, color: COLORS.gray },
+        bulletsText: { fontSize: SIZES.small, color: COLORS.accents6 },
         icon: { width: 15, height: 15 },
       })
     : StyleSheet.create({
@@ -52,7 +52,7 @@ const styles =
           marginEnd: SIZES.large,
         },
         subTitleText: { fontFamily: FONT.regular, marginLeft: SIZES.xxSmall },
-        bulletsText: { fontSize: SIZES.small, color: COLORS.gray },
+        bulletsText: { fontSize: SIZES.small, color: COLORS.accents6 },
         icon: { width: 15, height: 15 },
       });
 

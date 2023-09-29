@@ -33,7 +33,7 @@ export default function Layout() {
       <Tabs
         screenOptions={{
           headerShown: false,
-          tabBarStyle: { backgroundColor: COLORS.lightWhite, color: "#004950" },
+          tabBarStyle: { backgroundColor: COLORS.accents8, color: "#004950" },
         }}
       >
         <Tabs.Screen name="index" options={{ href: null }} />
@@ -51,7 +51,7 @@ export default function Layout() {
             // tabBarIconStyle: { color: "red" },
             tabBarActiveTintColor: "#8e0387",
             // tabBarInactiveTintColor: "green",
-            // tabBarActiveBackgroundColor: "gray",
+            // tabBarActiveBackgroundColor: "accents6",
             // tabBarInactiveBackgroundColor: "#fb7061",
           }}
         />

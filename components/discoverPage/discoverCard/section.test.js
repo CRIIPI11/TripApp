@@ -1,8 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import { render, screen } from "@testing-library/react-native";
-import CarD from "./CardD";
-import { SubCard } from "./CardD";
+import CarD from "./Section";
+import { SubCard } from "./Section";
 
 const DATA = [
   {

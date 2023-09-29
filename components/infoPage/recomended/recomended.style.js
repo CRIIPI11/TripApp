@@ -30,7 +30,7 @@ const styles =
           fontFamily: FONT.homenaje,
           fontSize: SIZES.medium,
           marginStart: SIZES.xxSmall,
-          color: COLORS.gray,
+          color: COLORS.accents6,
         },
       })
     : StyleSheet.create({
@@ -57,7 +57,7 @@ const styles =
           fontFamily: FONT.homenaje,
           fontSize: SIZES.medium,
           marginStart: SIZES.xxSmall,
-          color: COLORS.gray,
+          color: COLORS.accents6,
         },
       });
 
