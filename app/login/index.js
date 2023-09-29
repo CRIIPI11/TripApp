@@ -7,8 +7,8 @@ const Login = () => {
     <SafeAreaView>
         <Image style={styles.logo} source={require('../../assets/images/navinomad_logo.png')} />
 
-        <TextInput style={ styles.input } value='Email' />
-        <TextInput style={ styles.input } value='Password' />
+        <TextInput style={ styles.input } placeholder='Email' />
+        <TextInput style={ styles.input } placeholder='Password' />
         
         <TouchableOpacity style={ styles.primaryButton }>
             <Text style={ styles.buttonText }>Sign in</Text>
