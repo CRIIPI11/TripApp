@@ -28,6 +28,9 @@ import fire from "../assets/icons/fire.png";
 import navigationfill from "../assets/icons/navigationfill.png";
 import navigation from "../assets/icons/navigation.png";
 import close from "../assets/icons/close.png";
+import settings from "../assets/icons/settings.png";
+import usercircle from "../assets/icons/usercircle.png";
+import bookmark from "../assets/icons/bookmark.png";
 
 export default {
   heart,
@@ -60,4 +63,7 @@ export default {
   navigationfill,
   navigation,
   close,
+  settings,
+  usercircle,
+  bookmark,
 };
