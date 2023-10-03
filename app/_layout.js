@@ -1,5 +1,5 @@
 import { Image, StatusBar } from "react-native";
-import { Tabs, Slot } from "expo-router";
+import { Tabs, Slot, Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { COLORS, icons } from "../constants";
@@ -8,6 +8,7 @@ import { store } from "../redux/store";
 import { Provider } from "react-redux";
 
 export default function Layout() {
+  
   const [fontsLoaded] = useFonts({
     DMBold: require("../assets/fonts/DMSans-Bold.ttf"),
     DMMedium: require("../assets/fonts/DMSans-Medium.ttf"),
@@ -25,6 +26,14 @@ export default function Layout() {
         <Slot />
       </Provider>
     );
+  }
+
+  const signin = false;
+
+  if (!signin) {
+
+    return <Stack screenOptions={{ headerShown: true }}/>;
+
   }
 
   return (

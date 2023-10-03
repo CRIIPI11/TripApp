@@ -1,19 +1,22 @@
 import { StyleSheet, Image, TouchableOpacity, Text, TextInput } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context'; // Expo's SDK
-import { COLORS, SIZES } from "../../constants";
+import { COLORS } from "../../constants";
+import { useRouter } from "expo-router";
 
 const Login = () => {
+  const router = useRouter();
+
   return (
     <SafeAreaView>
         <Image style={styles.logo} source={require('../../assets/images/navinomad_logo.png')} />
 
         <TextInput style={ styles.input } placeholder='Email' />
-        <TextInput style={ styles.input } placeholder='Password' />
+        <TextInput style={ styles.input } placeholder='Password' secureTextEntry={true} />
         
         <TouchableOpacity style={ styles.primaryButton }>
             <Text style={ styles.buttonText }>Sign in</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={ styles.secondaryButton }>
+        <TouchableOpacity style={ styles.secondaryButton } onPress={() => {router.push('discover/register/index')}}>
             <Text style={ styles.buttonText }>Register</Text>
         </TouchableOpacity>
     </SafeAreaView>
