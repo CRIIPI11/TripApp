@@ -56,4 +56,4 @@ jobs:
 
             {{ dependencies }}
 
-            By **[Dependent Issues](https://github.com/z0al/dependent-issues)** (🤖). Happy coding!
+            Please Make Sure Dependency is Resolve Before Closing PR/Issue
