@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderBottomWidth: 0.5,
     borderBottomColor: COLORS.accents6,
+    padding: 5,
     marginBottom: 10,
   },
   optionText: {

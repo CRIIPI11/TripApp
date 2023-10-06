@@ -18,12 +18,21 @@ const preferences = () => {
 
   return (
     <SafeAreaView>
-      <Stack.Screen options={{ headerShown: true }} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "Preferences",
+          headerTitleAlign: "center",
+          headerStyle: { backgroundColor: "#fff" },
+          headerTintColor: "#000",
+          headerTitleStyle: { fontWeight: "bold" },
+        }}
+      />
       <View style={styles.container}>
         <Text style={styles.title}>Select Categories</Text>
         {data.map((item) => {
           return (
-            <View style={styles.optcont}>
+            <View style={styles.optcont} key={item}>
               <TouchableOpacity
                 onPress={() => {
                   setCategories(
@@ -58,6 +67,7 @@ const styles = StyleSheet.create({
   optcont: {
     flexDirection: "row",
     alignItems: "center",
+    marginBottom: 10,
   },
   icon: {
     width: 30,
@@ -67,15 +77,13 @@ const styles = StyleSheet.create({
   },
   catname: {
     fontSize: 25,
-    fontFamily: FONT.homenaje,
   },
   container: {
-    padding: 20,
+    paddingStart: 20,
   },
   title: {
-    fontSize: 35,
-    fontFamily: FONT.homenaje,
-    textDecorationLine: "underline",
+    fontSize: 24,
+    fontWeight: "bold",
     marginBottom: 10,
   },
   button: {
@@ -88,7 +96,6 @@ const styles = StyleSheet.create({
   buttontext: {
     fontSize: 25,
     color: "white",
-    fontFamily: FONT.homenaje,
   },
 });
 

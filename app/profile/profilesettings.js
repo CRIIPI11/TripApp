@@ -1,22 +1,114 @@
 import { Stack } from "expo-router";
-import { Text, View, TextInput, StyleSheet } from "react-native";
+import { useState } from "react";
+import {
+  Text,
+  View,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import EditBox from "../../components/common/editBox/EditBox";
+import { set } from "react-native-reanimated";
 
 const profilesettings = () => {
+  const [edit, setEdit] = useState(false);
+  const [name, setName] = useState("");
+
   return (
     <SafeAreaView>
-      <Stack.Screen options={{ headerShown: true }} />
-      <View>
-        <Text>Profile Settings</Text>
-        <TextInput placeholder="Name" />
-        <TextInput placeholder="Email" />
-        <TextInput placeholder="Password" />
-        <TextInput placeholder="Confirm Password" />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "Edit Information",
+          headerTitleAlign: "center",
+          headerStyle: { backgroundColor: "#fff" },
+          headerTintColor: "#000",
+          headerTitleStyle: { fontWeight: "bold" },
+        }}
+      />
+      <View style={styles.settingsContainer}>
+        {edit ? (
+          <EditBox name={name} close={setEdit} />
+        ) : (
+          <>
+            <Text style={styles.title}>Profile Settings</Text>
+            <View style={styles.optContainer}>
+              <Text style={styles.optionTitle}>User Name</Text>
+              <TouchableOpacity
+                style={styles.editBut}
+                onPress={() => {
+                  setName("User Name");
+                  setEdit(!edit);
+                }}
+              >
+                <Text>Edit</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.optContainer}>
+              <Text style={styles.optionTitle}>Email</Text>
+
+              <TouchableOpacity
+                style={styles.editBut}
+                onPress={() => {
+                  setName("Email");
+                  setEdit(!edit);
+                }}
+              >
+                <Text>Edit</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.optContainer}>
+              <Text style={styles.optionTitle}>Password</Text>
+
+              <TouchableOpacity
+                style={styles.editBut}
+                onPress={() => {
+                  setName("Password");
+                  setEdit(!edit);
+                }}
+              >
+                <Text>Edit</Text>
+              </TouchableOpacity>
+            </View>
+          </>
+        )}
       </View>
     </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  settingsContainer: {
+    padding: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  optContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  optionTitle: {
+    fontSize: 25,
+  },
+  optionInput: {
+    borderBottomWidth: 1,
+    borderColor: "#000",
+    width: "50%",
+  },
+  editBut: {
+    backgroundColor: "#fff",
+    borderRadius: 5,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "#000",
+  },
+  butText: {},
+});
 
 export default profilesettings;
