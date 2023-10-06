@@ -25,8 +25,11 @@ router.get('/signup',(req, res) => {
     user.signUp().then((obj)=>{
        res.json({"result": "success"})
     }).catch((err)=>{
-        console.log(err)   
-        res.json({"result": "failure", "message": err})
+        console.log(error)   
+        res.json({
+            "result": "failure", 
+            "message": error
+        })
     }) 
 });
 
@@ -38,9 +41,12 @@ router.post('/login', (req, res) => {
         res.json({
             "result": "success"
         })
-     }).catch((err)=>{
-        console.log(err)
-        res.json({"result": "failure", "message": err})
+     }).catch((error)=>{
+        console.log(error)
+        res.json({
+            "result": "failure", 
+            "message": error
+        })
     })
 });
 
@@ -49,17 +55,128 @@ router.post('/logout', (req, res)=> {
         res.send('User logged out successfully');
     }).catch((error)=> {
         console.error('Error logging out user', error)
-        res.status(500).send('An error occured while logging out the user.')
+        res.json({
+            "result": "failure", 
+            "message": error
+        })
     })
 })
 
 router.get('/me', (req, res) => {
     const currentUser = Parse.User.current();
-    if (currentUser) {
-        res.send(currentUser);
+ 
+    if (currentUser) {  
+        const {username, email, name, preferences, tripsCounter, placesVisited} = currentUser.toJSON()    
+        const responseObj = {
+            username,
+            email,
+            name,
+            preferences,
+            tripsCounter,
+            placesVisited
+        }
+        res.json(responseObj);
     } else {
-        res.send('No user logged in');
+        res.json({
+            "result": "failure", 
+            "message": "No user logged in"
+        })
     }
 });
+
+//update user preferences
+//structure of the request body below: 
+// {
+//     "preferences": {
+//       "artAndCulture": true,
+//       "museums": false,
+//       "architecture": true,
+//       "roadsideAttractions": false,
+//       "foodAndDrink": true,
+//       "nature": false,
+//       "history": true
+//     }
+// }
+
+router.put('/update/preferences', (req, res) =>{
+    const user = Parse.User.current()
+
+    if(!user){
+        res.json({
+            "result": "failure", 
+            "message": "No user logged in"
+        })
+    }
+
+    const preferences = req.body.preferences
+
+    user.set('preferences', preferences)
+
+    user.save().then(()=>{
+        res.json({
+            "result": "Success"
+        })
+    }).catch((error)=>{
+        res.json({
+            "result": "failure", 
+            "message": error
+        })
+    })
+})
+
+//update user trips
+
+router.put('/update/tripsCounter', (req, res) =>{
+    const user = Parse.User.current()
+
+    user.set('tripsCounter', req.body.tripsCounter)
+
+    user.save().then(()=>{
+        res.json({
+            "result": "Success"
+        })
+    }).catch((error)=>{
+        res.json({
+            "result": "failure", 
+            "message": error
+        })
+    })
+})
+
+//update user places visited counter
+router.put('/update/placesVisited', (req, res) =>{
+    const user = Parse.User.current()
+
+    user.set('placesVisited', req.body.placesVisited)
+
+    user.save().then(()=>{
+        res.json({
+            "result": "Success"
+        })
+    }).catch((error)=>{
+        res.json({
+            "result": "failure", 
+            "message": error
+        })
+    })
+})
+
+//update user favorites/saved
+router.put('/update/favorites', (req, res) =>{
+    const user = Parse.User.current()
+
+    user.set('favorites', req.body.favorites)
+
+    user.save().then(()=>{
+        res.json({
+            "result": "Success"
+        })
+    }).catch((error)=>{
+        res.json({
+            "result": "failure", 
+            "message": error
+        })
+    })
+})
 
 module.exports = router;
