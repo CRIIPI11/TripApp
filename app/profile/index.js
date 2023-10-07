@@ -1,11 +1,18 @@
-import { Stack } from "expo-router";
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { ScrollView } from "react-native";
+import {
+  ProfileHeader,
+  SettingsCard,
+  HistoryCard,
+} from "../../components/profilePage";
 
 const profile = () => {
   return (
-    <SafeAreaView style={{}}>
+    <SafeAreaView>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text>profile</Text>
+        <ProfileHeader />
+        <HistoryCard />
+        <SettingsCard />
       </ScrollView>
     </SafeAreaView>
   );
