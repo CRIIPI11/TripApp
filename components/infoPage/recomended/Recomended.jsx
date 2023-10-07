@@ -45,6 +45,7 @@ const Recomended = (props) => {
               </TouchableOpacity>
             );
           }}
+          indicatorStyle={"black"}
         />
       </View>
     </View>

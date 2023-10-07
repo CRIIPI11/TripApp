@@ -1,20 +1,54 @@
-import { View, SafeAreaView, ScrollView, Text } from "react-native";
+import { View, ScrollView, Text } from "react-native";
+import { useEffect, useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { COLORS } from "../../constants";
 import { DiscoverSection, FilterBar } from "../../components/discoverPage";
-import Header from "../../components/common/header/Header";
+import SearchBar from "../../components/common/searchBar/SearchBar";
+import { useRouter } from "expo-router";
+import { setInfo } from "../../redux/infoSlice";
+import { useDispatch } from "react-redux";
+import { useUserStore } from "../../hooks";
 
 const Home = () => {
+  const [infos, setInfos] = useState("");
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  const { location, loading, startLocation } = useUserStore();
+
+  useEffect(() => {
+    startLocation();
+  }, []);
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
-      <Stack.Screen options={{ headerShown: false }} />
-      <Header />
-      <FilterBar />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View>
-          <DiscoverSection />
-        </View>
-      </ScrollView>
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.accents8 }}>
+      {loading ? (
+        <Text>Loading...</Text>
+      ) : (
+        <>
+          {console.log(location)}
+          <Stack.Screen options={{ headerShown: false }} />
+          <View style={{ padding: 12 }}>
+            <SearchBar
+              onchange={setInfos}
+              search={infos}
+              onclick={() => {
+                if (infos) {
+                  dispatch(setInfo({ name: infos }));
+                  router.push(`discover/(info)/${infos}`);
+                }
+              }}
+            />
+          </View>
+          <FilterBar />
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <View>
+              <DiscoverSection />
+            </View>
+          </ScrollView>
+        </>
+      )}
     </SafeAreaView>
   );
 };

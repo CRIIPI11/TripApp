@@ -10,7 +10,7 @@ Parse.setAsyncStorage(AsyncStorage);
 
 
 const Home = () => {
-  return <Redirect href={"discover/"} />;
+  return <Redirect href={"login/"} />;
 };
 
 

@@ -2,41 +2,57 @@ import { Dimensions, StyleSheet } from "react-native";
 
 import { COLORS, SIZES, SHADOWS, FONT } from "../../../constants";
 
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get("screen");
 
 const styles = StyleSheet.create({
-  cardContainer: { padding: SIZES.xSmall, height: height / 1.8 },
+  cardContainer: { padding: SIZES.xSmall },
   subCarContainer: {
     width: width * 0.95,
-    marginEnd: SIZES.xSmall,
+    marginEnd: SIZES.xxSmall,
   },
   titletext: {
     fontSize: SIZES.xxLarge,
     fontFamily: FONT.homenaje,
     textDecorationLine: "underline",
-    marginBottom: SIZES.xxSmall,
+    marginBottom: SIZES.medium,
+  },
+  errorConatainer: { padding: SIZES.large },
+  errortexttitle: {
+    fontFamily: FONT.homenaje,
+    fontSize: SIZES.xxLarge,
+    textAlign: "center",
+  },
+  errortextmsg: {
+    paddingStart: SIZES.small,
+    paddingEnd: SIZES.small,
+    fontSize: SIZES.medium,
+    color: COLORS.accents4,
+    textAlign: "center",
   },
   image: {
     width: "100%",
-    height: 350,
+    height: 300,
     borderRadius: SIZES.medium,
     marginBottom: SIZES.xxSmall,
   },
   placeTitle: {
     fontSize: SIZES.xxLarge,
     fontFamily: FONT.homenaje,
-    marginStart: SIZES.xxSmall,
+    marginTop: SIZES.xxSmall,
   },
-  desc: { fontFamily: FONT.homenaje, color: COLORS.secondary },
-  NRContainer: { flexDirection: "row", justifyContent: "space-between" },
-  ratingContainer: { flexDirection: "row", alignItems: "baseline" },
-  ratingText: {
+  desc: {
     fontFamily: FONT.homenaje,
+    color: COLORS.accents5,
+    marginTop: SIZES.xxSmall,
+  },
+  NRContainer: { flexDirection: "row", justifyContent: "space-between" },
+  ratingContainer: { flexDirection: "row", alignItems: "center" },
+  ratingText: {
     marginEnd: SIZES.xxSmall,
     fontSize: SIZES.medium,
-    color: COLORS.gray,
+    color: COLORS.accents2,
   },
-  icon: { width: 20, height: 20 },
+  icon: { width: 15, height: 15, marginEnd: 4 },
 });
 
 const stylesWeb = StyleSheet.create({
@@ -60,6 +76,19 @@ const stylesWeb = StyleSheet.create({
     textDecorationLine: "underline",
     marginBottom: SIZES.medium,
   },
+  errorConatainer: { padding: SIZES.large },
+  errortexttitle: {
+    fontFamily: FONT.homenaje,
+    fontSize: SIZES.xxLarge,
+    textAlign: "center",
+  },
+  errortextmsg: {
+    paddingStart: SIZES.small,
+    paddingEnd: SIZES.small,
+    fontSize: SIZES.medium,
+    color: COLORS.accents4,
+    textAlign: "center",
+  },
   image: {
     width: "100%",
     height: 300,
@@ -72,7 +101,7 @@ const stylesWeb = StyleSheet.create({
     fontWeight: "bold",
   },
   desc: {
-    color: COLORS.gray,
+    color: COLORS.accents6,
     padding: SIZES.xxSmall,
   },
   NRContainer: {
@@ -86,7 +115,7 @@ const stylesWeb = StyleSheet.create({
     fontFamily: FONT.homenaje,
     marginEnd: SIZES.xxSmall,
     fontSize: SIZES.medium,
-    color: COLORS.gray,
+    color: COLORS.accents6,
   },
   icon: { width: 20, height: 20 },
 });

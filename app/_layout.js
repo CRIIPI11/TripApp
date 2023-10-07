@@ -1,4 +1,4 @@
-import { Image } from "react-native";
+import { Image, StatusBar } from "react-native";
 import { Tabs, Slot } from "expo-router";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
@@ -29,10 +29,11 @@ export default function Layout() {
 
   return (
     <Provider store={store}>
+      <StatusBar barStyle={"dark-content"} />
       <Tabs
         screenOptions={{
           headerShown: false,
-          tabBarStyle: { backgroundColor: COLORS.lightWhite, color: "#004950" },
+          tabBarStyle: { backgroundColor: COLORS.accents8, color: "#004950" },
         }}
       >
         <Tabs.Screen name="index" options={{ href: null }} />
@@ -50,7 +51,7 @@ export default function Layout() {
             // tabBarIconStyle: { color: "red" },
             tabBarActiveTintColor: "#8e0387",
             // tabBarInactiveTintColor: "green",
-            // tabBarActiveBackgroundColor: "gray",
+            // tabBarActiveBackgroundColor: "accents6",
             // tabBarInactiveBackgroundColor: "#fb7061",
           }}
         />

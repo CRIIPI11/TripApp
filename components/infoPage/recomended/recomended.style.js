@@ -30,7 +30,7 @@ const styles =
           fontFamily: FONT.homenaje,
           fontSize: SIZES.medium,
           marginStart: SIZES.xxSmall,
-          color: COLORS.gray,
+          color: COLORS.accents6,
         },
       })
     : StyleSheet.create({
@@ -50,7 +50,6 @@ const styles =
         },
         nameText: {
           fontFamily: FONT.homenaje,
-          fontWeight: "bold",
           fontSize: SIZES.large,
           marginStart: SIZES.xSmall,
         },
@@ -58,7 +57,7 @@ const styles =
           fontFamily: FONT.homenaje,
           fontSize: SIZES.medium,
           marginStart: SIZES.xxSmall,
-          color: COLORS.gray,
+          color: COLORS.accents6,
         },
       });
 
