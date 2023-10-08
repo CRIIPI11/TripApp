@@ -28,14 +28,6 @@ export default function Layout() {
     );
   }
 
-  const signin = false;
-
-  if (!signin) {
-
-    return <Stack screenOptions={{ headerShown: true }}/>;
-
-  }
-
   return (
     <Provider store={store}>
       <StatusBar barStyle={"dark-content"} />
