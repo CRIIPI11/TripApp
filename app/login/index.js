@@ -1,21 +1,26 @@
-import { StyleSheet, Image, TouchableOpacity, Text, TextInput } from "react-native";
+import { StyleSheet, Image, TouchableOpacity, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context'; // Expo's SDK
-import { COLORS, SIZES } from "../../constants";
+import { COLORS } from "../../constants";
+import { useRouter } from "expo-router";
 
 const Login = () => {
-  return (
-    <SafeAreaView>
-        <Image style={styles.logo} source={require('../../assets/images/navinomad_logo.png')} />
+  const router = useRouter();
 
-        <TextInput style={ styles.input } placeholder='Email' />
-        <TextInput style={ styles.input } placeholder='Password' />
-        
-        <TouchableOpacity style={ styles.primaryButton }>
-            <Text style={ styles.buttonText }>Sign in</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={ styles.secondaryButton }>
-            <Text style={ styles.buttonText }>Register</Text>
-        </TouchableOpacity>
+  return (
+    <SafeAreaView style={ styles.container }>
+        <View style={ styles.content }>
+            <Image style={styles.logo} source={require('../../assets/images/navinomad_logo.png')} />
+
+            <TextInput style={ styles.input } placeholder='Email' />
+            <TextInput style={ styles.input } placeholder='Password' secureTextEntry={true} />
+            
+            <TouchableOpacity style={ styles.primaryButton }>
+                <Text style={ styles.buttonText }>Sign in</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={ styles.secondaryButton } onPress={() => {router.push('register')}}>
+                <Text style={ styles.buttonText }>Register</Text>
+            </TouchableOpacity>
+        </View>
     </SafeAreaView>
   );
 };
@@ -52,6 +57,13 @@ const styles = StyleSheet.create({
     buttonText: {
         color: COLORS.white,
         textAlign: 'center'
+    },
+    container: {
+        flex: 1,
+    },
+    content: {
+        flex: 1,
+        justifyContent: 'center',
     }
 })
 
