@@ -14,9 +14,7 @@ import { icons } from "../../constants";
 import styles from "./map.styles";
 import PermissionDenied from "../common/permissionModal/PermissionDenied";
 
-Mapbox.setAccessToken(
-  "pk.eyJ1IjoiY3JpaXBpMTEiLCJhIjoiY2xtcWx0eGd2MDQ2dzJxcGM2NnRiZzlxeSJ9.agXvJTbBhuiMGsPqQmcIZQ"
-);
+Mapbox.setAccessToken("");
 
 const Map = () => {
   const { location } = useUserStore();
