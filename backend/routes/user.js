@@ -283,7 +283,6 @@ router.put("/update/password", (req, res) => {
     }
 
     const userEmail = user.get("email");
-    console.log(userEmail);
 
     Parse.User.requestPasswordReset(userEmail).then(() => {
         res.json({
