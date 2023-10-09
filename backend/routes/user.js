@@ -17,9 +17,19 @@ router.get("/signup", (req, res) => {
   const user = new Parse.User();
 
   console.log(req.body);
-  user.set("username", req.body.email);
+  
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const email = req.body.email;
+  if(!emailRegex.test(email)){
+      return res.json({
+          result: "failure",
+          message: "Invalid email format",
+        });
+    }
+    
+  user.set("username", email);
+  user.set("email", email);
   user.set("password", req.body.password);
-  user.set("email", req.body.email);
   user.set("name", req.body.name);
 
   user
@@ -37,10 +47,19 @@ router.get("/signup", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
-  const username = req.body.email;
   const password = req.body.password;
 
-  Parse.User.logIn(username, password)
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    const email = req.body.email;
+    if(!emailRegex.test(email)){
+        return res.json({
+            result: "failure",
+            message: "Invalid email format",
+        });
+    }
+
+  Parse.User.logIn(email, password)
     .then((obj) => {
       res.json({
         result: "success",
@@ -196,6 +215,85 @@ router.put("/update/favorites", (req, res) => {
         result: "failure",
         message: error,
       });
+    });
+});
+
+//update user email and username
+router.put("/update/email", (req, res) => {
+    const user = Parse.User.current();
+    // Regex for email format validation
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    const email = req.body.email;
+    if(!emailRegex.test(email)){
+        return res.json({
+            result: "failure",
+            message: "Invalid email format",
+        });
+    }
+    
+    user.set("email", email);
+    user.set("username", req.body.email);
+    
+    user
+        .save()
+        .then(() => {
+        res.json({
+            result: "Success",
+        });
+        })
+        .catch((error) => {
+        res.json({
+            result: "failure",
+            message: error,
+        });
+        });
+})
+
+//update user name
+router.put("/update/name", (req, res) => {
+    const user = Parse.User.current();
+    
+    user.set("name", req.body.name);
+    
+    user
+        .save()
+        .then(() => {
+        res.json({
+            result: "Success",
+        });
+        })
+        .catch((error) => {
+        res.json({
+            result: "failure",
+            message: error,
+        });
+        });
+});
+
+//endpoint that sends an email to reset password
+router.put("/update/password", (req, res) => {
+    const user = Parse.User.current();
+
+    if(!user){
+        res.json({
+            result: "failure",
+            message: "No user logged in",
+        });
+    }
+
+    const userEmail = user.get("email");
+    console.log(userEmail);
+
+    Parse.User.requestPasswordReset(userEmail).then(() => {
+        res.json({
+            result: "Email to reset password has been sent.",
+        });
+    }).catch((error) => {
+        res.json({
+            result: "failure",
+            message: error,
+        });
     });
 });
 
