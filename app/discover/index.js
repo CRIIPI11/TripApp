@@ -15,7 +15,7 @@ const Home = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const { location, loading, startLocation } = useUserStore();
+  const { location, loading, errorMsg, startLocation } = useUserStore();
 
   useEffect(() => {
     startLocation();
@@ -27,7 +27,7 @@ const Home = () => {
         <Text>Loading...</Text>
       ) : (
         <>
-          {console.log(location)}
+          {console.log(`${location} | Error: ${errorMsg}`)}
           <Stack.Screen options={{ headerShown: false }} />
           <View style={{ padding: 12 }}>
             <SearchBar
