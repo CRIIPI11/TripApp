@@ -1,19 +1,62 @@
-import { Stack } from "expo-router";
-import { useState } from "react";
-import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { Stack, useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { COLORS, FONT, icons } from "../../constants";
+import { COLORS, icons } from "../../constants";
+import axios from "axios";
 
 const preferences = () => {
   const [categories, setCategories] = useState([]);
+  const router = useRouter();
+  const url = process.env.server_url;
+
+  useEffect(() => {
+    console.log(url);
+    axios
+      .get(`${url}/Users/me`)
+      .then((res) => {
+        setCategories(res.data.preferences);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const update = () => {
+    axios
+      .put(`${url}/Users/update/preferences`, {
+        preferences: categories,
+      })
+      .then((res) => {
+        if (res.data.result === "Success")
+          Alert.alert("Success", "Preferences updated successfully", [
+            {
+              text: "ok",
+              onPress: () => router.back(),
+              style: "cancel",
+            },
+          ]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const data = [
-    "Art & Culture ",
-    "Museums",
-    "Architecture",
-    "Roadside Attractions",
-    "Food & Drink",
-    "Nature",
-    "History",
+    { name: "Art & Culture", code: "artAndCulture" },
+    { name: "Museums", code: "museums" },
+    { name: "Architecture", code: "architecture" },
+    { name: "Roadside Attractions", code: "roadsideAttractions" },
+    { name: "Food & Drink", code: "foodAndDrink" },
+    { name: "Nature", code: "nature" },
+    { name: "History", code: "history" },
   ];
 
   return (
@@ -32,31 +75,30 @@ const preferences = () => {
         <Text style={styles.title}>Select Categories</Text>
         {data.map((item) => {
           return (
-            <View style={styles.optcont} key={item}>
+            <View style={styles.optcont} key={item.name}>
               <TouchableOpacity
                 onPress={() => {
-                  setCategories(
-                    categories.find((e) => e === item) === undefined
-                      ? [...categories, item]
-                      : categories.filter((e) => e !== item)
-                  );
+                  setCategories({
+                    ...categories,
+                    [item.code]: !categories[item.code],
+                  });
                 }}
               >
                 <Image
                   source={
-                    categories.find((e) => e === item) === undefined
-                      ? icons.Checkbox_Unchecked
-                      : icons.Checkbox_Check
+                    categories[item.code]
+                      ? icons.Checkbox_Check
+                      : icons.Checkbox_Unchecked
                   }
                   style={styles.icon}
                 />
               </TouchableOpacity>
-              <Text style={styles.catname}>{item}</Text>
+              <Text style={styles.catname}>{item.name}</Text>
             </View>
           );
         })}
       </View>
-      <TouchableOpacity style={styles.button} onPress={() => {}}>
+      <TouchableOpacity style={styles.button} onPress={update}>
         <Text style={styles.buttontext}>Save</Text>
       </TouchableOpacity>
     </SafeAreaView>
