@@ -13,7 +13,7 @@ Parse.serverURL = "https://parseapi.back4app.com/";
 
 Parse.User.enableUnsafeCurrentUser();
 
-router.get("/signup", (req, res) => {
+router.post("/signup", (req, res) => {
   const user = new Parse.User();
 
   console.log(req.body);
@@ -35,18 +35,25 @@ router.get("/signup", (req, res) => {
   user
     .signUp()
     .then((obj) => {
-      res.json({ result: "success" });
+      res.json({ 
+        result: "success", 
+        user: user.toJSON() 
+      });
     })
     .catch((error) => {
       console.log(error);
       res.json({
         result: "failure",
-        message: error,
+        message: error
       });
     });
 });
 
+//add something to verify the email
+
 router.post("/login", (req, res) => {
+
+  //add a check to see if email is verified. 
   const password = req.body.password;
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -63,7 +70,9 @@ router.post("/login", (req, res) => {
     .then((obj) => {
       res.json({
         result: "success",
+        user: obj.toJSON(),
       });
+
     })
     .catch((error) => {
       console.log(error);
