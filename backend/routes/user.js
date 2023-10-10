@@ -13,7 +13,7 @@ Parse.serverURL = "https://parseapi.back4app.com/";
 
 Parse.User.enableUnsafeCurrentUser();
 
-router.get("/signup", (req, res) => {
+router.post("/signup", (req, res) => {
   const user = new Parse.User();
 
   console.log(req.body);
