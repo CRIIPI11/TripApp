@@ -1,5 +1,7 @@
 import { StyleSheet, Image, TouchableOpacity, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context'; // Expo's SDK
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../redux/userSlice';
 import { COLORS } from '../../constants';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
@@ -36,7 +38,9 @@ const Login = () => {
             console.log(resData);
             if (resData.result === 'success') {
                 console.log("Success");
-                setErrorMessage('');
+                setErrorMessage(''); // Reset error message if visible
+                useDispatch(loginUser({ email: lowerEmail, name: 'HARDCODED_NAME'})); // Store user data in Redux
+
                 router.replace('discover');
             } else {
                 console.log(`Server: ${resData.message.message}`);
