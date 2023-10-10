@@ -1,15 +1,21 @@
 import { Stack } from "expo-router";
 import { useState } from "react";
-import {
-  Text,
-  View,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { Text, View, Alert, StyleSheet, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import EditBox from "../../components/common/editBox/EditBox";
-import { set } from "react-native-reanimated";
+import axios from "axios";
+
+const passwordUpdate = () => {
+  const url = process.env.server_url;
+  axios
+    .put(`${url}/Users/update/password`)
+    .then((res) => {
+      Alert.alert(res.data.result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
 const profilesettings = () => {
   const [edit, setEdit] = useState(false);
@@ -61,14 +67,8 @@ const profilesettings = () => {
             <View style={styles.optContainer}>
               <Text style={styles.optionTitle}>Password</Text>
 
-              <TouchableOpacity
-                style={styles.editBut}
-                onPress={() => {
-                  setName("Password");
-                  setEdit(!edit);
-                }}
-              >
-                <Text>Edit</Text>
+              <TouchableOpacity style={styles.editBut} onPress={passwordUpdate}>
+                <Text>Send Recovery Email</Text>
               </TouchableOpacity>
             </View>
           </>

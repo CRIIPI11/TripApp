@@ -24,17 +24,18 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     borderBottomWidth: 0.5,
     borderColor: "#000",
-    padding: 30,
+    padding: 20,
   },
   editText: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: "bold",
-    marginRight: 20,
+    marginRight: 10,
   },
   optionInput: {
     borderBottomWidth: 1,
     borderColor: "#000",
     width: "50%",
+    fontSize: 18,
   },
   editfooter: {
     flexDirection: "row",
@@ -45,13 +46,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#000",
     borderRadius: 5,
-    padding: 10,
     backgroundColor: COLORS.primary,
   },
   footText: {
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: "bold",
     color: "#fff",
+    padding: 5,
   },
 });
 

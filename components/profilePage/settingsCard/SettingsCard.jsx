@@ -1,8 +1,7 @@
 import { Text, View, TouchableOpacity, Image } from "react-native";
 import { icons } from "../../../constants";
-
 import styles from "./settings.style";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 
 const SettingsCard = () => {
   const router = useRouter();
