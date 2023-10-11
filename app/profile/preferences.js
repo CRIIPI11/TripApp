@@ -11,14 +11,17 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS, icons } from "../../constants";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../redux/userSlice";
 
 const preferences = () => {
   const [categories, setCategories] = useState([]);
   const router = useRouter();
   const url = process.env.server_url;
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    console.log(url);
     axios
       .get(`${url}/Users/me`)
       .then((res) => {
@@ -39,7 +42,10 @@ const preferences = () => {
           Alert.alert("Success", "Preferences updated successfully", [
             {
               text: "ok",
-              onPress: () => router.back(),
+              onPress: () => {
+                dispatch(loginUser({ ...user, preferences: categories }));
+                router.back();
+              },
               style: "cancel",
             },
           ]);

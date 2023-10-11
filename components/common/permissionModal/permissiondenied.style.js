@@ -4,7 +4,7 @@ import { COLORS } from "../../../constants";
 const styles = StyleSheet.create({
   alertContainer: {
     position: "absolute",
-    top: "35%",
+    top: "30%",
     alignSelf: "center",
     width: "90%",
     backgroundColor: COLORS.accents8,

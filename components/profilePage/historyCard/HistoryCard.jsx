@@ -1,19 +1,9 @@
 import { Text, View } from "react-native";
 import style from "./historyheader.style";
-import { useState } from "react";
-import { useEffect } from "react";
-import axios from "axios";
+import { useSelector } from "react-redux";
 
 const HistoryCard = () => {
-  const [user, setUser] = useState({});
-  const url = process.env.server_url;
-  useEffect(() => {
-    axios.get(`${url}/Users/me`).then((res) => {
-      setUser(res.data);
-      console.log(res.data);
-    });
-  }, []);
-
+  const user = useSelector((state) => state.user);
   return (
     <View style={style.historyContainer}>
       <Text style={style.title}>History</Text>

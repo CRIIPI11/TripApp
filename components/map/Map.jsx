@@ -7,30 +7,28 @@ import {
   UserLocation,
 } from "@rnmapbox/maps";
 import Mapbox from "@rnmapbox/maps";
-import { useUserStore } from "../../hooks";
+import { useLocationStore } from "../../hooks";
 import { TouchableOpacity } from "react-native";
 import { useRef, useState } from "react";
 import { icons } from "../../constants";
 import styles from "./map.styles";
 import PermissionDenied from "../common/permissionModal/PermissionDenied";
 
-Mapbox.setAccessToken("");
+Mapbox.setAccessToken(process.env.mapbox_pk);
 
 const Map = () => {
-  const { location } = useUserStore();
+  const { location } = useLocationStore();
   const [alert, setAlert] = useState(false);
 
   const camRef = useRef(null);
 
   const centerCamera = () => {
-    // camRef.current.flyTo(
-    //   [location?.location?.long, location?.location?.lat],
-    //   1500
-    // );
-    //  camRef.current.zoomTo(13);
     location.permission === "granted"
       ? camRef.current.setCamera({
-          centerCoordinate: [location?.location?.long, location?.location?.lat],
+          centerCoordinate: [
+            location?.location?.long,
+            location?.location?.lat - 0.02,
+          ],
           zoomLevel: 12,
           animationDuration: 2000,
         })

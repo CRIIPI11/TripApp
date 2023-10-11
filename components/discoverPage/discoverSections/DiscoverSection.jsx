@@ -3,7 +3,7 @@ import { Text, View } from "react-native";
 import { styles } from "./discoversection.style";
 
 import Section from "../discoverCard/Section";
-import { useUserStore } from "../../../hooks";
+import { useLocationStore } from "../../../hooks";
 
 const DATA = [
   {
@@ -62,7 +62,7 @@ const DATA3 = [
 ];
 
 const DiscoverSection = () => {
-  const { location } = useUserStore();
+  const { location } = useLocationStore();
 
   return (
     <View style={styles.container}>
