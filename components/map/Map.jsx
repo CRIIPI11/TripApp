@@ -14,7 +14,7 @@ import { icons } from "../../constants";
 import styles from "./map.styles";
 import PermissionDenied from "../common/permissionModal/PermissionDenied";
 
-Mapbox.setAccessToken("");
+Mapbox.setAccessToken(process.env.mapbox_pk);
 
 const Map = () => {
   const { location } = useUserStore();

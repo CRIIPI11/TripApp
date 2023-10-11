@@ -57,15 +57,15 @@ const Item = (props) => {
     <TouchableOpacity
       style={
         Platform.OS == "web"
-          ? filter.find((e) => e === props.category) === undefined
-            ? stylesWeb.itemWrapper
-            : [
+          ? filter === props.category
+            ? [
                 stylesWeb.itemWrapper,
                 { borderBottomWidth: 2, borderColor: "#ff" },
               ]
-          : filter.find((e) => e === props.category) === undefined
-          ? styles.itemWrapper
-          : [styles.itemWrapper, { borderBottomWidth: 2, borderColor: "#ff" }]
+            : stylesWeb.itemWrapper
+          : filter === props.category
+          ? [styles.itemWrapper, { borderBottomWidth: 2, borderColor: "#ff" }]
+          : styles.itemWrapper
       }
       onPress={() => {
         dispatch(setFilter(props.category));
