@@ -8,6 +8,7 @@ import { useState } from 'react';
 
 const Login = () => {
     const router = useRouter();
+    const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -39,7 +40,13 @@ const Login = () => {
             if (resData.result === 'success') {
                 console.log("Success");
                 setErrorMessage(''); // Reset error message if visible
-                useDispatch(loginUser({ email: lowerEmail, name: 'HARDCODED_NAME'})); // Store user data in Redux
+                dispatch(loginUser({ 
+                    email: resData.user.email, 
+                    name: resData.user.name,
+                    preferences: resData.user.preferences,
+                    tripsCounter: resData.user.tripsCounter,
+                    placesVisited: resData.user.placesVisited 
+                })); // Store user data in Redux
 
                 router.replace('discover');
             } else {
@@ -50,7 +57,6 @@ const Login = () => {
                     setErrorMessage(resData.message.message);
                 }
             }
-
         } catch (error) {
             console.log(error);
         }

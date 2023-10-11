@@ -1,4 +1,4 @@
-import { StyleSheet, Image, TouchableOpacity, Text, TextInput, View } from 'react-native';
+import { Alert, StyleSheet, Image, TouchableOpacity, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { COLORS } from '../../constants';
 import { useRouter } from 'expo-router';
@@ -25,7 +25,7 @@ const Register = () => {
 
         try {
             const response = await fetch(SIGNUP_ENDPOINT, {
-                method: 'GET',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -47,11 +47,23 @@ const Register = () => {
                 console.log('Signup success');
 
                 // Take user back to login so that they login
+                // Login page will capture data into redux once successfully logged in
 
                 // TODO: There should be an email verification process; thus, user should
                 // not be logged in automatically after signing up.
                 // The verification screen will serve as confirmation that the signup was successful.
-                router.replace('login');
+                Alert.alert(
+                    'Signup successful',
+                    'You will be redirected to the login screen',
+                    [
+                        {
+                            text: 'OK',
+                            onPress: () => {
+                                router.replace('login');
+                            }
+                        }
+                    ]
+                );
             } else {
                 console.log(`Server: ${resData.message.message}`);
                 if (resData.message.message.includes('empty')) {
