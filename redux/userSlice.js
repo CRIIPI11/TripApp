@@ -2,7 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     name: null,
-    email: null
+    email: null,
+    preferences: null,
+    tripsCounter: null,
+    placesVisited: null
 };
 
 const userSlice = createSlice({
@@ -12,6 +15,9 @@ const userSlice = createSlice({
         loginUser: (state, action) => {
             state.name = action.payload.name;
             state.email = action.payload.email;
+            state.preferences = action.payload.preferences;
+            state.tripsCounter = action.payload.tripsCounter;
+            state.placesVisited = action.payload.placesVisited;
         },
         logoutUser: () => initialState
     },
