@@ -8,14 +8,14 @@ import SearchBar from "../../components/common/searchBar/SearchBar";
 import { useRouter } from "expo-router";
 import { setInfo } from "../../redux/infoSlice";
 import { useDispatch } from "react-redux";
-import { useUserStore } from "../../hooks";
+import { useLocationStore } from "../../hooks";
 
 const Home = () => {
   const [infos, setInfos] = useState("");
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const { location, loading, errorMsg, startLocation } = useUserStore();
+  const { loading, startLocation } = useLocationStore();
 
   useEffect(() => {
     startLocation();
@@ -27,7 +27,6 @@ const Home = () => {
         <Text>Loading...</Text>
       ) : (
         <>
-          {console.log(`${location} | Error: ${errorMsg}`)}
           <Stack.Screen options={{ headerShown: false }} />
           <View style={{ padding: 12 }}>
             <SearchBar

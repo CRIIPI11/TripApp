@@ -9,7 +9,7 @@ import {
   onSetLoadingLocation,
 } from "../redux/location/locationSlice";
 
-export const useUserStore = () => {
+export const useLocationStore = () => {
   const dispatch = useDispatch();
   const { location, loading, errorMsg } = useSelector(
     (state) => state.location

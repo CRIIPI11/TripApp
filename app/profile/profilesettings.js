@@ -5,8 +5,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import EditBox from "../../components/common/editBox/EditBox";
 import axios from "axios";
 
+const url = process.env.server_url;
 const passwordUpdate = () => {
-  const url = process.env.server_url;
   axios
     .put(`${url}/Users/update/password`)
     .then((res) => {
