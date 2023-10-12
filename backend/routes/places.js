@@ -79,6 +79,101 @@ router.get("/location", locationLogger, (req, respos) => {
     });
 });
 
+router.get("/popular", (req, respos) => {
+  places = [
+    "ChIJEcHIDqKw2YgRZU-t3XHylv8",
+    "ChIJOwg_06VPwokRYv534QaPC8g",
+    "ChIJIQBpAG2ahYAR_6128GcTUEo",
+    "ChIJ0X31pIK3voARo3mz1ebVzDo",
+    "ChIJW-T2Wt7Gt4kRKl2I1CJFUsI",
+    "ChIJxeyK9Z3wloAR_gOA7SycJC0",
+    "ChIJ39Y-tdg1fYcRQcZcBb499do",
+    "ChIJVVVVVVXlUVMRu-GPNDD5qKw",
+    "ChIJtzPmKepj04kRs6rFueRal2E",
+    "ChIJjeAnvVQGzIARjS7UQkRVwrE",
+  ];
+  placesResponse = [];
+
+  places.map((item, i, arr) => {
+    client
+      .placeDetails({
+        params: {
+          place_id: item,
+          fields: [
+            "name",
+            "editorial_summary",
+            "rating",
+            "vicinity",
+            "photo",
+            "type",
+            "geometry",
+          ],
+          key: process.env.GLE_API_KEY,
+        },
+      })
+      .then((res) => {
+        if (!res.data.result.editorial_summary?.overview) {
+          const placename =
+            res.data.result?.name === "New York"
+              ? "New York City"
+              : res.data.result?.name === "Washington"
+              ? "Washington (state)"
+              : res.data.result?.name;
+          axios
+            .get(
+              `https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&formatversion=2&explaintext=1&exintro=1&exsentences=5&exsectionformat=wiki&titles=${placename}&origin=*`
+            )
+            .then((resp) => {
+              placesResponse.push({
+                place: res.data.result?.name,
+                rating: res.data.result?.rating || 4.5,
+                desc: resp.data.query.pages[0].extract,
+                vicinity: res.data.result?.vicinity || "USA",
+                types: res.data.result?.types,
+                location: res.data.result?.geometry?.location,
+                img: {
+                  width: res.data.result?.photos[0].width,
+                  height: res.data.result?.photos[0].height,
+                  url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${res.data.result?.photos[1].photo_reference}&key=${process.env.GLE_API_KEY}`,
+                },
+              });
+              if (placesResponse.length == arr.length) {
+                console.log(placesResponse);
+                respos.json({ status: "success", data: placesResponse });
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          placesResponse.push({
+            place: res.data.result?.name,
+            rating: res.data.result?.rating || 4.5,
+            desc: res.data.result.editorial_summary?.overview,
+            vicinity: res.data.result?.vicinity || "USA",
+            types: res.data.result?.types,
+            location: res.data.result?.geometry?.location,
+            img: {
+              width: res.data.result?.photos[0].width,
+              height: res.data.result?.photos[0].height,
+              url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${res.data.result?.photos[1].photo_reference}&key=${process.env.GLE_API_KEY}`,
+            },
+          });
+
+          if (placesResponse.length == arr.length) {
+            console.log(placesResponse);
+            respos.json({ status: "success", data: placesResponse });
+          }
+        }
+      })
+      .catch((err) => {
+        placesResponse.push({ error: "Location Cannot be Display" });
+        console.log("second call");
+        console.log(err);
+      });
+  });
+});
+
 function locationLogger(req, res, next) {
   if (req.query.latitude && req.query.longitude) {
     console.log("Logging location: ", req.query.latitude, req.query.longitude);
