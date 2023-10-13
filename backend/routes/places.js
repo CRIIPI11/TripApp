@@ -17,7 +17,7 @@ router.get("/location", locationLogger, (req, respos) => {
   client
     .placesNearby({
       params: {
-        keyword: `${req.query.filter} || `,
+        keyword: req.query.filter,
         location: `${req.query.latitude},${req.query.longitude}`,
         radius: 50000,
         key: process.env.GLE_API_KEY,
