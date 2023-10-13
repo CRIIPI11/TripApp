@@ -262,6 +262,13 @@ router.put("/update/email", (req, res) => {
 //update user name
 router.put("/update/name", (req, res) => {
     const user = Parse.User.current();
+
+    if(!user){
+      res.json({
+          result: "failure",
+          message: "No user logged in",
+      });
+    }
     
     user.set("name", req.body.name);
     
