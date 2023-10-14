@@ -13,66 +13,65 @@ import { setFilter } from "../../../redux/filterSlice";
 
 const DATA = [
   {
-    id: "MSMS1",
+    id: "museums",
     title: "Museums",
     icon: icons.museum,
   },
   {
-    id: "AC1",
+    id: "art gallery",
     title: "Art & Culture",
     icon: icons.art,
   },
   {
-    id: "ARCH",
+    id: "Landmark",
     title: "Architecture",
     icon: icons.arch,
   },
   {
-    id: "RDSA",
+    id: "Sculpture",
     title: "Roadside Attractions",
     icon: icons.sign,
   },
   {
-    id: "FDDRK",
+    id: "restaurant",
     title: "Food & Drink",
     icon: icons.fork,
   },
   {
-    id: "NTRE",
+    id: "park",
     title: "Nature",
     icon: icons.nature,
   },
   {
-    id: "HSTR",
+    id: "Historical Landmark",
     title: "History",
     icon: icons.history,
   },
 ];
 
-const Item = (props) => {
+const Item = ({ icon, category, id }) => {
   const dispatch = useDispatch();
   const filter = useSelector((state) => state.filter.filter);
-
   return (
     <TouchableOpacity
       style={
         Platform.OS == "web"
-          ? filter === props.category
+          ? filter === id
             ? [
                 stylesWeb.itemWrapper,
                 { borderBottomWidth: 2, borderColor: "#ff" },
               ]
             : stylesWeb.itemWrapper
-          : filter === props.category
+          : filter === id
           ? [styles.itemWrapper, { borderBottomWidth: 2, borderColor: "#ff" }]
           : styles.itemWrapper
       }
       onPress={() => {
-        dispatch(setFilter(props.category));
+        dispatch(setFilter(id));
       }}
     >
-      <Image source={props.icon} style={styles.icon} />
-      <Text style={styles.itemName}>{props.category}</Text>
+      <Image source={icon} style={styles.icon} />
+      <Text style={styles.itemName}>{category}</Text>
     </TouchableOpacity>
   );
 };
@@ -100,7 +99,7 @@ const FilterBar = (props) => {
         horizontal={true}
         data={DATA}
         renderItem={({ item }) => (
-          <Item icon={item.icon} category={item.title} />
+          <Item icon={item.icon} category={item.title} id={item.id} />
         )}
         keyExtractor={(item) => item.id}
         showsHorizontalScrollIndicator={false}

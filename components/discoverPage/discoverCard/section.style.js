@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     marginTop: SIZES.xxSmall,
   },
   NRContainer: { flexDirection: "row", justifyContent: "space-between" },
+  titleContainer: { width: "65%" },
   ratingContainer: { flexDirection: "row", alignItems: "center" },
   ratingText: {
     marginEnd: SIZES.xxSmall,

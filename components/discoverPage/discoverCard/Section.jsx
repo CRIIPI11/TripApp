@@ -5,12 +5,15 @@ import {
   Image,
   FlatList,
   Dimensions,
+  ActivityIndicator,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { styles } from "./section.style";
-import { icons } from "../../../constants";
+import { COLORS, icons } from "../../../constants";
 import { useDispatch } from "react-redux";
 import { setInfo } from "../../../redux/infoSlice";
+import { usePlaces } from "../../../hooks";
+import { useEffect } from "react";
 
 const { width } = Dimensions.get("screen");
 
@@ -36,7 +39,11 @@ export const SubCard = (props) => {
       <View style={styles.subCarContainer}>
         <Image source={{ uri: props?.img }} style={styles.image}></Image>
         <View style={styles.NRContainer}>
-          <Text style={styles.placeTitle}>{props.name}</Text>
+          <View style={styles.titleContainer}>
+            <Text numberOfLines={1} style={styles.placeTitle}>
+              {props.name}
+            </Text>
+          </View>
           <View style={styles.ratingContainer}>
             <Image source={icons.star} style={styles.icon} />
             <Text style={styles.ratingText}>{props.rating}</Text>
@@ -51,16 +58,11 @@ export const SubCard = (props) => {
 };
 
 const Section = (props) => {
-  const renderItem = ({ item }) => (
-    <SubCard
-      id={item.place}
-      name={item.place}
-      desc={item.desc}
-      img={item.img}
-      rating={item.rating}
-      popular={item.popular}
-    />
-  );
+  const { places, loading, getPLaces } = usePlaces();
+
+  useEffect(() => {
+    getPLaces(props.id);
+  }, []);
 
   return (
     <View style={styles.cardContainer}>
@@ -76,10 +78,27 @@ const Section = (props) => {
               "always" o or "while using"
             </Text>
           </View>
+        ) : loading ? (
+          <ActivityIndicator
+            size="large"
+            color={COLORS.accents5}
+            style={{ padding: 50 }}
+          />
         ) : (
           <FlatList
-            data={props.places}
-            renderItem={renderItem}
+            data={places}
+            renderItem={(item) => {
+              return (
+                <SubCard
+                  id={item.item.place}
+                  name={item.item.place}
+                  desc={item.item.desc}
+                  img={item.item.img.url}
+                  rating={item.item.rating}
+                  popular={item.item.popular}
+                />
+              );
+            }}
             horizontal={true}
             snapToInterval={width * 0.96}
             decelerationRate="fast"
