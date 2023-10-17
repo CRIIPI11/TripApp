@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, Image, TouchableOpacity, Text, TextInput, View } from 'react-native';
+import { ActivityIndicator, Alert, StyleSheet, Image, TouchableOpacity, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { COLORS } from '../../constants';
 import { useRouter } from 'expo-router';
@@ -11,10 +11,10 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [passwordConfirm, setConfirmPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleRegistration = async () => {
         const SIGNUP_ENDPOINT = 'http://localhost:1337/Users/signup'; // For local debugging
-
         const lowerEmail = email.toLowerCase();
 
         // Check if passwords match
@@ -22,6 +22,8 @@ const Register = () => {
             setErrorMessage('Passwords do not match');
             return;
         }
+
+        setIsLoading(true);        
 
         try {
             const response = await fetch(SIGNUP_ENDPOINT, {
@@ -38,6 +40,7 @@ const Register = () => {
 
             if (!response.ok) {
                 console.log('Error during signup process');
+                setIsLoading(false);
                 throw new Error('Error during signup process');
             }
 
@@ -45,6 +48,7 @@ const Register = () => {
             console.log(resData);
             if (resData.result === 'success') {
                 console.log('Signup success');
+                setIsLoading(false);
 
                 // Take user back to login so that they login
                 // Login page will capture data into redux once successfully logged in
@@ -66,6 +70,7 @@ const Register = () => {
                 );
             } else {
                 console.log(`Server: ${resData.message.message}`);
+                setIsLoading(false);
                 if (resData.message.message.includes('empty')) {
                     setErrorMessage('Please fill out all fields');
                 } else {
@@ -74,6 +79,7 @@ const Register = () => {
             }
         } catch (error) {
             console.log(error);
+            setIsLoading(false);
         }
     };
 
@@ -100,10 +106,12 @@ const Register = () => {
                 />
 
                 {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
-                
+
+                {isLoading ? <ActivityIndicator size="large" color={COLORS.primary} /> : (
                 <TouchableOpacity style={styles.primaryButton}>
                     <Text style={styles.buttonText} onPress={handleRegistration}>Register</Text>
                 </TouchableOpacity>
+                )}
             </View>
         </SafeAreaView>
     );
