@@ -9,15 +9,23 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import { styles } from "./section.style";
-import { COLORS, icons } from "../../../constants";
-import { useDispatch } from "react-redux";
+import { COLORS, icons, images } from "../../../constants";
+import { useDispatch, useSelector } from "react-redux";
 import { setInfo } from "../../../redux/infoSlice";
 import { usePlaces } from "../../../hooks";
 import { useEffect } from "react";
 
 const { width } = Dimensions.get("screen");
 
-export const SubCard = (props) => {
+export const SubCard = ({
+  name,
+  desc,
+  img,
+  rating,
+  types,
+  location,
+  vicinity,
+}) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -27,30 +35,37 @@ export const SubCard = (props) => {
       onPress={() => {
         dispatch(
           setInfo({
-            name: props.name,
-            img: props.img,
-            desc: props.desc,
-            popular: props.popular,
+            place: name,
+            rating: rating,
+            desc: desc,
+            vicinity: vicinity,
+            types: types,
+            location: location,
+            img: img,
           })
         );
-        router.push(`discover/(info)/${props.name}`);
+        router.push(`discover/(info)/${name}`);
       }}
     >
       <View style={styles.subCarContainer}>
-        <Image source={{ uri: props?.img }} style={styles.image}></Image>
+        {img !== "no image" ? (
+          <Image source={{ uri: img }} style={styles.image}></Image>
+        ) : (
+          <Image source={images.noimage} style={styles.image}></Image>
+        )}
         <View style={styles.NRContainer}>
           <View style={styles.titleContainer}>
             <Text numberOfLines={1} style={styles.placeTitle}>
-              {props.name}
+              {name}
             </Text>
           </View>
           <View style={styles.ratingContainer}>
             <Image source={icons.star} style={styles.icon} />
-            <Text style={styles.ratingText}>{props.rating}</Text>
+            <Text style={styles.ratingText}>{rating}</Text>
           </View>
         </View>
         <Text numberOfLines={3} ellipsizeMode="tail" style={styles.desc}>
-          {props.desc}
+          {desc}
         </Text>
       </View>
     </TouchableOpacity>
@@ -59,10 +74,11 @@ export const SubCard = (props) => {
 
 const Section = (props) => {
   const { places, loading, getPLaces } = usePlaces();
+  const filter = useSelector((state) => state.filter.filter);
 
   useEffect(() => {
     getPLaces(props.id);
-  }, []);
+  }, [props.id === "location" ? filter : null]);
 
   return (
     <View style={styles.cardContainer}>
@@ -90,20 +106,23 @@ const Section = (props) => {
             renderItem={(item) => {
               return (
                 <SubCard
-                  id={item.item.place}
+                  key={item.item.place}
                   name={item.item.place}
                   desc={item.item.desc}
-                  img={item.item.img.url}
+                  img={item.item.img ? item.item.img.url : "no image"}
                   rating={item.item.rating}
-                  popular={item.item.popular}
+                  location={item.item.location}
+                  types={item.item.types}
+                  vicinity={item.item.vicinity}
                 />
               );
             }}
             horizontal={true}
-            snapToInterval={width * 0.96}
-            decelerationRate="fast"
+            snapToInterval={width * 0.95 + 1}
+            decelerationRate={0.9}
             keyExtractor={(item) => item.place}
             showsHorizontalScrollIndicator={false}
+            initialNumToRender={5}
           />
         )}
       </View>

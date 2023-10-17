@@ -7,7 +7,7 @@ const { width, height } = Dimensions.get("screen");
 const styles = StyleSheet.create({
   cardContainer: { padding: SIZES.xSmall },
   subCarContainer: {
-    width: width * 0.95,
+    width: width * 0.94,
     marginEnd: SIZES.xxSmall,
   },
   titletext: {

@@ -87,10 +87,10 @@ const SearchResult = () => {
           }}
         >
           <Text style={{ fontFamily: FONT.homenaje, fontSize: SIZES.xxLarge }}>
-            {info.info.name}
+            {info.place}
           </Text>
         </View>
-        <Cover img={info.info.img} pop={info.info.popular} />
+        <Cover img={info.img} pop={info.popular} />
         <View style={{ marginStart: SIZES.xLarge, marginEnd: SIZES.xLarge }}>
           <Text
             style={{
@@ -99,7 +99,7 @@ const SearchResult = () => {
               textAlign: "center",
             }}
           >
-            {info.info.desc}
+            {info.desc}
           </Text>
         </View>
         <Options />
