@@ -15,7 +15,7 @@ const Home = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const { loading, startLocation } = useLocationStore();
+  const { startLocation } = useLocationStore();
 
   useEffect(() => {
     startLocation();
@@ -23,31 +23,25 @@ const Home = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.accents8 }}>
-      {loading ? (
-        <Text>Loading...</Text>
-      ) : (
-        <>
-          <Stack.Screen options={{ headerShown: false }} />
-          <View style={{ padding: 12 }}>
-            <SearchBar
-              onchange={setInfos}
-              search={infos}
-              onclick={() => {
-                if (infos) {
-                  dispatch(setInfo({ name: infos }));
-                  router.push(`discover/(info)/${infos}`);
-                }
-              }}
-            />
-          </View>
-          <FilterBar />
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <View>
-              <DiscoverSection />
-            </View>
-          </ScrollView>
-        </>
-      )}
+      <Stack.Screen options={{ headerShown: false }} />
+      <View style={{ padding: 12 }}>
+        <SearchBar
+          onchange={setInfos}
+          search={infos}
+          onclick={() => {
+            if (infos) {
+              dispatch(setInfo({ name: infos }));
+              router.push(`discover/(info)/${infos}`);
+            }
+          }}
+        />
+      </View>
+      <FilterBar />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View>
+          <DiscoverSection />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

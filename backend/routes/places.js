@@ -36,6 +36,7 @@ router.get("/location", locationLogger, (req, respos) => {
                 "vicinity",
                 "photo",
                 "type",
+                "geometry",
               ],
               key: process.env.GLE_API_KEY,
             },
