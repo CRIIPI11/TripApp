@@ -9,7 +9,7 @@ export const usePlaces = () => {
   const { location } = useLocationStore();
   const filter = useSelector((state) => state.filter.filter);
 
-  const callPLaces = async (type) => {
+  const callPLaces = async (type, par) => {
     if (type === "popular") {
       const places = await axios.get(
         `${process.env.server_url}/places/popular`
@@ -35,12 +35,27 @@ export const usePlaces = () => {
     //     setLoading(false);
     //   }
     // }
+
+    if (type === "search") {
+      const places = await axios.get(
+        `${process.env.server_url}/places/search`,
+        {
+          params: {
+            text: par,
+          },
+        }
+      );
+      if (places.data.status === "success") {
+        setPlaces(places.data.data);
+        setLoading(false);
+      }
+    }
   };
 
-  const getPLaces = async (type) => {
+  const getPLaces = async (type, par) => {
     setLoading(true);
     try {
-      await callPLaces(type);
+      await callPLaces(type, par);
     } catch (error) {
       console.log(error);
     }
