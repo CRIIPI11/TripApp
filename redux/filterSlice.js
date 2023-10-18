@@ -1,15 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { filter: undefined };
+const initialState = { filter: "museums" };
 
 export const filterSlice = createSlice({
   name: "fliter",
   initialState,
   reducers: {
     setFilter: (state, action) => {
-      if (state.filter === action.payload) {
-        state.filter = undefined;
-      } else state.filter = action.payload;
+      state.filter = action.payload;
     },
   },
 });
