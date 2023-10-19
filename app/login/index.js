@@ -1,4 +1,4 @@
-import { StyleSheet, Image, TouchableOpacity, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Image, TouchableOpacity, Text, TextInput, View, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context'; // Expo's SDK
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../redux/userSlice';
@@ -12,9 +12,12 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleLogin = async () => {
         const LOGIN_ENDPOINT = 'http://localhost:1337/Users/login'; // For local debugging
+
+        setIsLoading(true);
 
         const lowerEmail = email.toLowerCase();
         console.log(`Lower email: ${lowerEmail}`);
@@ -45,11 +48,13 @@ const Login = () => {
                     name: resData.user.name,
                     preferences: resData.user.preferences,
                     tripsCounter: resData.user.tripsCounter,
-                    placesVisited: resData.user.placesVisited 
+                    placesVisited: resData.user.placesVisited,
+                    isLoggedIn: true
                 })); // Store user data in Redux
-
+                setIsLoading(false);
                 router.replace('discover');
             } else {
+                setIsLoading(false);
                 console.log(`Server: ${resData.message.message}`);
                 if (resData.message.code == 101) {
                     setErrorMessage("Email or password is incorrect, please try again");
@@ -58,6 +63,7 @@ const Login = () => {
                 }
             }
         } catch (error) {
+            setIsLoading(false);
             console.log(error);
         }
     };
@@ -72,17 +78,23 @@ const Login = () => {
 
                 {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
 
-                <TouchableOpacity style={styles.primaryButton}>
-                    <Text style={styles.buttonText} onPress={handleLogin}>Sign in</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
+                {isLoading ? <ActivityIndicator size="large" color={COLORS.primary} /> : (
+                    <TouchableOpacity style={styles.primaryButton}>
+                        <Text style={styles.buttonText} onPress={handleLogin}>Sign in</Text>
+                    </TouchableOpacity>
+                )}
+
+                {isLoading ? null : (
+                    <TouchableOpacity
                     style={styles.secondaryButton}
                     onPress={() => {
                         router.push('register');
                     }}
                 >
                     <Text style={styles.buttonText}>Register</Text>
-                </TouchableOpacity>
+                    </TouchableOpacity>
+                )}
+
             </View>
         </SafeAreaView>
     );

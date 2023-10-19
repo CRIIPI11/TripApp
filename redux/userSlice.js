@@ -5,7 +5,8 @@ const initialState = {
     email: null,
     preferences: null,
     tripsCounter: null,
-    placesVisited: null
+    placesVisited: null,
+    isLoggedIn: false
 };
 
 const userSlice = createSlice({
@@ -18,6 +19,7 @@ const userSlice = createSlice({
             state.preferences = action.payload.preferences;
             state.tripsCounter = action.payload.tripsCounter;
             state.placesVisited = action.payload.placesVisited;
+            state.isLoggedIn = action.payload.isLoggedIn;
         },
         logoutUser: () => initialState
     },
