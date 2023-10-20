@@ -1,7 +1,14 @@
 import { Redirect } from "expo-router";
-import { Text } from "react-native";
+import { useSelector } from "react-redux";
+
 const Home = () => {
-  return <Redirect href={"login/"} />;
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  
+  if (!isLoggedIn) {
+    return <Redirect href={"login/"} />;
+  } else {
+    return <Redirect href={"discover/"} />;
+  }
 };
 
 export default Home;
