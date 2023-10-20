@@ -81,6 +81,9 @@ router.get("/location", locationLogger, (req, respos) => {
 
             if (place.length == arr.length) {
               console.log(place);
+              place.sort((a, b) => {
+                return b.rating - a.rating;
+              });
               respos.json({ status: "success", data: place });
             }
           })
