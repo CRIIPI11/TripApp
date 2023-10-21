@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { useLocationStore } from "../../hooks";
 
 const Home = () => {
+  // //the variables below will be used to search for a place
   const [infos, setInfos] = useState("");
   const router = useRouter();
   const dispatch = useDispatch();
@@ -21,6 +22,8 @@ const Home = () => {
     startLocation();
   }, []);
 
+ 
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.accents8 }}>
       <Stack.Screen options={{ headerShown: false }} />
@@ -30,8 +33,7 @@ const Home = () => {
           search={infos}
           onclick={() => {
             if (infos) {
-              dispatch(setInfo({ name: infos }));
-              router.push(`discover/(info)/${infos}`);
+              router.push(`discover/(info)/searchResult/${infos}`);
             }
           }}
         />

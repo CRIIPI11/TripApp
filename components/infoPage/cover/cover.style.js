@@ -24,14 +24,16 @@ const styles =
           paddingBottom: 2,
         },
         bulletsContainer: {
+          flex:1,
           flexDirection: "row",
           flexWrap: "wrap",
           marginStart: SIZES.large,
           marginEnd: SIZES.large,
+          justifyContent: "center", 
+          alignItems: "center",
         },
         subTitleText: { fontFamily: FONT.regular, marginLeft: SIZES.xxSmall },
         bulletsText: { fontSize: SIZES.small, color: COLORS.accents6 },
-        icon: { width: 15, height: 15 },
       })
     : StyleSheet.create({
         coverContainer: { padding: SIZES.large },
@@ -41,19 +43,19 @@ const styles =
           borderRadius: SIZES.large,
         },
         subTitleContainer: {
+          width: "100%",
           flexDirection: "row",
           padding: SIZES.small,
           paddingBottom: 2,
         },
         bulletsContainer: {
+          flex:1,
           flexDirection: "row",
           flexWrap: "wrap",
           marginStart: SIZES.large,
-          marginEnd: SIZES.large,
         },
-        subTitleText: { fontFamily: FONT.regular, marginLeft: SIZES.xxSmall },
-        bulletsText: { fontSize: SIZES.small, color: COLORS.accents6 },
-        icon: { width: 15, height: 15 },
+        subTitleText: {flex:1, fontFamily: FONT.regular, marginRight:0, paddingTop: 5, alignContent: 'flex-end', textAlign: 'right'},
+        bulletsText: { fontSize: SIZES.small, color: COLORS.accents6, alignContent: 'center'},
       });
 
 export default styles;
