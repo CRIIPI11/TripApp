@@ -15,7 +15,7 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleLogin = async () => {
-        const LOGIN_ENDPOINT = 'http://localhost:1337/Users/login'; // For local debugging
+        const LOGIN_ENDPOINT = `${process.env.LOCAL_API_URL}${process.env.LOGIN_ENDPOINT}`; // TODO: Change to depend on environment
 
         setIsLoading(true);
 
