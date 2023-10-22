@@ -14,7 +14,7 @@ const Register = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleRegistration = async () => {
-        const SIGNUP_ENDPOINT = 'http://localhost:1337/Users/signup'; // For local debugging
+        const SIGNUP_ENDPOINT = `${process.env.LOCAL_API_URL}${process.env.REGISTER_ENDPOINT}` // TODO: Change to depend on environment
         const lowerEmail = email.toLowerCase();
 
         // Check if passwords match
