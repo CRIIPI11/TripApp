@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, Text} from 'react-native';
 import { ScrollView } from 'react-native';
-
+import styles from './tags.style';
 
 const Tags = ({ tags }) => {
     return (

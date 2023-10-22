@@ -8,139 +8,28 @@ import Results from "../../../../components/infoPage/results/Results";
 import SearchBar from "../../../../components/common/searchBar/SearchBar";
 import { usePlaces } from "../../../../hooks";
 import { useEffect, useState } from "react";
+import {UserLocation} from "@rnmapbox/maps";
 const { width, height } = Dimensions.get("screen");
-
-const DATA = [{
-  "place": "Mount Rushmore National Memorial",
-  "rating": 4.7,
-  "desc": "Massive mountainside sculpture drawing crowds for its depiction of 4 former American presidents.",
-  "vicinity": "13000 South Dakota 244, Keystone",
-  "types": [
-      "tourist_attraction",
-      "park",
-      "point_of_interest",
-      "establishment"
-  ],
-  "location": {
-      "lat": 43.88033569999999,
-      "lng": -103.4537746
-  },
-  "img": {
-      "width": 3024,
-      "height": 3024,
-      "url": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=ATJ83zjWGqpK7b2K4CQ9Fee0lmilAsSR_tSjEN2JsIhxXtnQhwDoW-cZwJPLL1aiVMNtKRJX9OxQxs6sKMt9ltgJ1mrgvXPFi399Ih7vhcgIqd_w4acb-BGL3o3R5jIw5NyVo50FOdXtgq7vnEAYf4Nb8pk1Utt9Tldhg8g0KAn9zMBuRSC4&key=AIzaSyC1AD8HBg4QiCZY-PecoMcOOS0M2oe-HQw"
-  }
-},{
-  "place": "Mount Rushmore National Memorial",
-  "rating": 4.7,
-  "desc": "Massive mountainside sculpture drawing crowds for its depiction of 4 former American presidents.",
-  "vicinity": "13000 South Dakota 244, Keystone",
-  "types": [
-      "tourist_attraction",
-      "park",
-      "point_of_interest",
-      "establishment"
-  ],
-  "location": {
-      "lat": 43.88033569999999,
-      "lng": -103.4537746
-  },
-  "img": {
-      "width": 3024,
-      "height": 3024,
-      "url": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=ATJ83zjWGqpK7b2K4CQ9Fee0lmilAsSR_tSjEN2JsIhxXtnQhwDoW-cZwJPLL1aiVMNtKRJX9OxQxs6sKMt9ltgJ1mrgvXPFi399Ih7vhcgIqd_w4acb-BGL3o3R5jIw5NyVo50FOdXtgq7vnEAYf4Nb8pk1Utt9Tldhg8g0KAn9zMBuRSC4&key=AIzaSyC1AD8HBg4QiCZY-PecoMcOOS0M2oe-HQw"
-  }
-},{
-  "place": "Mount Rushmore National Memorial",
-  "rating": 4.7,
-  "desc": "Massive mountainside sculpture drawing crowds for its depiction of 4 former American presidents.",
-  "vicinity": "13000 South Dakota 244, Keystone",
-  "types": [
-      "tourist_attraction",
-      "park",
-      "point_of_interest",
-      "establishment"
-  ],
-  "location": {
-      "lat": 43.88033569999999,
-      "lng": -103.4537746
-  },
-  "img": {
-      "width": 3024,
-      "height": 3024,
-      "url": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=ATJ83zjWGqpK7b2K4CQ9Fee0lmilAsSR_tSjEN2JsIhxXtnQhwDoW-cZwJPLL1aiVMNtKRJX9OxQxs6sKMt9ltgJ1mrgvXPFi399Ih7vhcgIqd_w4acb-BGL3o3R5jIw5NyVo50FOdXtgq7vnEAYf4Nb8pk1Utt9Tldhg8g0KAn9zMBuRSC4&key=AIzaSyC1AD8HBg4QiCZY-PecoMcOOS0M2oe-HQw"
-  }
-},{
-  "place": "Mount Rushmore National Memorial",
-  "rating": 4.7,
-  "desc": "Massive mountainside sculpture drawing crowds for its depiction of 4 former American presidents.",
-  "vicinity": "13000 South Dakota 244, Keystone",
-  "types": [
-      "tourist_attraction",
-      "park",
-      "point_of_interest",
-      "establishment"
-  ],
-  "location": {
-      "lat": 43.88033569999999,
-      "lng": -103.4537746
-  },
-  "img": {
-      "width": 3024,
-      "height": 3024,
-      "url": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=ATJ83zjWGqpK7b2K4CQ9Fee0lmilAsSR_tSjEN2JsIhxXtnQhwDoW-cZwJPLL1aiVMNtKRJX9OxQxs6sKMt9ltgJ1mrgvXPFi399Ih7vhcgIqd_w4acb-BGL3o3R5jIw5NyVo50FOdXtgq7vnEAYf4Nb8pk1Utt9Tldhg8g0KAn9zMBuRSC4&key=AIzaSyC1AD8HBg4QiCZY-PecoMcOOS0M2oe-HQw"
-  }
-},{
-  "place": "Mount Rushmore National Memorial",
-  "rating": 4.7,
-  "desc": "Massive mountainside sculpture drawing crowds for its depiction of 4 former American presidents.",
-  "vicinity": "13000 South Dakota 244, Keystone",
-  "types": [
-      "tourist_attraction",
-      "park",
-      "point_of_interest",
-      "establishment"
-  ],
-  "location": {
-      "lat": 43.88033569999999,
-      "lng": -103.4537746
-  },
-  "img": {
-      "width": 3024,
-      "height": 3024,
-      "url": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=ATJ83zjWGqpK7b2K4CQ9Fee0lmilAsSR_tSjEN2JsIhxXtnQhwDoW-cZwJPLL1aiVMNtKRJX9OxQxs6sKMt9ltgJ1mrgvXPFi399Ih7vhcgIqd_w4acb-BGL3o3R5jIw5NyVo50FOdXtgq7vnEAYf4Nb8pk1Utt9Tldhg8g0KAn9zMBuRSC4&key=AIzaSyC1AD8HBg4QiCZY-PecoMcOOS0M2oe-HQw"
-  }
-},{
-  "place": "Mount Rushmore National Memorial",
-  "rating": 4.7,
-  "desc": "Massive mountainside sculpture drawing crowds for its depiction of 4 former American presidents.",
-  "vicinity": "13000 South Dakota 244, Keystone",
-  "types": [
-      "tourist_attraction",
-      "park",
-      "point_of_interest",
-      "establishment"
-  ],
-  "location": {
-      "lat": 43.88033569999999,
-      "lng": -103.4537746
-  },
-  "img": {
-      "width": 3024,
-      "height": 3024,
-      "url": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=ATJ83zjWGqpK7b2K4CQ9Fee0lmilAsSR_tSjEN2JsIhxXtnQhwDoW-cZwJPLL1aiVMNtKRJX9OxQxs6sKMt9ltgJ1mrgvXPFi399Ih7vhcgIqd_w4acb-BGL3o3R5jIw5NyVo50FOdXtgq7vnEAYf4Nb8pk1Utt9Tldhg8g0KAn9zMBuRSC4&key=AIzaSyC1AD8HBg4QiCZY-PecoMcOOS0M2oe-HQw"
-  }
-},];
 
 const SearchResult = () => {
   const params = useSearchParams();
   const router = useRouter();
-
+  const [userLocation, setUserLocation] = useState(null);
+  const [timerFinished, setTimerFinished] = useState(false);
   const { places, loading, getPlaces } = usePlaces();
+
 
   useEffect(() => {
     getPlaces('search', params.id);
-  }, []);
+
+    const timer = setTimeout(() => {
+      setTimerFinished(true);
+    }, 3000);
+  
+    return () => clearTimeout(timer);
+  }, [params.id]);
+
+  console.log(places);
 
   return (
     <View
@@ -164,15 +53,31 @@ const SearchResult = () => {
         }}
       />
       {Platform.OS === "web" && <SearchBar />}
-      {loading? (<ActivityIndicator size="large" color="#00ff00" />) : (
+      {loading && !timerFinished ? (
+        <ActivityIndicator size="large" color="#00ff00" />
+      ) : (
       <View>
-        <View style = {styles.topContainer}>
-          {/*going to need to replace DATA with actual user input and results from API call */}
-          <Results places={places} /> 
-        </View>
-        <View style = {styles.bottomContainer}> 
-          <Recomended places={places[0]?.location} />
-        </View>
+        {places.length > 0 ? (
+          <ScrollView>
+            <View style={styles.topContainer}>
+              <Results places={places} />
+            </View>
+            <View style={styles.bottomContainer}>
+              <Recomended places={places} />
+            </View>
+          </ScrollView>
+        ) : (
+          <>
+            <View style={styles.topContainer}>
+              <Text style={{textAlign: "center", fontSize: 20, fontFamily: FONT.family}}>
+                No results found
+              </Text>
+            </View>
+            <View style={styles.bottomContainer}>
+              <Recomended places={places} />
+            </View>
+          </>
+        )}
       </View>
     )}
     </View>

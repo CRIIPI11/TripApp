@@ -11,9 +11,6 @@ const Recomended = (props) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-
-
-
   const { places, loading, getPlaces } = usePlaces();
 
   useEffect(() => {

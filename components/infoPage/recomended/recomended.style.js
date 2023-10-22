@@ -34,9 +34,11 @@ const styles =
           flex:1, 
           padding: SIZES.medium, 
           height:"100%", 
-          justifyContent:'flex-end',
+          justifyContent:'flex-start',
         },
         titleText: {
+          marginTop:0,
+          paddingTop:0,
           fontFamily: FONT.homenaje,
           fontSize: SIZES.large,
           textDecorationLine: "underline",
