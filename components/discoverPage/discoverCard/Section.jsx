@@ -73,11 +73,11 @@ export const SubCard = ({
 };
 
 const Section = (props) => {
-  const { places, loading, getPLaces } = usePlaces();
+  const { places, loading, getPlaces } = usePlaces();
   const filter = useSelector((state) => state.filter.filter);
 
   useEffect(() => {
-    getPLaces(props.id);
+    getPlaces(props.id);
   }, [props.id === "location" ? filter : null]);
 
   return (

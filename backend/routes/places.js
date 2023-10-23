@@ -123,8 +123,8 @@ router.get("/popular", (req, respos) => {
         place: "Miami",
         rating: 4.5,
         desc: "Miami is a vibrant and diverse coastal city located in southern Florida. Known for its stunning beaches, such as South Beach and Miami Beach, it's a paradise for sun-seekers. The city's unique blend of cultures is evident in its art, music, and culinary scenes, with the colorful neighborhoods of Little Havana and Wynwood offering a taste of this diversity. Miami is also famous for its glamorous nightlife, featuring world-renowned clubs and bars. Whether you're looking to relax on the beach, explore cultural hotspots, or dance the night away, Miami has something for everyone.",
-        vicinity: "Miami",
-        types: ["City"],
+        vicinity: "Miami, Florida, on planet Earth",
+        types: ["City", "Beach", "Nightlife", "Culture", "Food & Drink"],
         location: {
           lat: 25.7616798,
           lng: -80.1917902,
