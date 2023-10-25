@@ -12,6 +12,7 @@
   "dependencies": {
     "@googlemaps/google-maps-services-js": "^3.3.41",
     "@react-native-async-storage/async-storage": "^1.19.3",
+    "atlas-obscura-api": "^2.2.0",
     "axios": "^1.5.1",
     "dotenv": "^16.3.1",
     "nodemon": "^3.0.1",

@@ -26,7 +26,7 @@ const Map = () => {
     location.permission === "granted"
       ? camRef.current.setCamera({
           centerCoordinate: [
-            location?.location?.long,
+            location?.location?.lng,
             location?.location?.lat - 0.02,
           ],
           zoomLevel: 12,
@@ -55,7 +55,7 @@ const Map = () => {
               ref={camRef}
               zoomLevel={10}
               centerCoordinate={[
-                location?.location?.long,
+                location?.location?.lng,
                 location?.location?.lat,
               ]}
             />
