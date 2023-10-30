@@ -40,37 +40,37 @@ export const usePlaces = () => {
     //   }
     // }
 
-    if (type === "recommended") {
-      const places = await axios.get(
-        `${process.env.server_url}/places/location`,
-        {
-          params: {
-            latitude: par.lat,
-            longitude: par.lng,
-            filter: tags[randomIndex]
-          },
-        }
-      );
-      if (places.data.status === "success") {
-        setPlaces(places.data.data);
-        setLoading(false);
-      }
-    }
+    // if (type === "recommended") {
+    //   const places = await axios.get(
+    //     `${process.env.server_url}/places/location`,
+    //     {
+    //       params: {
+    //         latitude: par.lat,
+    //         longitude: par.lng,
+    //         filter: tags[randomIndex]
+    //       },
+    //     }
+    //   );
+    //   if (places.data.status === "success") {
+    //     setPlaces(places.data.data);
+    //     setLoading(false);
+    //   }
+    // }
 
-    if (type === "search") {
-      const places = await axios.get(
-        `${process.env.server_url}/places/search`,
-        {
-          params: {
-            text: par,
-          },
-        }
-      );
-      if (places.data.status === "success") {
-        setPlaces(places.data.data);
-        setLoading(false);
-      }
-    }
+    // if (type === "search") {
+    //   const places = await axios.get(
+    //     `${process.env.server_url}/places/search`,
+    //     {
+    //       params: {
+    //         text: par,
+    //       },
+    //     }
+    //   );
+    //   if (places.data.status === "success") {
+    //     setPlaces(places.data.data);
+    //     setLoading(false);
+    //   }
+    // }
    };
 
   const getPlaces = async (type, par) => {
