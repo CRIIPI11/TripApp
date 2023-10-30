@@ -29,7 +29,7 @@ export const useLocationStore = () => {
       onLogin({
         location: {
           lat: location.coords.latitude,
-          long: location.coords.longitude,
+          lng: location.coords.longitude,
         },
         permission: status,
       })

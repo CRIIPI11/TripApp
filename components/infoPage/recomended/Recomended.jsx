@@ -12,7 +12,6 @@ const Recomended = (props) => {
   const router = useRouter();
 
   const { places, loading, getPlaces } = usePlaces();
-
   useEffect(() => {
     getPlaces('recommended', props.places);
   }, []);
