@@ -1,6 +1,13 @@
-import { View, Text, TouchableOpacity, Image, FlatList, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 import { usePlaces } from "../../../hooks";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setInfo } from "../../../redux/infoSlice";
 import { useRouter } from "expo-router";
@@ -13,7 +20,7 @@ const Recomended = (props) => {
 
   const { places, loading, getPlaces } = usePlaces();
   useEffect(() => {
-    getPlaces('recommended', props.places);
+    getPlaces("recommended", props.places);
   }, []);
 
   //TODO: add logic that does not show the current location being looked at in the recomended places
@@ -24,7 +31,9 @@ const Recomended = (props) => {
   return (
     <View style={styles.recomContainer}>
       <Text style={styles.titleText}>Recomended Places</Text>
-      {loading? (<ActivityIndicator size="large" color="#00ff00" />) : (
+      {loading ? (
+        <ActivityIndicator size="large" color="#00ff00" />
+      ) : (
         <View style={styles.cardsConatiner}>
           <FlatList
             data={recommendedPlaces}
@@ -51,13 +60,21 @@ const Recomended = (props) => {
                 >
                   <View style={styles.cardContainer}>
                     {item.item.img !== null ? (
-                      <Image source={{ uri: item.item.img.url }} style={styles.image}></Image>
+                      <Image
+                        source={{ uri: item.item.img.url }}
+                        style={styles.image}
+                      ></Image>
                     ) : (
-                      <Image source={images.noimage} style={styles.image}></Image>
+                      <Image
+                        source={images.noimage}
+                        style={styles.image}
+                      ></Image>
                     )}
 
                     <View style={{}}>
-                      <Text style={styles.nameText}>{item.item.place}</Text>
+                      <Text style={styles.nameText} numberOfLines={1}>
+                        {item.item.place}
+                      </Text>
                     </View>
                   </View>
                 </TouchableOpacity>
@@ -66,8 +83,7 @@ const Recomended = (props) => {
             indicatorStyle={"black"}
           />
         </View>
-      )
-      }
+      )}
     </View>
   );
 };

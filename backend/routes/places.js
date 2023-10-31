@@ -2,18 +2,26 @@ const express = require("express");
 const router = express.Router();
 const { Client } = require("@googlemaps/google-maps-services-js");
 const client = new Client({});
+const { atlasobscura } = require("atlas-obscura-api");
 require("dotenv").config();
 
 const types = {
   locality: "City",
   natural_feature: "Nature",
   park: "Nature",
+  parks: "Nature",
   art_gallery: "Art & Culture",
   restaurant: "Food & Drink",
+  bars: "Food & Drink",
   museum: "Museums",
+  museums: "Museums",
   landmark: "Architecture",
   landmark: "Roadside Attraction",
+  sculptures: "Roadside Attraction",
+  statues: "Roadside Attraction",
+  monuments: "Roadside Attraction",
   establishment: "History",
+  history: "History",
 };
 
 router.get("/", (req, respos) => {
@@ -63,11 +71,11 @@ router.get("/location", locationLogger, (req, respos) => {
 
             place.push({
               place: res.data.result?.name,
-              rating: res.data.result?.rating,
+              rating: res.data.result?.rating || 4.5,
               desc:
                 res.data.result.editorial_summary?.overview ||
                 "no description available",
-              vicinity: res.data.result?.vicinity,
+              vicinity: res.data.result?.vicinity || "USA",
               types: type,
               location: res.data.result?.geometry?.location,
               img: res.data.result?.photos
@@ -123,7 +131,7 @@ router.get("/popular", (req, respos) => {
         place: "Miami",
         rating: 4.5,
         desc: "Miami is a vibrant and diverse coastal city located in southern Florida. Known for its stunning beaches, such as South Beach and Miami Beach, it's a paradise for sun-seekers. The city's unique blend of cultures is evident in its art, music, and culinary scenes, with the colorful neighborhoods of Little Havana and Wynwood offering a taste of this diversity. Miami is also famous for its glamorous nightlife, featuring world-renowned clubs and bars. Whether you're looking to relax on the beach, explore cultural hotspots, or dance the night away, Miami has something for everyone.",
-        vicinity: "Miami, Florida, on planet Earth",
+        vicinity: "Miami, Florida",
         types: ["City", "Beach", "Nightlife", "Culture", "Food & Drink"],
         location: {
           lat: 25.7616798,
@@ -151,6 +159,7 @@ router.get("/popular", (req, respos) => {
         place: "Washington",
         rating: 4.5,
         desc: "Washington, D.C., the capital of the United States, is a city steeped in history and political significance. It's home to iconic landmarks such as the White House, the U.S. Capitol, and the Washington Monument. Visitors can explore world-class museums like the Smithsonian, walk along the National Mall to see the Lincoln Memorial and the Vietnam Veterans Memorial, and tour historic sites like the Ford's Theatre. With its rich cultural and educational offerings, Washington, D.C. is a destination that showcases the heart of American democracy and is a must-visit for history enthusiasts and anyone interested in the nation's political heritage.",
+        vicinity: "Washington, D.C.",
         types: ["City"],
         location: {
           lat: 38.9071923,
@@ -164,7 +173,7 @@ router.get("/popular", (req, respos) => {
         place: "Grand Canyon",
         rating: 4.8,
         desc: "The Grand Canyon is one of the most awe-inspiring natural wonders in the world. Located in northern Arizona, this colossal chasm, carved by the Colorado River, offers visitors a breathtaking display of geological history. With its vast, colorful landscapes and dramatic vistas, the Grand Canyon is a paradise for hikers, photographers, and nature enthusiasts. Visitors can explore its numerous trails, including the popular South Rim and North Rim, or take a helicopter tour for a bird's-eye view. Whether you're marveling at the sunrise or gazing into the depths of this remarkable canyon, the Grand Canyon is a bucket-list destination for those seeking an unforgettable encounter with the natural beauty of the American Southwest.",
-        vicinity: "USA",
+        vicinity: "Arizona",
         types: ["Nature"],
         location: {
           lat: 36.09976309999999,
@@ -178,7 +187,7 @@ router.get("/popular", (req, respos) => {
         place: "Las Vegas",
         rating: 4.5,
         desc: 'Las Vegas, often referred to as the "Entertainment Capital of the World", is a vibrant and dazzling city located in the Mojave Desert of Nevada. Known for its world-class casinos, luxurious resorts, and vibrant nightlife, Las Vegas offers an unforgettable experience for visitors. The famous Las Vegas Strip is lined with iconic hotels and resorts, hosting spectacular shows and entertainment, making it a hub of excitement and glamour. Beyond the gaming, the city boasts a diverse culinary scene, high-end shopping, and a range of attractions, including the High Roller observation wheel and the neon-lit Fremont Street Experience. Las Vegas is a city where you can indulge in entertainment, dining, and relaxation, making it an ideal destination for those seeking excitement and luxury.',
-        vicinity: "Las Vegas",
+        vicinity: "Las Vegas, Nevada",
         types: ["City"],
         location: {
           lat: 36.171563,
@@ -192,7 +201,7 @@ router.get("/popular", (req, respos) => {
         place: "Yellowstone National Park",
         rating: 4.8,
         desc: "Yellowstone National Park, located primarily in the U.S. states of Wyoming, Montana, and Idaho, is a natural wonderland and the world's first national park. It's celebrated for its extraordinary geothermal features, including the iconic Old Faithful geyser, which erupts with clockwork precision. The park boasts an array of diverse ecosystems, from lush forests and alpine meadows to pristine lakes and rushing waterfalls.",
-        vicinity: "USA",
+        vicinity: "Wyoming",
         types: ["Nature"],
         location: {
           lat: 44.427963,
@@ -206,7 +215,7 @@ router.get("/popular", (req, respos) => {
         place: "Yosemite National Park",
         rating: 4.8,
         desc: "Yosemite National Park, situated in the Sierra Nevada mountains of California, is a breathtaking expanse of natural beauty. Renowned for its towering granite cliffs, including the iconic El Capitan and Half Dome, Yosemite offers a haven for outdoor enthusiasts and nature lovers. The park's stunning landscapes feature cascading waterfalls, such as Yosemite Falls and Bridalveil Fall, pristine meadows, and dense forests. Hikers can explore a multitude of trails, from gentle walks to challenging backcountry routes, while rock climbers are drawn to the world-class climbing opportunities. The Merced River winds through the valley, offering excellent opportunities for fishing and picnicking.",
-        vicinity: "CA",
+        vicinity: "California",
         types: ["Nature"],
         location: {
           lat: 37.8651011,
@@ -217,10 +226,10 @@ router.get("/popular", (req, respos) => {
         },
       },
       {
-        place: "New York",
+        place: "New York City",
         rating: 4.5,
         desc: "New York City, often referred to simply as \"New York\", is an iconic metropolis and one of the world's most exciting destinations. Located in the northeastern United States, it's a dynamic hub of culture, commerce, and creativity. New York City is renowned for its famous landmarks, such as the Statue of Liberty, Times Square, Central Park, and the Empire State Building. The city's vibrant neighborhoods, from the historic charm of Greenwich Village to the bustling streets of Manhattan, offer a diverse range of experiences. It's a cultural mecca with world-class museums, theaters, and restaurants.",
-        vicinity: "New York",
+        vicinity: "New York City, New York",
         types: ["City"],
         location: {
           lat: 40.7127753,
@@ -234,7 +243,7 @@ router.get("/popular", (req, respos) => {
         place: "San Francisco",
         rating: 4.5,
         desc: "San Francisco, located in northern California, is a city of great charm and diversity. It's known for its iconic landmarks, including the Golden Gate Bridge, Alcatraz Island, and the steep, winding streets of Lombard Street.San Francisco is a cultural and culinary hotspot with a rich history. The city's neighborhoods each have their own unique character, from the artistic community of the Mission District to the historic architecture of Alamo Square. The city's strong connection to the tech industry has also made it a global center for innovation.",
-        vicinity: "San Francisco",
+        vicinity: "San Francisco, California",
         types: ["City"],
         location: {
           lat: 37.7749295,
@@ -248,7 +257,7 @@ router.get("/popular", (req, respos) => {
         place: "Niagara Falls",
         rating: 4.5,
         desc: "Niagara Falls is a breathtaking natural wonder located on the border between the United States and Canada. It is a collection of three majestic waterfalls: Horseshoe Falls, American Falls, and Bridal Veil Falls. The falls are known for their awe-inspiring beauty, with millions of gallons of water cascading over the edge into the Niagara River below. Visitors to Niagara Falls can experience the falls from a variety of perspectives. Boat tours, such as the Maid of the Mist in the U.S. and Hornblower in Canada, offer an up-close and exhilarating view of the falls. The surrounding parks, including Niagara Falls State Park in the U.S. and Queen Victoria Park in Canada, provide ample opportunities for hiking, picnicking, and enjoying the stunning views.",
-        vicinity: "Niagara Falls",
+        vicinity: "Niagara Falls, New York",
         types: ["City"],
         location: {
           lat: 43.0962143,
@@ -436,6 +445,46 @@ router.get("/details", detailsLogger, (req, respos) => {
     });
 });
 
+router.get("/recommended", recommendedLogger, (req, respos) => {
+  const places = [];
+
+  atlasobscura
+    .search({ lat: req.query.latitude, lng: req.query.longitude })
+    .then((data) => {
+      data.results.map((item, i, arr) => {
+        atlasobscura.placeFull(item.id).then((res) => {
+          const type = [];
+
+          res.tags.map((item) => {
+            // console.log(item.title);
+            if (types[item.title] !== undefined) {
+              type.push(types[item.title]);
+            }
+          });
+
+          places.push({
+            place: res.title,
+            rating: res?.rating || 4.5,
+            desc: res?.subtitle || "no description available",
+            vicinity: res?.location || "USA",
+            types: type,
+            location: res?.coordinates,
+            img: { url: res?.thumbnail_url },
+            place_id: res.id,
+          });
+
+          if (places.length == arr.length) {
+            // console.log(places);
+            respos.json({ status: "success", data: places });
+          }
+        });
+      });
+    })
+    .catch((err) => {
+      respos.json({ status: "failed", message: err });
+    });
+});
+
 function locationLogger(req, res, next) {
   if (req.query.latitude && req.query.longitude && req.query.filter) {
     console.log("Logging location: ", req.query.latitude, req.query.longitude);
@@ -474,6 +523,19 @@ function detailsLogger(req, res, next) {
     res.json({
       status: "failed",
       message: "No place id provided.",
+    });
+  }
+}
+
+function recommendedLogger(req, res, next) {
+  if (req.query.latitude && req.query.longitude) {
+    console.log("Logging location: ", req.query.latitude, req.query.longitude);
+    next();
+  } else {
+    console.log("No location provided.");
+    res.json({
+      status: "failed",
+      message: "No location provided.",
     });
   }
 }

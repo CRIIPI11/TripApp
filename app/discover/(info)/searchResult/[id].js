@@ -1,8 +1,14 @@
-import { Text,Image, View, ScrollView, Dimensions, Platform, StyleSheet, ActivityIndicator } from "react-native";
+import {
+  Text,
+  View,
+  Dimensions,
+  Platform,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
 import { Stack, useRouter, useSearchParams } from "expo-router";
 import { COLORS, FONT, icons, SIZES } from "../../../../constants";
 import ScreenHeaderBtn from "../../../../components/common/stackheader/ScreenHeaderBtn";
-import { useSelector } from "react-redux";
 import Recomended from "../../../../components/infoPage/recomended/Recomended";
 import Results from "../../../../components/infoPage/results/Results";
 import SearchBar from "../../../../components/common/searchBar/SearchBar";
@@ -31,8 +37,6 @@ const SearchResult = () => {
       clearTimeout(timer)
     };
   }, []);
-
-  console.log(places);
 
   return (
     <View
@@ -90,7 +94,6 @@ const SearchResult = () => {
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   topContainer: {
