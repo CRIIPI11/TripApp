@@ -44,7 +44,7 @@ export const SubCard = ({
             img: img,
           })
         );
-        router.push(`discover/(info)/${name}`);
+        router.push(`tabs/discover/(info)/${name}`);
       }}
     >
       <View style={styles.subCarContainer}>

@@ -55,7 +55,7 @@ const Recomended = (props) => {
                         location: item.item.location,
                       })
                     );
-                    router.push(`discover/(info)/${props.name}`);
+                    router.replace(`tabs/discover/(info)/${props.name}`);
                   }}
                 >
                   <View style={styles.cardContainer}>

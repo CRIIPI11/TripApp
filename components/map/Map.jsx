@@ -37,7 +37,7 @@ const Map = () => {
 
   return (
     <View style={styles.mapContainer}>
-      <MapView
+      <Mapbox.MapView
         style={styles.map}
         preferredFramesPerSecond={60}
         rotateEnabled={false}
@@ -61,7 +61,7 @@ const Map = () => {
             />
           </>
         )}
-      </MapView>
+      </Mapbox.MapView>
       {!alert && (
         <TouchableOpacity onPress={centerCamera} style={styles.navContainer}>
           <Image source={icons.navigationfill} style={styles.nav}></Image>
