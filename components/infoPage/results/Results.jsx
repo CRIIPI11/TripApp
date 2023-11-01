@@ -67,36 +67,7 @@ const Results = (props) => {
         indicatorStyle={"black"}
       />
     </View>
-
-    // <View style={styles.resultContainer}>
-    //   <View style={styles.cardsConatiner}>
-    //     <FlatList
-    //       data={props.places}
-    //       horizontal={false}
-    //       renderItem={(item) => {
-    //         return (
-    //           <TouchableOpacity
-    //             key={item.item.place}
-    //             activeOpacity={1}
-    //             onPress={() => {
-    //               dispatch(
-    //                 setInfo({
-    //                   name: props.name,
-    //                   img: props.img,
-    //                   desc: props.desc,
-    //                 })
-    //               );
-    //             }}
-    //           >
-    //           </TouchableOpacity>
-    //         );
-    //       }
-    //     }
-    //     indicatorStyle={"black"}
-    //     />
-    //     </View>
-    // </View>
-  );
+    );
 };
 
 export default Results;

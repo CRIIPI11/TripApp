@@ -37,32 +37,35 @@ const SearchResult = () => {
       />
       {Platform.OS === "web" && <SearchBar />}
       <ScrollView showsVerticalScrollIndicator={false}>
+      <View style = {styles.topContainer}>
         <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            marginTop: SIZES.medium,
-          }}
-        >
-          <Text style={{ fontFamily: FONT.homenaje, fontSize: SIZES.xxLarge }}>
-            {info.place}
-          </Text>
-        </View>
-        <Cover img={info.img} pop={info.types} add = {info.vicinity} />
-        <View style={{ marginStart: SIZES.xLarge, marginEnd: SIZES.xLarge }}>
-          <Text
             style={{
-              fontFamily: FONT.homenaje,
-              fontSize: SIZES.medium,
-              textAlign: "center",
+              flexDirection: "row",
+              justifyContent: "center",
+              marginTop: SIZES.medium,
             }}
-          >
-            {info.desc}
-          </Text>
-        </View>
+        >
+            <Text style={{ fontFamily: FONT.homenaje, fontSize: SIZES.xxLarge }}>
+              {info.place}
+            </Text>
+          </View>
+          <Cover img={info.img} pop={info.types} add = {info.vicinity} />
+          <View style={{ marginStart: SIZES.xLarge, marginEnd: SIZES.xLarge }}>
+            <Text
+              style={{
+                fontFamily: FONT.homenaje,
+                fontSize: SIZES.medium,
+                textAlign: "center",
+              }}
+            >
+              {info.desc}
+            </Text>
+          </View>
         <Options />
-        <View>
-          <Recomended places={info.location} name = {info.place} style = {styles.bottomContainer}/>
+      </View>
+        
+        <View style = {styles.bottomContainer}>
+          <Recomended places={info.location} name = {info.place} />
         </View>
       </ScrollView>
     </View>
@@ -73,16 +76,13 @@ const SearchResult = () => {
 const styles = StyleSheet.create({
   topContainer: {
       width: '100%',
-      height: '75%',
+      height: height *0.6,
       flexDirection: 'column',
   },
   bottomContainer: {
       flex: 1,
       width: '100%',
-      height: '100%',
-      alignItems: 'center',
-      marginTop: SIZES.xxLarge,
-      paddingTop: SIZES.xxLarge,
+      paddingTop: SIZES.small,
   },
 });
 

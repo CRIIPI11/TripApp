@@ -9,6 +9,9 @@ export const usePlaces = () => {
   const { location } = useLocationStore();
   const filter = useSelector((state) => state.filter.filter);
 
+  const tags = ["museums", "art gallery","Landmark","Sculpture","restaurant","park","Historical Landmark"];
+  const randomIndex = Math.floor(Math.random() * tags.length);
+
   const callPlaces = async (type, par) => {
     if (type === "popular") {
       const places = await axios.get(

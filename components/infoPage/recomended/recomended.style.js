@@ -7,33 +7,48 @@ console.log
 const styles =
   Platform.OS === "web"
     ? StyleSheet.create({
-      recomContainer: { flex:1, padding: SIZES.medium, justifyContent:'flex-start'},
+      recomContainer: { 
+        flex:1, 
+        padding: SIZES.medium,
+        justifyContent:'flex-start',
+      },
       titleText: {
+        marginTop:0,
+        paddingTop:0,
         fontFamily: FONT.homenaje,
         fontSize: SIZES.large,
         textDecorationLine: "underline",
       },
-      cardsConatiner: {flex:1, flexDirection: "row", width:"100%", flexWrap: "wrap", height: 200, justifyContent:'flex-end'},
-      cardContainer: { width: 100, margin: SIZES.large },
+      cardsConatiner: {
+        flex:1, 
+        flexDirection: "row", 
+        flexWrap: "wrap",
+      },
+      cardContainer: { 
+        width: '100%', 
+        height: "100%",
+        margin: SIZES.small,
+        marginLeft: 0,
+        
+      },
       image: {
-        width: "100%",
-        height: '70%',
+        width: 120,
+        height: 100,
         borderRadius: SIZES.large,
         marginBottom: SIZES.xxSmall,
+        alignSelf: 'center',
       },
       nameText: {
         fontFamily: FONT.homenaje,
         fontSize: SIZES.medium,
-        marginStart: SIZES.xSmall,
-        alignContent: 'center',
-        justifyContent: 'center',
+        textAlign: 'center',
+        width: 120,
       },
       })
     : StyleSheet.create({
         recomContainer: { 
           flex:1, 
-          padding: SIZES.medium, 
-          height:"100%", 
+          padding: SIZES.medium,
           justifyContent:'flex-start',
         },
         titleText: {
@@ -46,12 +61,14 @@ const styles =
         cardsConatiner: {
           flex:1, 
           flexDirection: "row", 
-          flexWrap: "wrap"
+          flexWrap: "wrap",
         },
         cardContainer: { 
           width: '100%', 
+          height: "100%",
           margin: SIZES.small,
-          marginLeft: 0
+          marginLeft: 0,
+          
         },
         image: {
           width: 120,
