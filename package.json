@@ -22,7 +22,6 @@
   "dependencies": {
     "@expo/webpack-config": "^18.0.1",
     "@reduxjs/toolkit": "^1.9.5",
-    "@rnmapbox/maps": "^10.0.15",
     "axios": "^1.5.0",
     "expo": "~48.0.21",
     "expo-constants": "~14.2.1",
@@ -48,7 +47,8 @@
     "react-native-screens": "~3.20.0",
     "react-native-vector-icons": "^10.0.0",
     "react-native-web": "~0.18.7",
-    "react-redux": "^8.1.2"
+    "react-redux": "^8.1.2",
+    "rnc-mapbox-nav": "^0.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",

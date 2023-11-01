@@ -13,13 +13,6 @@
     "icon": "./assets/Logo.png",
     "plugins": [
       [
-        "@rnmapbox/maps",
-        {
-          "RNMapboxMapsImpl": "mapbox",
-          "RNMapboxMapsDownloadToken": "sk.eyJ1IjoiY3JpaXBpMTEiLCJhIjoiY2xvYzdmdWFxMDJ2ZTJrcWZuYjB2aDdrbiJ9.MuSZCj5YTA00EymrnSGA3A"
-        }
-      ],
-      [
         "expo-location",
         {
           "locationAlwaysAndWhenInUsePermission": "Allow me to use your location."

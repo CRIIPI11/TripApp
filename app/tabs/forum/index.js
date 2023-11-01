@@ -1,4 +1,6 @@
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
+import { Text, ScrollView } from "react-native";
+
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Forum = () => {
   return (

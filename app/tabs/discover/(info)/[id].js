@@ -70,9 +70,8 @@ const SearchResult = () => {
               {info.desc}
             </Text>
           </View>
-          <Options />
+          <Options location={info.location} />
         </View>
-
         <View style={styles.bottomContainer}>
           <Recomended places={info.location} name={info.place} />
         </View>
