@@ -5,7 +5,6 @@ import {
   Platform,
   StyleSheet,
   ActivityIndicator,
-  ScrollView,
 } from "react-native";
 import { Stack, useRouter, useSearchParams } from "expo-router";
 import { COLORS, FONT, icons, SIZES } from "../../../../constants";
@@ -67,17 +66,13 @@ const SearchResult = () => {
       <View>
         {places.length > 0 && !noResult? (
           <View>
-              <ScrollView>
-                <View style={styles.topContainer}>
-                  <Results places={places} />
-                </View>
-              </ScrollView>
+            <View style={styles.topContainer}>
+              <Results places={places} />
+            </View>
             <View style={styles.bottomContainer}>
               <Recomended places={places[0].location} name = {places[0].place}/>
             </View>
           </View>
-          
-          
         ) : (
           <>
             <View style={styles.topContainer}>
