@@ -45,62 +45,35 @@ router.get("/location", locationLogger, (req, respos) => {
     })
     .then((res) => {
       res.data.results.map((item, i, arr) => {
-        client
-          .placeDetails({
-            params: {
-              place_id: item.place_id,
-              fields: [
-                "name",
-                "editorial_summary",
-                "rating",
-                "vicinity",
-                "photo",
-                "type",
-                "geometry",
-              ],
-              key: process.env.GLE_API_KEY,
-            },
-          })
-          .then((res) => {
-            const type = [];
-            res.data.result?.types.map((item) => {
-              if (types[item] !== undefined) {
-                type.push(types[item]);
+        const type = [];
+        item?.types.map((item) => {
+          if (types[item] !== undefined) {
+            type.push(types[item]);
+          }
+        });
+        place.push({
+          place: item?.name,
+          rating: item?.rating || 4.5,
+          desc: item.editorial_summary?.overview || "no description available",
+          vicinity: item?.vicinity || "USA",
+          types: type,
+          location: item?.geometry?.location,
+          img: item?.photos
+            ? {
+                width: item?.photos[0].width,
+                height: item?.photos[0].height,
+                url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${item?.photos[0].photo_reference}&key=${process.env.GLE_API_KEY}`,
               }
-            });
-
-            place.push({
-              place: res.data.result?.name,
-              rating: res.data.result?.rating || 4.5,
-              desc:
-                res.data.result.editorial_summary?.overview ||
-                "no description available",
-              vicinity: res.data.result?.vicinity || "USA",
-              types: type,
-              location: res.data.result?.geometry?.location,
-              img: res.data.result?.photos
-                ? {
-                    width: res.data.result?.photos[0].width,
-                    height: res.data.result?.photos[0].height,
-                    url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${res.data.result?.photos[0].photo_reference}&key=${process.env.GLE_API_KEY}`,
-                  }
-                : null,
-            });
-
-            if (place.length == arr.length) {
-              console.log(place);
-              place.sort((a, b) => {
-                return b.rating - a.rating;
-              });
-              respos.json({ status: "success", data: place });
-            }
-          })
-          .catch((err) => {
-            place.push({ error: "Location Cannot be Display" });
-            console.log("second call");
-            console.log(err);
-          });
+            : null,
+        });
       });
+    })
+    .finally(() => {
+      place.sort((a, b) => {
+        return b.rating - a.rating;
+      });
+
+      respos.json({ status: "success", data: place });
     })
     .catch((err) => {
       console.log(err);
@@ -391,12 +364,10 @@ router.get("/search", searchLogger, (req, respos) => {
             : null,
           place_id: item.place_id,
         });
-
-        if (placesResponse.length == arr.length) {
-          console.log(placesResponse);
-          respos.json({ status: "success", data: placesResponse });
-        }
       });
+    })
+    .finally(() => {
+      respos.json({ status: "success", data: placesResponse });
     })
     .catch((err) => {
       placesResponse.push({ error: "Location Cannot be Display" });
