@@ -66,17 +66,13 @@ const SearchResult = () => {
       <View>
         {places.length > 0 && !noResult? (
           <View>
-              <ScrollView>
-              <View style={styles.topContainer}>
-                <Results places={places} />
-              </View>
-              </ScrollView>
+            <View style={styles.topContainer}>
+              <Results places={places} />
+            </View>
             <View style={styles.bottomContainer}>
               <Recomended places={places[0].location} name = {places[0].place}/>
             </View>
           </View>
-          
-          
         ) : (
           <>
             <View style={styles.topContainer}>
