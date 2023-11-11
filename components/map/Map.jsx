@@ -1,12 +1,12 @@
 import { View, Text, Image } from "react-native";
-import {
-  Camera,
-  MapView,
-  MarkerView,
-  PointAnnotation,
-  UserLocation,
-} from "@rnmapbox/maps";
-import Mapbox from "@rnmapbox/maps";
+// import {
+//   Camera,
+//   MapView,
+//   MarkerView,
+//   PointAnnotation,
+//   UserLocation,
+// } from "@rnmapbox/maps";
+// import Mapbox from "@rnmapbox/maps";
 import { useLocationStore } from "../../hooks";
 import { TouchableOpacity } from "react-native";
 import { useRef, useState } from "react";
@@ -14,30 +14,30 @@ import { icons } from "../../constants";
 import styles from "./map.styles";
 import PermissionDenied from "../common/permissionModal/PermissionDenied";
 
-Mapbox.setAccessToken(process.env.mapbox_pk);
+// Mapbox.setAccessToken(process.env.mapbox_pk);
 
 const Map = () => {
   const { location } = useLocationStore();
   const [alert, setAlert] = useState(false);
 
-  const camRef = useRef(null);
+  // const camRef = useRef(null);
 
-  const centerCamera = () => {
-    location.permission === "granted"
-      ? camRef.current.setCamera({
-          centerCoordinate: [
-            location?.location?.lng,
-            location?.location?.lat - 0.02,
-          ],
-          zoomLevel: 12,
-          animationDuration: 2000,
-        })
-      : setAlert(true);
-  };
+  // const centerCamera = () => {
+  //   location.permission === "granted"
+  //     ? camRef.current.setCamera({
+  //         centerCoordinate: [
+  //           location?.location?.lng,
+  //           location?.location?.lat - 0.02,
+  //         ],
+  //         zoomLevel: 12,
+  //         animationDuration: 2000,
+  //       })
+  //     : setAlert(true);
+  // };
 
   return (
     <View style={styles.mapContainer}>
-      <MapView
+      {/* <Mapbox.MapView
         style={styles.map}
         preferredFramesPerSecond={60}
         rotateEnabled={false}
@@ -61,13 +61,14 @@ const Map = () => {
             />
           </>
         )}
-      </MapView>
+      </Mapbox.MapView>
       {!alert && (
         <TouchableOpacity onPress={centerCamera} style={styles.navContainer}>
           <Image source={icons.navigationfill} style={styles.nav}></Image>
         </TouchableOpacity>
       )}
-      {alert && <PermissionDenied onPress={setAlert} />}
+      {alert && <PermissionDenied onPress={setAlert} />} */}
+      <Text>Map</Text>
     </View>
   );
 };

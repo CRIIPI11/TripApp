@@ -1,13 +1,24 @@
 import React from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 import styles from "./options.style";
-const Options = () => {
+import { useRouter } from "expo-router";
+const Options = ({ location }) => {
+  const router = useRouter();
+
   return (
     <View style={styles.optionsContainer}>
       <TouchableOpacity onPress={() => {}} style={styles.buttonContainer}>
         <Text style={styles.optionText}>Plan Trip</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => {}} style={styles.buttonContainer}>
+      <TouchableOpacity
+        onPress={() => {
+          router.push({
+            pathname: "/navigation/",
+            params: { lat: location.lat, lng: location.lng },
+          });
+        }}
+        style={styles.buttonContainer}
+      >
         <Text style={styles.optionText}>Visit</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => {}} style={styles.buttonContainer}>

@@ -7,11 +7,11 @@ const EditBox = ({ name, close }) => {
   const [text, setText] = useState("");
 
   const update = () => {
-    const url = process.env.server_url;
+    const url = process.env.LOCAL_API_URL;
 
     if (name === "User Name") {
       axios
-        .put(`${url}/Users/update/name`, {
+        .put(`${url}Users/update/name`, {
           name: text,
         })
         .then((res) => {
@@ -33,7 +33,7 @@ const EditBox = ({ name, close }) => {
     }
     if (name === "Email") {
       axios
-        .put(`${url}/Users/update/email`, {
+        .put(`${url}Users/update/email`, {
           email: text,
         })
         .then((res) => {
