@@ -45,32 +45,36 @@ router.get("/location", locationLogger, (req, respos) => {
     })
     .then((res) => {
       res.data.results.map((item, i, arr) => {
-        const type = [];
-        item?.types.map((item) => {
-          if (types[item] !== undefined) {
-            type.push(types[item]);
-          }
-        });
-        place.push({
-          place: item?.name,
-          rating: item?.rating || 4.5,
-          desc: item.editorial_summary?.overview || "no description available",
-          vicinity: item?.vicinity || "USA",
-          types: type,
-          location: item?.geometry?.location,
-          img: item?.photos
-            ? {
-                width: item?.photos[0].width,
-                height: item?.photos[0].height,
-                url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${item?.photos[0].photo_reference}&key=${process.env.GLE_API_KEY}`,
-              }
-            : null,
-        });
+        if (item.rating > 4 && item.user_ratings_total > 500) {
+          const type = [];
+          item?.types.map((item) => {
+            if (types[item] !== undefined) {
+              type.push(types[item]);
+            }
+          });
+          place.push({
+            place: item?.name,
+            rating: item?.rating || 4.5,
+            ratingAmount: item?.user_ratings_total,
+            desc:
+              item.editorial_summary?.overview || "no description available",
+            vicinity: item?.vicinity || "USA",
+            types: type,
+            location: item?.geometry?.location,
+            img: item?.photos
+              ? {
+                  width: item?.photos[0].width,
+                  height: item?.photos[0].height,
+                  url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${item?.photos[0].photo_reference}&key=${process.env.GLE_API_KEY}`,
+                }
+              : null,
+          });
+        }
       });
     })
     .finally(() => {
       place.sort((a, b) => {
-        return b.rating - a.rating;
+        return b.ratingAmount - a.ratingAmount;
       });
 
       respos.json({ status: "success", data: place });
