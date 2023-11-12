@@ -107,31 +107,6 @@ router.get("/location", locationLogger, (req, respos) => {
               : null,
           });
         }
-        if (item.rating > 4 && item.user_ratings_total > 500) {
-          const type = [];
-          item?.types.map((item) => {
-            if (types[item] !== undefined) {
-              type.push(types[item]);
-            }
-          });
-          place.push({
-            place: item?.name,
-            rating: item?.rating || 4.5,
-            ratingAmount: item?.user_ratings_total,
-            desc:
-              item.editorial_summary?.overview || "no description available",
-            vicinity: item?.vicinity || "USA",
-            types: type,
-            location: item?.geometry?.location,
-            img: item?.photos
-              ? {
-                  width: item?.photos[0].width,
-                  height: item?.photos[0].height,
-                  url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${item?.photos[0].photo_reference}&key=${process.env.GLE_API_KEY}`,
-                }
-              : null,
-          });
-        }
       });
     })
     .finally(() => {
@@ -565,7 +540,7 @@ router.get("/plan", (req, respos) => {
 
 function locationLogger(req, res, next) {
   if (req.query.latitude && req.query.longitude && req.query.filter) {
-    console.log("Logging location: ", req.query.latitude, req.query.longitude);
+    console.log("Location Logger: ", req.query.latitude, req.query.longitude);
     next();
   } else {
     console.log("No location or filter provided.");
@@ -607,7 +582,11 @@ function detailsLogger(req, res, next) {
 
 function recommendedLogger(req, res, next) {
   if (req.query.latitude && req.query.longitude) {
-    console.log("Logging location: ", req.query.latitude, req.query.longitude);
+    console.log(
+      "Recommended Logger: ",
+      req.query.latitude,
+      req.query.longitude
+    );
     next();
   } else {
     console.log("No location provided.");
