@@ -82,7 +82,7 @@ router.get("/location", locationLogger, (req, respos) => {
     })
     .then((res) => {
       res.data.results.map((item, i, arr) => {
-        if (item.rating > 4 && item.user_ratings_total > 500) {
+        if (item.rating > 4 && item.user_ratings_total > 250) {
           const type = [];
           item?.types.map((item) => {
             if (types[item] !== undefined) {
@@ -524,14 +524,15 @@ router.get("/plan", (req, respos) => {
       //Send the points to the plan function
       req.params.points = points;
       //Converts meters to miles
-      miles = res.data.routes[0].distance * 0.000621371;
+      // miles = res.data.routes[0].distance * 0.000621371;
 
       //Checks which plan to use according to the distance
-      if (miles < 1500) {
-        plan1(req, respos);
-      } else {
-        plan2(req, respos);
-      }
+      // if (miles < 1500) {
+      //   plan1(req, respos);
+      // } else {
+      //   plan2(req, respos);
+      // }
+      plan2(req, respos);
     })
     .catch((err) => {
       console.log(err);
@@ -606,10 +607,11 @@ function plan1(req, respos) {
     points,
     (point, next) => {
       place.push({ guevo: point, places: [] });
+
       client
         .placesNearby({
           params: {
-            keyword: categories[getRndInteger(0, categories.length)],
+            keyword: categories[getRndInteger(0, categories.length)], //TODO: Change to user defined categories
             location: `${point[0]},${point[1]}`,
             radius: 50000,
             key: process.env.GLE_API_KEY,
@@ -617,8 +619,9 @@ function plan1(req, respos) {
           },
         })
         .then((res) => {
+          //Iterate through each place and add it to the places
           res.data.results.forEach((item, i, arr) => {
-            if (item.rating > 4 && item.user_ratings_total > 500) {
+            if (item.rating > 4 && item.user_ratings_total > 250) {
               const type = [];
               item?.types.forEach((item) => {
                 if (types[item] !== undefined) {
@@ -706,7 +709,7 @@ function plan2(req, respos) {
           client
             .placesNearby({
               params: {
-                keyword: categories[getRndInteger(0, categories.length)],
+                keyword: categories[getRndInteger(0, categories.length)], //TODO: Change to user defined categories
                 location: `${point[0]},${point[1]}`,
                 radius: 50000,
                 key: process.env.GLE_API_KEY,
@@ -715,7 +718,7 @@ function plan2(req, respos) {
             })
             .then((res) => {
               res.data.results.forEach((item, i, arr) => {
-                if (item.rating > 4 && item.user_ratings_total > 500) {
+                if (item.rating > 4 && item.user_ratings_total > 250) {
                   const type = [];
                   item?.types.forEach((item) => {
                     if (types[item] !== undefined) {
