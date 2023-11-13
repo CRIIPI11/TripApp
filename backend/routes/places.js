@@ -3,8 +3,11 @@ const router = express.Router();
 const { Client } = require("@googlemaps/google-maps-services-js");
 const client = new Client({});
 const { atlasobscura } = require("atlas-obscura-api");
+const { default: axios } = require("axios");
 require("dotenv").config();
+const async = require("async");
 
+//Types of places to return
 const types = {
   locality: "City",
   natural_feature: "Nature",
@@ -23,6 +26,40 @@ const types = {
   establishment: "History",
   history: "History",
 };
+
+//Categories to search for
+const categories = [
+  "Nature",
+  "Art & Culture",
+  "Museums",
+  "Architecture",
+  "Roadside Attraction",
+  "History",
+];
+
+//Function to calculate distance between two points
+function distance(lat1, lon1, lat2, lon2) {
+  const r = 6371; // km
+  const p = Math.PI / 180;
+
+  const a =
+    0.5 -
+    Math.cos((lat2 - lat1) * p) / 2 +
+    (Math.cos(lat1 * p) *
+      Math.cos(lat2 * p) *
+      (1 - Math.cos((lon2 - lon1) * p))) /
+      2;
+
+  km = 2 * r * Math.asin(Math.sqrt(a));
+  miles = km * 0.621371;
+
+  return miles;
+}
+
+//Function to get a random integer between two numbers
+function getRndInteger(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
 
 router.get("/", (req, respos) => {
   respos.json({
@@ -45,7 +82,7 @@ router.get("/location", locationLogger, (req, respos) => {
     })
     .then((res) => {
       res.data.results.map((item, i, arr) => {
-        if (item.rating > 4 && item.user_ratings_total > 500) {
+        if (item.rating > 4 && item.user_ratings_total > 250) {
           const type = [];
           item?.types.map((item) => {
             if (types[item] !== undefined) {
@@ -460,9 +497,51 @@ router.get("/recommended", recommendedLogger, (req, respos) => {
     });
 });
 
+router.get("/plan", (req, respos) => {
+  const points = [];
+  axios
+    .get(
+      `https://api.mapbox.com/directions/v5/mapbox/driving/${req.query.originLongitude}%2C${req.query.originLatitude}%3B${req.query.destLongitude}%2C${req.query.destLatitude}?alternatives=false&geometries=geojson&language=en&overview=full&steps=true&access_token=${process.env.MPBOX_Public_Key}`
+    )
+    .then((res) => {
+      // Get all the Guevos from the route
+      points.push([
+        res.data.routes[0].geometry.coordinates[0][1],
+        res.data.routes[0].geometry.coordinates[0][0],
+      ]);
+      res.data.routes[0].geometry.coordinates.forEach((point) => {
+        const dist = distance(
+          points[points.length - 1][0],
+          points[points.length - 1][1],
+          point[1],
+          point[0]
+        );
+        if (dist > 65) {
+          points.push([point[1], point[0]]);
+        }
+      });
+
+      //Send the points to the plan function
+      req.params.points = points;
+      //Converts meters to miles
+      // miles = res.data.routes[0].distance * 0.000621371;
+
+      //Checks which plan to use according to the distance
+      // if (miles < 1500) {
+      //   plan1(req, respos);
+      // } else {
+      //   plan2(req, respos);
+      // }
+      plan2(req, respos);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 function locationLogger(req, res, next) {
   if (req.query.latitude && req.query.longitude && req.query.filter) {
-    console.log("Logging location: ", req.query.latitude, req.query.longitude);
+    console.log("Location Logger: ", req.query.latitude, req.query.longitude);
     next();
   } else {
     console.log("No location or filter provided.");
@@ -504,7 +583,11 @@ function detailsLogger(req, res, next) {
 
 function recommendedLogger(req, res, next) {
   if (req.query.latitude && req.query.longitude) {
-    console.log("Logging location: ", req.query.latitude, req.query.longitude);
+    console.log(
+      "Recommended Logger: ",
+      req.query.latitude,
+      req.query.longitude
+    );
     next();
   } else {
     console.log("No location provided.");
@@ -513,6 +596,174 @@ function recommendedLogger(req, res, next) {
       message: "No location provided.",
     });
   }
+}
+
+function plan1(req, respos) {
+  const points = req.params.points;
+  const place = [];
+
+  //Iterate through each guevo and find places
+  async.eachSeries(
+    points,
+    (point, next) => {
+      place.push({ guevo: point, places: [] });
+
+      client
+        .placesNearby({
+          params: {
+            keyword: categories[getRndInteger(0, categories.length)], //TODO: Change to user defined categories
+            location: `${point[0]},${point[1]}`,
+            radius: 50000,
+            key: process.env.GLE_API_KEY,
+            type: "tourist_attraction",
+          },
+        })
+        .then((res) => {
+          //Iterate through each place and add it to the places
+          res.data.results.forEach((item, i, arr) => {
+            if (item.rating > 4 && item.user_ratings_total > 250) {
+              const type = [];
+              item?.types.forEach((item) => {
+                if (types[item] !== undefined) {
+                  type.push(types[item]);
+                }
+              });
+              place[place.length - 1].places.push({
+                place: item?.name,
+                rating: item?.rating || 0,
+                ratingAmount: item?.user_ratings_total || 0,
+                desc:
+                  item.editorial_summary?.overview ||
+                  "no description available",
+                vicinity: item?.vicinity || "USA",
+                types: type,
+                location: item?.geometry?.location,
+                img: item?.photos
+                  ? {
+                      width: item?.photos[0].width,
+                      height: item?.photos[0].height,
+                      url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${item?.photos[0].photo_reference}&key=${process.env.GLE_API_KEY}`,
+                    }
+                  : null,
+              });
+            }
+          });
+        })
+        .finally(() => {
+          place[place.length - 1].places.sort((a, b) => {
+            return b.ratingAmount - a.ratingAmount;
+          });
+          next();
+        });
+    },
+    () => {
+      respos.json({ status: "success", data: place });
+    }
+  );
+}
+
+function plan2(req, respos) {
+  //Receive Points
+  const points = req.params.points;
+  const place = [];
+
+  //Find how many chunks to split the route and how many guevos per chunk
+  const chunks = Math.floor(Math.sqrt(points.length));
+  const chunkSize = Math.floor(points.length / chunks);
+
+  //Split the route into chunks
+  const chunkedPoints = [];
+  for (let i = 0; i < chunks; i++) {
+    chunkedPoints.push({
+      chunk: i + 1,
+      data: points.slice(i * chunkSize, (i + 1) * chunkSize),
+    });
+  }
+
+  //Find the guevos to use for each chunk
+  const guevos = chunkedPoints.map((item, i, arr) => {
+    return {
+      chunk: item.chunk,
+      places: [
+        item.data[0],
+        item.data[Math.floor(item.data.length / 2)],
+        item.data[item.data.length - 1],
+      ],
+    };
+  });
+
+  //Iterate through each chunk
+  async.eachSeries(
+    guevos,
+    (guevo, next) => {
+      place.push({ chunk: guevo.chunk, places: [] });
+
+      //Iterate through each guevo in the chunk and find places
+      async.eachSeries(
+        guevo.places,
+        (point, next) => {
+          place[place.length - 1].places.push({
+            guevo: point,
+            guevoPlaces: [],
+          });
+          client
+            .placesNearby({
+              params: {
+                keyword: categories[getRndInteger(0, categories.length)], //TODO: Change to user defined categories
+                location: `${point[0]},${point[1]}`,
+                radius: 50000,
+                key: process.env.GLE_API_KEY,
+                type: "tourist_attraction",
+              },
+            })
+            .then((res) => {
+              res.data.results.forEach((item, i, arr) => {
+                if (item.rating > 4 && item.user_ratings_total > 250) {
+                  const type = [];
+                  item?.types.forEach((item) => {
+                    if (types[item] !== undefined) {
+                      type.push(types[item]);
+                    }
+                  });
+                  place[place.length - 1].places[
+                    place[place.length - 1].places.length - 1
+                  ].guevoPlaces.push({
+                    place: item?.name,
+                    rating: item?.rating || 0,
+                    ratingAmount: item?.user_ratings_total || 0,
+                    desc:
+                      item.editorial_summary?.overview ||
+                      "no description available",
+                    vicinity: item?.vicinity || "USA",
+                    types: type,
+                    location: item?.geometry?.location,
+                    img: item?.photos
+                      ? {
+                          width: item?.photos[0].width,
+                          height: item?.photos[0].height,
+                          url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${item?.photos[0].photo_reference}&key=${process.env.GLE_API_KEY}`,
+                        }
+                      : null,
+                  });
+                }
+              });
+            })
+            .finally(() => {
+              place[place.length - 1].places[
+                place[place.length - 1].places.length - 1
+              ].guevoPlaces.sort((a, b) => {
+                return b.ratingAmount - a.ratingAmount;
+              });
+              next();
+            });
+        },
+        next
+      );
+    },
+    () => {
+      respos.json({ status: "success", data: place });
+    }
+  );
 }
 
 module.exports = router;
