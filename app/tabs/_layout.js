@@ -47,7 +47,7 @@ export default function Layout() {
       <Tabs.Screen
         name="forum"
         options={{
-          title: "Forum",
+          title: "Trips",
           tabBarIcon: ({ focused, color, size }) => (
             <Image
               source={focused ? icons.forumFocused : icons.forum}

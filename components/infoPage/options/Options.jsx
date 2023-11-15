@@ -11,7 +11,7 @@ const Options = ({ location }) => {
         onPress={() => {
           router.push({
             pathname: "/routeList/",
-            params: { lat: location.lat, lng: location.lng },
+            params: { lat: location.lat, lng: location.lng, plan: true },
           });
         }}
         style={styles.buttonContainer}

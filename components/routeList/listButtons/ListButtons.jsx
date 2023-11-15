@@ -16,6 +16,9 @@ export const ListButtons = () => {
         <Text style={styles.text}>Cancel</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => {}} style={styles.buttonContainer}>
+        <Text style={styles.text}>Save</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => {}} style={styles.buttonContainer}>
         <Text style={styles.text}>Continue</Text>
       </TouchableOpacity>
     </View>

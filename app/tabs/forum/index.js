@@ -6,7 +6,7 @@ const Forum = () => {
   return (
     <SafeAreaView style={{}}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text>Forum</Text>
+        <Text>No Active Trip</Text>
       </ScrollView>
     </SafeAreaView>
   );

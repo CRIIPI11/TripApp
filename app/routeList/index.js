@@ -1,8 +1,9 @@
-import { Text } from "react-native";
+import { Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import List from "../../components/routeList/list/List";
-import { COLORS, FONT } from "../../constants";
+import { COLORS, FONT, icons } from "../../constants";
 import { ListButtons } from "../../components/routeList/listButtons/ListButtons";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 
 const DATA = [
   {
@@ -230,25 +231,47 @@ const DATA = [
 ];
 
 const RouteList = () => {
+  const params = useLocalSearchParams();
+  const router = useRouter();
+  console.log(params);
   return (
     <SafeAreaView>
-      <Text
-        style={{
-          fontSize: 30,
-          textAlign: "left",
-          marginTop: 20,
-          marginStart: 15,
-          marginBottom: 10,
-          color: COLORS.accents1,
-          fontFamily: FONT.homenaje,
-        }}
-      >
-        Route
-      </Text>
-      <List places={DATA} />
-      <ListButtons />
+      {params.view && (
+        <Stack.Screen
+          options={{
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  router.back();
+                }}
+                style={styles.buttonContainer}
+              >
+                <Image source={icons.chevronLeft} style={styles.icon} />
+              </TouchableOpacity>
+            ),
+            headerTitle: "Route",
+          }}
+        />
+      )}
+      {params.plan && <Text style={styles.title}>Route</Text>}
+      <List places={DATA} view={params.view} />
+      {params.plan && <ListButtons />}
     </SafeAreaView>
   );
 };
 
 export default RouteList;
+
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 30,
+    textAlign: "left",
+    marginTop: 20,
+    marginStart: 15,
+    marginBottom: 10,
+    color: COLORS.accents1,
+    fontFamily: FONT.homenaje,
+  },
+  icon: { width: 25, height: 25, marginEnd: 15 },
+  buttonContainer: {},
+});
