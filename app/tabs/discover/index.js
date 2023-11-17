@@ -6,17 +6,11 @@ import { COLORS } from "../../../constants";
 import { DiscoverSection, FilterBar } from "../../../components/discoverPage";
 import SearchBar from "../../../components/common/searchBar/SearchBar";
 import { useRouter } from "expo-router";
-import { useLocationStore } from "../../../hooks";
 
 const Home = () => {
   // //the variables below will be used to search for a place
   const [searchInput, setSearchInput] = useState("");
   const router = useRouter();
-  const { startLocation } = useLocationStore();
-
-  useEffect(() => {
-    startLocation();
-  }, []);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.accents8 }}>

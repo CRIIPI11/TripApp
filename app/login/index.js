@@ -62,7 +62,7 @@ const Login = () => {
           })
         ); // Store user data in Redux
         setIsLoading(false);
-        router.replace("tabs/");
+        router.replace("setup/loading");
       } else {
         setIsLoading(false);
         console.log(`Server: ${resData.message.message}`);
