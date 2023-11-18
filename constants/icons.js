@@ -33,6 +33,8 @@ import usercircle from "../assets/icons/usercircle.png";
 import bookmark from "../assets/icons/bookmark.png";
 import Checkbox_Check from "../assets/icons/Checkbox_Check.png";
 import Checkbox_Unchecked from "../assets/icons/Checkbox_Unchecked.png";
+import add_circle from "../assets/icons/add_circle.png";
+import minus_circle from "../assets/icons/minus_circle.png";
 
 export default {
   heart,
@@ -70,4 +72,6 @@ export default {
   bookmark,
   Checkbox_Check,
   Checkbox_Unchecked,
+  add_circle,
+  minus_circle,
 };
