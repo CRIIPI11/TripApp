@@ -48,7 +48,8 @@
     "react-native-vector-icons": "^10.0.0",
     "react-native-web": "~0.18.7",
     "react-redux": "^8.1.2",
-    "rnc-mapbox-nav": "^0.1.1"
+    "rnc-mapbox-nav": "^0.1.1",
+    "@react-native-async-storage/async-storage": "1.17.11"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
