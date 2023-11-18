@@ -497,7 +497,7 @@ router.get("/recommended", recommendedLogger, (req, respos) => {
     });
 });
 
-router.get("/plan", (req, respos) => {
+router.get("/plan", planLogger, (req, respos) => {
   const points = [];
   axios
     .get(
@@ -587,6 +587,30 @@ function recommendedLogger(req, res, next) {
       "Recommended Logger: ",
       req.query.latitude,
       req.query.longitude
+    );
+    next();
+  } else {
+    console.log("No location provided.");
+    res.json({
+      status: "failed",
+      message: "No location provided.",
+    });
+  }
+}
+
+function planLogger(req, res, next) {
+  if (
+    req.query.originLatitude &&
+    req.query.originLongitude &&
+    req.query.destLatitude &&
+    req.query.destLongitude
+  ) {
+    console.log(
+      "Plan Logger: ",
+      req.query.originLatitude,
+      req.query.originLongitude,
+      req.query.destLatitude,
+      req.query.destLongitude
     );
     next();
   } else {
