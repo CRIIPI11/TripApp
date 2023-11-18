@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useLocationStore } from "./useLocationStore";
 
-export const usePlaces = () => {
+export const useAlgo = () => {
   const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(false);
   const { location } = useLocationStore();
@@ -21,6 +21,8 @@ export const usePlaces = () => {
     if (places.data.status === "success") {
       setPlaces(places.data.data);
       setLoading(false);
+    } else {
+      console.log(`Error: ${data.data}`);
     }
   };
 
