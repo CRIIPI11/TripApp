@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS, icons } from "../../../../../constants";
 import { useRouter } from "expo-router";
 
-const Forum = ({dest}) => {//TODO: Ensure that this takes the destination from the previous page
+const Forum = (lat, lng, plan) => {//TODO: Ensure that this takes the destination from the previous page
   const [tripName, setTripName] = useState("");
   const [categories, setCategories] = useState([]);
   const [stopCount, setStopCount] = useState(0);
@@ -21,16 +21,6 @@ const Forum = ({dest}) => {//TODO: Ensure that this takes the destination from t
     { name: "Nature", code: "nature" },
     { name: "History", code: "history" },
   ];
-
-  const submit = () => {  
-    const trip = {
-      tripName: tripName,
-      categories: categories,
-      stopCount: stopCount,
-      destination: dest,
-    };
-    router.push(`tabs/forum/(trip)`, { trip: trip });//TODO: Ensure that this is the correct path
-  };
 
   return (
     <SafeAreaView>
@@ -91,7 +81,20 @@ const Forum = ({dest}) => {//TODO: Ensure that this takes the destination from t
           </TouchableOpacity>
         </View>
       </View>
-        <TouchableOpacity style={styles.button} onPress={submit}>
+        <TouchableOpacity style={styles.button} 
+          onPress={() => {
+            router.push({
+              pathname: "/routeList/",
+              params: { 
+                lat: lat, 
+                lng: lng, 
+                plan: plan, 
+                tripName: tripName, 
+                categories: categories, 
+                stopCount: stopCount },
+            });
+          }}
+        >
           <Text>
             Continue
           </Text>
