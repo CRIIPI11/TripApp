@@ -4,6 +4,8 @@ import List from "../../components/routeList/list/List";
 import { COLORS, FONT, icons } from "../../constants";
 import { ListButtons } from "../../components/routeList/listButtons/ListButtons";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const DATA = [
   {
@@ -230,32 +232,62 @@ const DATA = [
   },
 ];
 
+const getStoredPlacesData = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem("places");
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
+  } catch (e) {
+    console.error("Error retrieving data", e);
+  }
+};
+
 const RouteList = () => {
   const params = useLocalSearchParams();
   const router = useRouter();
+  const [places, setPlaces] = useState(undefined);
   console.log(params);
+
+  useEffect(() => {
+    getStoredPlacesData().then((data) => {
+      setPlaces(data[0]?.places[0]?.guevoPlaces);
+    });
+  }, []);
+
+  console.log(places);
+
   return (
     <SafeAreaView>
-      {params.view && (
-        <Stack.Screen
-          options={{
-            headerLeft: () => (
-              <TouchableOpacity
-                onPress={() => {
-                  router.back();
+      {places && (
+        <>
+          {params.view ? (
+            <>
+              <Stack.Screen
+                options={{
+                  headerLeft: () => (
+                    <TouchableOpacity
+                      onPress={() => {
+                        router.replace("tabs/forum");
+                      }}
+                      style={styles.buttonContainer}
+                    >
+                      <Image source={icons.chevronLeft} style={styles.icon} />
+                    </TouchableOpacity>
+                  ),
+                  headerTitle: "Route",
+                  headerShown: true,
                 }}
-                style={styles.buttonContainer}
-              >
-                <Image source={icons.chevronLeft} style={styles.icon} />
-              </TouchableOpacity>
-            ),
-            headerTitle: "Route",
-          }}
-        />
+              />
+              <List places={places} view={params.view} />
+            </>
+          ) : (
+            <>
+              <Text style={styles.title}>Route</Text>
+              <List places={places} view={params.view} />
+              <ListButtons />
+            </>
+          )}
+        </>
       )}
-      {params.plan && <Text style={styles.title}>Route</Text>}
-      <List places={DATA} view={params.view} />
-      {params.plan && <ListButtons />}
     </SafeAreaView>
   );
 };
