@@ -1,15 +1,23 @@
-import { Text, ScrollView, StyleSheet, TouchableOpacity,Image, View } from "react-native";
+import {
+  Text,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  View,
+} from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS, icons } from "../../../../../constants";
-import { Stack, useRouter } from "expo-router";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 
-const Forum = (lat, lng, plan) => {//TODO: Ensure that this takes the destination from the previous page
+const TripSettingPage = () => {
+  //TODO: Ensure that this takes the destination from the previous page
   const [tripName, setTripName] = useState("");
   const [categories, setCategories] = useState([]);
   const [stopCount, setStopCount] = useState(0);
-
+  const { lat, lng, plan } = useLocalSearchParams();
   const router = useRouter();
 
   const data = [
@@ -22,7 +30,7 @@ const Forum = (lat, lng, plan) => {//TODO: Ensure that this takes the destinatio
     { name: "History", code: "history" },
   ];
 
-  return (    
+  return (
     <SafeAreaView>
       <Stack.Screen
         options={{
@@ -36,11 +44,11 @@ const Forum = (lat, lng, plan) => {//TODO: Ensure that this takes the destinatio
       />
       <Text style={styles.title}>Trip Name</Text>
       <TextInput
-          style={styles.input}
-          placeholder="Trip Name"
-          onChangeText={setTripName}
-          value={tripName}
-        />
+        style={styles.input}
+        placeholder="Trip Name"
+        onChangeText={setTripName}
+        value={tripName}
+      />
 
       <View style={styles.container}>
         <Text style={styles.title}>Select Categories</Text>
@@ -70,16 +78,18 @@ const Forum = (lat, lng, plan) => {//TODO: Ensure that this takes the destinatio
         })}
       </View>
 
-      <View style= {styles.stopCount}>
+      <View style={styles.stopCount}>
         <Text style={styles.title}>Desired Number of Stops</Text>
         <View style={styles.counter}>
-
           <TouchableOpacity
             onPress={() => {
               setStopCount(stopCount - 1);
             }}
           >
-            <Image source={icons.minus_circle} style={styles.stopCounterIcons} />
+            <Image
+              source={icons.minus_circle}
+              style={styles.stopCounterIcons}
+            />
           </TouchableOpacity>
           <Text style={styles.catname}>{stopCount}</Text>
           <TouchableOpacity
@@ -91,25 +101,25 @@ const Forum = (lat, lng, plan) => {//TODO: Ensure that this takes the destinatio
           </TouchableOpacity>
         </View>
       </View>
-        <TouchableOpacity style={styles.button} 
-          onPress={() => {
-            router.push({
-              pathname: "/routeList/",
-              params: { 
-                lat: lat, 
-                lng: lng, 
-                plan: plan, 
-                tripName: tripName, 
-                categories: categories, 
-                stopCount: stopCount },
-            });
-          }}
-        >
-          <Text style={styles.buttonText}>
-            Continue
-          </Text>
-        </TouchableOpacity>
-      </SafeAreaView>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          console.log(categories);
+          router.push({
+            pathname: "../../../setup/tripSetup",
+            params: {
+              lat: lat,
+              lng: lng,
+              tripName: tripName,
+              categories: categories,
+              stopCount: stopCount,
+            },
+          });
+        }}
+      >
+        <Text style={styles.buttonText}>Continue</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
   );
 };
 
@@ -125,9 +135,9 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
-    alignContent:"center",
-    alignItems:"center",
-    alignSelf:"center",
+    alignContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
   },
   icon: {
     width: 30,
@@ -138,8 +148,8 @@ const styles = StyleSheet.create({
   container: {
     paddingStart: 20,
     backgroundColor: "#c2c1be",
-    borderRadius:20,
-    margin:10,
+    borderRadius: 20,
+    margin: 10,
   },
   optcont: {
     flexDirection: "row",
@@ -148,42 +158,41 @@ const styles = StyleSheet.create({
   },
   catname: {
     fontSize: 25,
-    alignContent:"center",
-    alignItems:"center",
+    alignContent: "center",
+    alignItems: "center",
   },
-  stopCount:{
+  stopCount: {
     fontSize: 25,
-    alignContent:"center",
-    alignItems:"center",
+    alignContent: "center",
+    alignItems: "center",
   },
 
   button: {
     alignItems: "center",
-    alignContent:"center",
+    alignContent: "center",
     backgroundColor: COLORS.tertiary,
     padding: 10,
-    margin:10,
+    margin: 10,
     width: 150,
-    borderRadius:20,
-    alignSelf:"center",
+    borderRadius: 20,
+    alignSelf: "center",
   },
-  stopCounterIcons:{
+  stopCounterIcons: {
     width: 30,
     height: 30,
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 10,
   },
-  counter:{
+  counter: {
     flexDirection: "row",
     width: 150,
     justifyContent: "space-between",
   },
-  buttonText:{
+  buttonText: {
     fontSize: 20,
     fontWeight: "bold",
   },
-
 });
 
-export default Forum;
+export default TripSettingPage;
