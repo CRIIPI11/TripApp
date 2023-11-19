@@ -21,7 +21,7 @@ const Options = ({ location }) => {
       <TouchableOpacity
         onPress={() => {
           router.push({
-            pathname: "app/tabs/discover/(info)/tripSettings/index.js",
+            pathname: "../(info)/tripSettings",
             params: { lat: location.lat, lng: location.lng, plan: true },
           });
         }}

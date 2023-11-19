@@ -2,7 +2,7 @@ import { Text, ScrollView, StyleSheet, TouchableOpacity,Image, View } from "reac
 import { TextInput } from "react-native-gesture-handler";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { icons } from "../../../../../constants";
+import { COLORS, icons } from "../../../../../constants";
 import { useRouter } from "expo-router";
 
 const Forum = ({dest}) => {//TODO: Ensure that this takes the destination from the previous page
@@ -91,7 +91,11 @@ const Forum = ({dest}) => {//TODO: Ensure that this takes the destination from t
           </TouchableOpacity>
         </View>
       </View>
-        <TouchableOpacity style={styles.button} onPress={submit}>Continue</TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={submit}>
+          <Text>
+            Continue
+          </Text>
+        </TouchableOpacity>
       </SafeAreaView>
   );
 };
@@ -137,6 +141,17 @@ const styles = StyleSheet.create({
     fontSize: 25,
     alignContent:"center",
     alignItems:"center",
+  },
+
+  button: {
+    alignItems: "center",
+    alignContent:"center",
+    backgroundColor: COLORS.tertiary,
+    padding: 10,
+    margin:10,
+    width: 100,
+    borderRadius:20,
+    alignSelf:"center",
   },
 
 });
