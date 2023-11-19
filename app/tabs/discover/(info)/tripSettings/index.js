@@ -3,7 +3,7 @@ import { TextInput } from "react-native-gesture-handler";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS, icons } from "../../../../../constants";
-import { useRouter } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 
 const Forum = (lat, lng, plan) => {//TODO: Ensure that this takes the destination from the previous page
   const [tripName, setTripName] = useState("");
@@ -22,8 +22,18 @@ const Forum = (lat, lng, plan) => {//TODO: Ensure that this takes the destinatio
     { name: "History", code: "history" },
   ];
 
-  return (
+  return (    
     <SafeAreaView>
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "Trip Settings",
+          headerTitleAlign: "center",
+          headerStyle: { backgroundColor: "#fff" },
+          headerTintColor: "#000",
+          headerTitleStyle: { fontWeight: "bold" },
+        }}
+      />
       <Text style={styles.title}>Trip Name</Text>
       <TextInput
           style={styles.input}
@@ -62,14 +72,14 @@ const Forum = (lat, lng, plan) => {//TODO: Ensure that this takes the destinatio
 
       <View style= {styles.stopCount}>
         <Text style={styles.title}>Desired Number of Stops</Text>
-        <View style={{ flexDirection: "row" }}>
+        <View style={styles.counter}>
 
           <TouchableOpacity
             onPress={() => {
               setStopCount(stopCount - 1);
             }}
           >
-            <Image source={icons.minus_circle} style={styles.icon} />
+            <Image source={icons.minus_circle} style={styles.stopCounterIcons} />
           </TouchableOpacity>
           <Text style={styles.catname}>{stopCount}</Text>
           <TouchableOpacity
@@ -77,7 +87,7 @@ const Forum = (lat, lng, plan) => {//TODO: Ensure that this takes the destinatio
               setStopCount(stopCount + 1);
             }}
           >
-            <Image source={icons.add_circle} style={styles.icon} />
+            <Image source={icons.add_circle} style={styles.stopCounterIcons} />
           </TouchableOpacity>
         </View>
       </View>
@@ -95,7 +105,7 @@ const Forum = (lat, lng, plan) => {//TODO: Ensure that this takes the destinatio
             });
           }}
         >
-          <Text>
+          <Text style={styles.buttonText}>
             Continue
           </Text>
         </TouchableOpacity>
@@ -117,6 +127,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignContent:"center",
     alignItems:"center",
+    alignSelf:"center",
   },
   icon: {
     width: 30,
@@ -152,9 +163,25 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.tertiary,
     padding: 10,
     margin:10,
-    width: 100,
+    width: 150,
     borderRadius:20,
     alignSelf:"center",
+  },
+  stopCounterIcons:{
+    width: 30,
+    height: 30,
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  counter:{
+    flexDirection: "row",
+    width: 150,
+    justifyContent: "space-between",
+  },
+  buttonText:{
+    fontSize: 20,
+    fontWeight: "bold",
   },
 
 });

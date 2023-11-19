@@ -7,6 +7,7 @@ const Options = ({ location }) => {
 
   return (
     <View style={styles.optionsContainer}>
+
       <TouchableOpacity
         onPress={() => {
           router.push({
