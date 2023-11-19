@@ -7,10 +7,11 @@ const Options = ({ location }) => {
 
   return (
     <View style={styles.optionsContainer}>
+
       <TouchableOpacity
         onPress={() => {
           router.push({
-            pathname: "/routeList/",
+            pathname: "../(info)/tripSettings",
             params: { lat: location.lat, lng: location.lng, plan: true },
           });
         }}
