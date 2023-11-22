@@ -34,7 +34,7 @@ const TripLoader = () => {
     */
 
   useEffect(() => {
-    getPlaces(lat, lng); // TODO: Take destination coords from trip list page
+    getPlaces(lat, lng, categories);
   }, []);
 
   if (!loading) {

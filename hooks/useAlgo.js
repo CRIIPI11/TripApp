@@ -7,7 +7,7 @@ export const useAlgo = () => {
   const [loading, setLoading] = useState(false);
   const { location } = useLocationStore();
 
-  const callPlaces = async (destLat, destLng) => {
+  const callPlaces = async (destLat, destLng, categories) => {
     console.log("Algorithm Use");
     const places = await axios.get(`${process.env.LOCAL_API_URL}places/plan`, {
       params: {
@@ -15,6 +15,7 @@ export const useAlgo = () => {
         originLongitude: location?.location?.lng,
         destLatitude: destLat,
         destLongitude: destLng,
+        categories: categories,
       },
     });
 
@@ -26,10 +27,10 @@ export const useAlgo = () => {
     }
   };
 
-  const getPlaces = async (destLat, destLng) => {
+  const getPlaces = async (destLat, destLng, categories) => {
     setLoading(true);
     try {
-      await callPlaces(destLat, destLng);
+      await callPlaces(destLat, destLng, categories);
     } catch (error) {
       console.log(error);
     }

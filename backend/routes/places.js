@@ -14,7 +14,6 @@ const types = {
   park: "Nature",
   parks: "Nature",
   art_gallery: "Art & Culture",
-  restaurant: "Food & Drink",
   bars: "Food & Drink",
   museum: "Museums",
   museums: "Museums",
@@ -521,8 +520,11 @@ router.get("/plan", planLogger, (req, respos) => {
         }
       });
 
+      const categ = JSON.parse(req.query.categories);
+
       //Send the points to the plan function
       req.params.points = points;
+      req.params.categories = Object.keys(categ).filter((key) => categ[key]);
       //Converts meters to miles
       // miles = res.data.routes[0].distance * 0.000621371;
 
@@ -716,6 +718,8 @@ function plan2(req, respos) {
     };
   });
 
+  console.log(req.params.categories[0]);
+
   //Iterate through each chunk
   async.eachSeries(
     guevos,
@@ -733,7 +737,7 @@ function plan2(req, respos) {
           client
             .placesNearby({
               params: {
-                keyword: categories[getRndInteger(0, categories.length)], //TODO: Change to user defined categories
+                keyword: req.params.categories[0],
                 location: `${point[0]},${point[1]}`,
                 radius: 50000,
                 key: process.env.GLE_API_KEY,
