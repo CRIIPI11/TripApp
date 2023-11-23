@@ -111,7 +111,7 @@ const TripSettingPage = () => {
               lat: lat,
               lng: lng,
               tripName: tripName,
-              categories: categories,
+              categories: JSON.stringify(categories),
               stopCount: stopCount,
             },
           });
