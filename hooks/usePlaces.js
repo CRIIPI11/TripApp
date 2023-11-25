@@ -49,21 +49,21 @@ export const usePlaces = () => {
     //   }
     // }
     
-    // if (type === "recommended") {
-    //   const places = await axios.get(
-    //     `${process.env.LOCAL_API_URL}places/recommended`,
-    //     {
-    //       params: {
-    //         latitude: par.lat,
-    //         longitude: par.lng,
-    //       },
-    //     }
-    //   );
-    //   if (places.data.status === "success") {
-    //     setPlaces(places.data.data);
-    //     setLoading(false);
-    //   }
-    // }
+    if (type === "recommended") {
+      const places = await axios.get(
+        `${process.env.LOCAL_API_URL}places/recommended`,
+        {
+          params: {
+            latitude: par.lat,
+            longitude: par.lng,
+          },
+        }
+      );
+      if (places.data.status === "success") {
+        setPlaces(places.data.data);
+        setLoading(false);
+      }
+    }
 
     // if (type === "search") {
     //   const places = await axios.get(
