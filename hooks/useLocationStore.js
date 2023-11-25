@@ -24,7 +24,7 @@ export const useLocationStore = () => {
       return;
     }
 
-    const location = await getCurrentPositionAsync();
+    const location = await getCurrentPositionAsync({ timeInterval: 1000 });
     dispatch(
       onLogin({
         location: {

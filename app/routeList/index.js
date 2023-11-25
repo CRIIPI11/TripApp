@@ -6,6 +6,7 @@ import { ListButtons } from "../../components/routeList/listButtons/ListButtons"
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ViewButtons } from "../../components/routeList/viewButtons/ViewButtons";
 
 const DATA = [
   {
@@ -279,6 +280,7 @@ const RouteList = () => {
                 }}
               />
               <List places={places} view={params.view} />
+              <ViewButtons />
             </>
           ) : (
             <>

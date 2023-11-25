@@ -1,7 +1,7 @@
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Text, TouchableOpacity, Alert } from "react-native";
-import { Link, useRouter, useSearchParams } from "expo-router";
+import { Alert } from "react-native";
+import { useRouter, useSearchParams } from "expo-router";
 import MapboxNavigation from "rnc-mapbox-nav";
 import { useLocationStore } from "../../hooks";
 import { useState } from "react";
@@ -26,7 +26,7 @@ const navigation = () => {
             Alert.alert("Cancel", "Navigation Was Canceled", [
               {
                 text: "ok",
-                onPress: () => router.push("tabs/discover/(info)"),
+                onPress: () => router.push("tabs/forum/"),
                 style: "cancel",
               },
             ]);
