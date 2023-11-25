@@ -1,9 +1,8 @@
 import { TouchableOpacity, Text, View } from "react-native";
-import styles from "./listButtons.style";
+import styles from "./viewButtons.style";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-//retrieve places data from local storage to pass first place's location to navigation
 const getStoredPlacesData = async () => {
   try {
     const jsonValue = await AsyncStorage.getItem("places");
@@ -13,22 +12,11 @@ const getStoredPlacesData = async () => {
   }
 };
 
-export const ListButtons = () => {
+export const ViewButtons = () => {
   const router = useRouter();
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => {
-          router.push("tabs/discover/(info)");
-        }}
-        style={styles.buttonContainer}
-      >
-        <Text style={styles.text}>Cancel</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => {}} style={styles.buttonContainer}>
-        <Text style={styles.text}>Save</Text>
-      </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
           //get first place's location from local storage and pass it to navigation
@@ -45,7 +33,10 @@ export const ListButtons = () => {
         }}
         style={styles.buttonContainer}
       >
-        <Text style={styles.text}>Continue</Text>
+        <Text style={styles.text}>Start</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => {}} style={styles.buttonContainer}>
+        <Text style={styles.text}>Delete</Text>
       </TouchableOpacity>
     </View>
   );
