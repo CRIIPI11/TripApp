@@ -25,7 +25,6 @@ const TripSettingPage = () => {
     { name: "Museums", code: "museums" },
     { name: "Architecture", code: "architecture" },
     { name: "Roadside Attractions", code: "roadsideAttractions" },
-    { name: "Food & Drink", code: "foodAndDrink" },
     { name: "Nature", code: "nature" },
     { name: "History", code: "history" },
   ];
@@ -83,7 +82,9 @@ const TripSettingPage = () => {
         <View style={styles.counter}>
           <TouchableOpacity
             onPress={() => {
-              setStopCount(stopCount - 1);
+              if(stopCount > 0){
+                setStopCount(stopCount - 1);
+              }
             }}
           >
             <Image
@@ -94,7 +95,9 @@ const TripSettingPage = () => {
           <Text style={styles.catname}>{stopCount}</Text>
           <TouchableOpacity
             onPress={() => {
-              setStopCount(stopCount + 1);
+              if (stopCount < 20){
+                setStopCount(stopCount + 1);
+              }
             }}
           >
             <Image source={icons.add_circle} style={styles.stopCounterIcons} />
