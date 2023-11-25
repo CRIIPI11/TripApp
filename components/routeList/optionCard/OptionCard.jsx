@@ -9,7 +9,15 @@ const OptionCard = ({ name, img, types, vicinity, delet }) => {
       <Image source={{ uri: img }} style={styles.img} />
       <View style={styles.infoContainer}>
         <Text style={styles.name}>{name}</Text>
-        <Tags tags={types} />
+        <View style={styles.typesContainer}>
+          {types.map((tag, index) => (
+            <View key={index} style={styles.tagItem}>
+              <Text key={index} style={styles.textContainer}>
+                {tag}
+              </Text>
+            </View>
+          ))}
+        </View>
         <Text style={styles.vicinity}>{vicinity}</Text>
         <CardButtons delet={delet} name={name} />
       </View>

@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
   },
-  img: { width: 150, height: 150, resizeMode: "cover" },
+  img: { width: 150, height: "100%", resizeMode: "cover" },
   infoContainer: {
     flex: 1,
     padding: 10,
@@ -25,6 +25,19 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: COLORS.accents1,
     marginBottom: 10,
+  },
+  typesContainer: {
+    flexDirection: "row",
+  },
+  tagItem: {
+    backgroundColor: COLORS.tertiary,
+    borderRadius: 10,
+    padding: 5,
+    margin: 5,
+  },
+  textContainer: {
+    color: COLORS.accents1,
+    fontSize: 12,
   },
 });
 
