@@ -10,13 +10,44 @@ const TripLoader = () => {
   const { lat, lng, tripName, categories, stopCount } = useLocalSearchParams();
   const { places, loading, getPlaces } = useAlgo();
 
-  const storePlacesData = async (placesData) => {
+  const storePlacesData = async (key, placesData) => {
     try {
       const jsonValue = JSON.stringify(placesData);
-      await AsyncStorage.setItem("places", jsonValue);
+      await AsyncStorage.setItem(key, jsonValue);
     } catch (e) {
       console.error("Error storing places data", e);
     }
+  };
+
+  const selectAndSeparatePlaces = (chunks, stopCount) => {
+    let selectedPlaces = [];
+    let remainingPlaces = [];
+    let totalPlaces = 0;
+
+    // Count total places
+    chunks.forEach(chunk => {
+      chunk.places.forEach(place => {
+        totalPlaces += place.guevoPlaces.length;
+      });
+    });
+
+    const interval = Math.max(1, Math.floor(totalPlaces / stopCount));
+
+    let count = 0;
+    chunks.forEach(chunk => {
+      chunk.places.forEach(place => {
+        place.guevoPlaces.forEach(guevoPlace => {
+          if (count % interval === 0 && selectedPlaces.length < stopCount) {
+            selectedPlaces.push(guevoPlace);
+          } else {
+            remainingPlaces.push(guevoPlace);
+          }
+          count++;
+        });
+      });
+    });
+
+    return { selectedPlaces, remainingPlaces };
   };
 
   /*
@@ -24,7 +55,7 @@ const TripLoader = () => {
 
         const getStoredPlacesData = async () => {
             try {
-                const jsonValue = await AsyncStorage.getItem('places');
+                const jsonValue = await AsyncStorage.getItem('places / key name');
                 return jsonValue != null ? JSON.parse(jsonValue) : null;
             } catch (e) {
                 console.error("Error retrieving data", e);
@@ -39,11 +70,31 @@ const TripLoader = () => {
 
   if (!loading) {
     // Run once loading indicator from useAlgo returns false
-    console.log(`Places: ${places[0]?.places[0]?.guevoPlaces[0]?.place}`);
-    storePlacesData(places);
+    const { selectedPlaces, remainingPlaces } = selectAndSeparatePlaces(places, stopCount);
+    storePlacesData("selPlaces", selectedPlaces); // To be obtained on the next screen
+    storePlacesData("remPlaces", remainingPlaces); // List of places that were not selected. places - selPlaces = remPlaces
+
+    /*
+      The following is for debugging purposes only. Keep commented.
+    */
+
+    /*
+    // Use a tool like Beyond Compare if you want to compare the two multi-dimensional arrays 
+    // and see if even/balanced when selecting chunks based on stopCount.
+
+    console.log(`Places (ALL): ${JSON.stringify(places)}`);
+    console.log('---------------------------\n');
+    console.log(`Selected Places (ALL): ${JSON.stringify(selectedPlaces)}`);
+    console.log('--------------------------\n');
+    console.log(`Remaining Places (ALL): ${JSON.stringify(remainingPlaces)}`);
+    // storePlacesData(places); // Keep commented. For debugging only.
+    */
+
+    /*
+      End of debugging code.
+    */
 
     if (places.length > 0) {
-      //console.log(`I have executed. Places: ${JSON.stringify(places)}`);
       router.replace("routeList"); // Do not use 'push' as we do not want the user to go back to this loading screen
     }
   }
