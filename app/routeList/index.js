@@ -234,7 +234,7 @@ const DATA = [
 
 const getStoredPlacesData = async () => {
   try {
-    const jsonValue = await AsyncStorage.getItem("places");
+    const jsonValue = await AsyncStorage.getItem("selPlaces");
     return jsonValue != null ? JSON.parse(jsonValue) : null;
   } catch (e) {
     console.error("Error retrieving data", e);
@@ -249,11 +249,12 @@ const RouteList = () => {
 
   useEffect(() => {
     getStoredPlacesData().then((data) => {
-      setPlaces(data[0]?.places[0]?.guevoPlaces);
+      console.log(`Places in routeList: ${JSON.stringify(data)}`);
+      setPlaces(data);
     });
   }, []);
 
-  console.log(places);
+  console.log(`Places: ${places}`);
 
   return (
     <SafeAreaView>
