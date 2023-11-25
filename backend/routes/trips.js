@@ -14,109 +14,114 @@ Parse.User.enableUnsafeCurrentUser();
 
 //endpoint to create new trip in database
 router.post("/create", (req, res) => {
-    const trip = new Parse.Object("Trips");
-    const user = Parse.User.current();
-    
-    trip.set("User", user);
-    trip.set("tripName", req.body.tripName);
-    trip.set("Destination", req.body.destination); //an object that contains lat and lng
-    trip.set("stopCount", req.body.stopCount);
-    trip.set("stops", req.body.stops);
-    trip.set("categories", req.body.categories);
+  const trip = new Parse.Object("Trips");
+  const user = Parse.User.current();
 
-    trip
-        .save()
-        .then((obj) => {
-            res.json({
-                result: "success",
-                trip: trip.toJSON(),
-            });
-        })
-        .catch((error) => {
-            console.log(error);
-            res.json({
-                result: "failure",
-                message: error,
-            });
-        });
+  trip.set("User", user);
+  trip.set("tripName", req.body.tripName);
+  trip.set("Destination", JSON.parse(req.body.destination)); //an object that contains lat and lng
+  trip.set("stopCount", req.body.stopCount);
+  trip.set("stops", req.body.stops);
+  trip.set("categories", JSON.parse(req.body.categories));
+
+  trip
+    .save()
+    .then((obj) => {
+      res.json({
+        result: "success",
+        trip: trip.toJSON(),
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.json({
+        result: "failure",
+        message: error,
+      });
+    });
 });
 
 //endpoint to get all user trips from database
 router.get("/getTrip", (req, res) => {
-    const query = new Parse.Query("Trips");
-    const user = Parse.User.current();
+  const query = new Parse.Query("Trips");
+  const user = Parse.User.current();
 
-    query.equalTo("User", user);
-    query.find().then((results) => {
-        res.json({
-            result: "success",
-            trips: results.map((trip) => trip.toJSON()),
-        });
+  query.equalTo("User", user);
+  query.find().then((results) => {
+    res.json({
+      result: "success",
+      trips: results.map((trip) => trip.toJSON()),
     });
+  });
 });
 
 //endpoint to get a specific trip from the database
 router.get("/getTrip/:tripId", (req, res) => {
-    const query = new Parse.Query("Trips");
-    const user = Parse.User.current();
+  const query = new Parse.Query("Trips");
+  const user = Parse.User.current();
 
-    query.equalTo("User", user);
-    query.equalTo("objectId", req.params.tripId);
+  query.equalTo("User", user);
+  query.equalTo("objectId", req.params.tripId);
 
-    query.first().then((trip) => {
-        if (trip) {
-            res.json({
-                result: "success",
-                trip: trip.toJSON(),
-            });
-        } else {
-            res.json({
-                result: "failure",
-                message: "Trip not found",
-            });
-        }
-    });
+  query.first().then((trip) => {
+    if (trip) {
+      res.json({
+        result: "success",
+        trip: trip.toJSON(),
+      });
+    } else {
+      res.json({
+        result: "failure",
+        message: "Trip not found",
+      });
+    }
+  });
 });
 
 //endpoint to edit stops from the database
 
 router.put("/update/stops", (req, res) => {
-    const user = Parse.User.current();
-    const query = new Parse.Query("Trips");
+  const user = Parse.User.current();
+  const query = new Parse.Query("Trips");
 
-    query.equalTo("User", user);
-    query.equalTo("objectId", req.body.tripId);
+  query.equalTo("User", user);
+  query.equalTo("objectId", req.body.tripId);
 
-    query.first().then((trip) => {
-        if (trip) {
-            trip.set("stops", req.body.stops);
+  query
+    .first()
+    .then((trip) => {
+      if (trip) {
+        trip.set("stops", req.body.stops);
 
-            trip.save().then((updatedTrip) => {
-                res.json({
-                    result: "success",
-                    trip: updatedTrip.toJSON(),
-                });
-            }).catch((error) => {
-                console.log(error);
-                res.json({
-                    result: "failure",
-                    message: error,
-                });
-            });
-        } else {
+        trip
+          .save()
+          .then((updatedTrip) => {
             res.json({
-                result: "failure",
-                message: "Trip not found",
+              result: "success",
+              trip: updatedTrip.toJSON(),
             });
-        }
-    }).catch((error) => {
-        console.log(error);
+          })
+          .catch((error) => {
+            console.log(error);
+            res.json({
+              result: "failure",
+              message: error,
+            });
+          });
+      } else {
         res.json({
-            result: "failure",
-            message: error,
+          result: "failure",
+          message: "Trip not found",
         });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      res.json({
+        result: "failure",
+        message: error,
+      });
     });
 });
-
 
 module.exports = router;

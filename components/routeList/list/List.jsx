@@ -5,10 +5,17 @@ import { COLORS } from "../../../constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //Store places data in local storage after deleting a place
-const storePlacesData = async (placesData) => {
+const storePlacesData = async (placesData, place) => {
   try {
-    const jsonValue = JSON.stringify(placesData);
-    await AsyncStorage.setItem("places", jsonValue);
+    //update selected places
+    const stringValue = JSON.stringify(placesData);
+    await AsyncStorage.setItem("selPlaces", stringValue);
+    //update remaining places
+    const jsonValue = await AsyncStorage.getItem("remPlaces");
+    const remPlaces = JSON.parse(jsonValue);
+    remPlaces.push(place);
+    const stringValue2 = JSON.stringify(remPlaces);
+    await AsyncStorage.setItem("remPlaces", stringValue2);
   } catch (e) {
     console.error("Error storing places data", e);
   }
@@ -20,7 +27,7 @@ const List = ({ places, view }) => {
   //delete a place from the list
   const deletePlace = (place) => {
     setPlcs(plcs.filter((plc) => plc.place !== place));
-    storePlacesData(plcs.filter((plc) => plc.place !== place));
+    storePlacesData(plcs.filter((plc) => plc.place !== place, place));
   };
 
   return (
@@ -35,6 +42,7 @@ const List = ({ places, view }) => {
             name={item.item.place}
             img={item.item.img.url}
             types={item.item.types}
+            vicinity={item.item.vicinity}
             delet={deletePlace}
           />
         )}

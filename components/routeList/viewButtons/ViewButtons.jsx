@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const getStoredPlacesData = async () => {
   try {
-    const jsonValue = await AsyncStorage.getItem("places");
+    const jsonValue = await AsyncStorage.getItem("selPlaces");
     return jsonValue != null ? JSON.parse(jsonValue) : null;
   } catch (e) {
     console.error("Error retrieving data", e);

@@ -25,8 +25,8 @@ const TripLoader = () => {
     let totalPlaces = 0;
 
     // Count total places
-    chunks.forEach(chunk => {
-      chunk.places.forEach(place => {
+    chunks.forEach((chunk) => {
+      chunk.places.forEach((place) => {
         totalPlaces += place.guevoPlaces.length;
       });
     });
@@ -34,9 +34,9 @@ const TripLoader = () => {
     const interval = Math.max(1, Math.floor(totalPlaces / stopCount));
 
     let count = 0;
-    chunks.forEach(chunk => {
-      chunk.places.forEach(place => {
-        place.guevoPlaces.forEach(guevoPlace => {
+    chunks.forEach((chunk) => {
+      chunk.places.forEach((place) => {
+        place.guevoPlaces.forEach((guevoPlace) => {
           if (count % interval === 0 && selectedPlaces.length < stopCount) {
             selectedPlaces.push(guevoPlace);
           } else {
@@ -70,9 +70,14 @@ const TripLoader = () => {
 
   if (!loading) {
     // Run once loading indicator from useAlgo returns false
-    const { selectedPlaces, remainingPlaces } = selectAndSeparatePlaces(places, stopCount);
+    const { selectedPlaces, remainingPlaces } = selectAndSeparatePlaces(
+      places,
+      stopCount
+    );
     storePlacesData("selPlaces", selectedPlaces); // To be obtained on the next screen
     storePlacesData("remPlaces", remainingPlaces); // List of places that were not selected. places - selPlaces = remPlaces
+    storePlacesData("TripName", tripName);
+    storePlacesData("categories", categories);
 
     /*
       The following is for debugging purposes only. Keep commented.
