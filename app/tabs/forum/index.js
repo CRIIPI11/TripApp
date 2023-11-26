@@ -5,44 +5,27 @@ import TripCard from '../../../components/trips/tripCard';
 import { icons } from '../../../constants';
 import { useState, useEffect } from 'react';
 
-const DATA = [
-  {
-    tripName: 'Trip 1',
-    stopCount: 5,
-    destination: 'New York',
-    coords: {lat: 40.7128, lng: -74.0060},
-  },
-  {
-    tripName: 'Trip 2',
-    stopCount: 3,
-    destination: 'New York',
-    coords: {lat: 40.7128, lng: -74.0060},
-  },
-  {
-    tripName: 'Trip 3',
-    stopCount: 2,
-    destination: 'New York',
-    coords: {lat: 40.7128, lng: -74.0060},
-  },
-  {
-    tripName: 'Trip 4',
-    stopCount: 1,
-    destination: 'New York',
-    coords: {lat: 40.7128, lng: -74.0060},
-  }
-];
-
-
 const ForumPage = () => {
   const TRIPS_URL = `${process.env.LOCAL_API_URL}${process.env.TRIPS_ENDPOINT}`;
   const [userTrips, setUserTrips] = useState([]);
+
+  const storePlacesData = async (key, placesData) => {
+    try {
+      const jsonValue = JSON.stringify(placesData);
+      await AsyncStorage.setItem(key, jsonValue);
+    } catch (e) {
+      console.error("Error storing places data", e);
+    }
+  };
+
+  storePlacesData("userTrips", userTrips);
 
   useEffect(() => {
     const fetchUserTrips = async () => {
       try {
         const response = await fetch(TRIPS_URL, { method: 'GET' });
         const data = await response.json();
-        setUserTrips(data);
+        setUserTrips(data.trips);
       } catch (error) {
         console.error(error);
       }
@@ -51,13 +34,12 @@ const ForumPage = () => {
     fetchUserTrips();
   }, []);
 
-  console.log(userTrips);
-
+  
   return (
     <SafeAreaView>
       <Text style={styles.header}>My Trips</Text>
       <View>
-        <TripCard userTrips={userTrips.trips} />
+        <TripCard userTrips={userTrips} />
       </View>
     </SafeAreaView>
   );
