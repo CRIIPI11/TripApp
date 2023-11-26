@@ -37,7 +37,8 @@ const TripCard = ({ userTrips }) => {
                   tripName: item.tripName,
                   stopCount: item.stopCount,
                   stops: item.stops,
-                  coords: item.coords,
+                  Destination: item.Destination,
+                  objectId: item.objectId,
                 })
               );
               router.push({

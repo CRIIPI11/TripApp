@@ -5,7 +5,6 @@ import TripCard from '../../../components/trips/tripCard';
 import { icons } from '../../../constants';
 import { useState, useEffect } from 'react';
 
-
 const DATA = [
   {
     tripName: 'Trip 1',
@@ -33,36 +32,32 @@ const DATA = [
   }
 ];
 
+
 const ForumPage = () => {
+  const TRIPS_URL = `${process.env.LOCAL_API_URL}${process.env.TRIPS_ENDPOINT}`;
+  const [userTrips, setUserTrips] = useState([]);
 
-  //TODO: Get user Trips from database
-  //not sure about the endpoints just yet 
+  useEffect(() => {
+    const fetchUserTrips = async () => {
+      try {
+        const response = await fetch(TRIPS_URL, { method: 'GET' });
+        const data = await response.json();
+        setUserTrips(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    fetchUserTrips();
+  }, []);
 
-  // const [userTrips, setUserTrips] = useState([]);
-
-  // useEffect(() => {
-  //   // Function to fetch user trips from the database
-  //   const fetchUserTrips = async () => {
-  //     try {
-  //       // Make an API call to the database endpoint to get user trips
-  //       const response = await fetch('DATABASE_ENDPOINT');
-  //       const data = await response.json();
-  //       setUserTrips(data);
-  //     } catch (error) {
-  //       console.error('Error fetching user trips:', error);
-  //     }
-  //   };
-
-  //   // Call the fetchUserTrips function
-  //   fetchUserTrips();
-  // }, []);
-
+  console.log(userTrips);
 
   return (
     <SafeAreaView>
       <Text style={styles.header}>My Trips</Text>
       <View>
-        <TripCard userTrips = {DATA} />
+        <TripCard userTrips={userTrips.trips} />
       </View>
     </SafeAreaView>
   );
