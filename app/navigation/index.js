@@ -1,10 +1,10 @@
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Alert } from "react-native";
+import { Alert, BackHandler } from "react-native";
 import { useRouter, useSearchParams } from "expo-router";
 import MapboxNavigation from "rnc-mapbox-nav";
 import { useLocationStore } from "../../hooks";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const navigation = () => {
   const { lat, lng } = useSearchParams();
@@ -12,6 +12,27 @@ const navigation = () => {
   const [start, setStart] = useState(true);
   console.log(lat, lng, location.location.lat, location.location.lng);
   const router = useRouter();
+
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert("Cancel", "Navigation Was Canceled", [
+        {
+          text: "ok",
+          onPress: () => router.push("tabs/forum/"),
+          style: "cancel",
+        },
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       {start && (
@@ -26,7 +47,7 @@ const navigation = () => {
             Alert.alert("Cancel", "Navigation Was Canceled", [
               {
                 text: "ok",
-                onPress: () => router.push("tabs/forum/"),
+                onPress: () => router.push("tabs/map/"),
                 style: "cancel",
               },
             ]);

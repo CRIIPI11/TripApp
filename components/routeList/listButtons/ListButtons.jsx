@@ -3,7 +3,8 @@ import styles from "./listButtons.style";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-
+import { useActiveTripStore } from "../../../hooks/useActiveTripStore";
+import { Alert } from "react-native";
 //retrieve places data from local storage to pass first place's location to navigation
 const getStoredPlacesData = async () => {
   try {
@@ -24,6 +25,7 @@ const getStoredPlacesData = async () => {
 
 export const ListButtons = () => {
   const router = useRouter();
+  const { ActivateTrip } = useActiveTripStore();
 
   return (
     <View style={styles.container}>
@@ -50,6 +52,7 @@ export const ListButtons = () => {
               })
               .then(function (response) {
                 console.log(response.status);
+                Alert.alert("Trip Successfully Saved");
                 router.push("tabs/forum/");
               })
               .catch(function (error) {
@@ -66,6 +69,7 @@ export const ListButtons = () => {
           //get first place's location from local storage and pass it to navigation
           getStoredPlacesData().then((data) => {
             console.log(data);
+            ActivateTrip({ places: data.returnPlaces, name: data.returnName });
             router.push({
               pathname: "/navigation/",
               params: {

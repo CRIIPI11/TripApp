@@ -3,11 +3,11 @@ import { COLORS } from "../../constants";
 
 const styles = StyleSheet.create({
   mapContainer: {
-    height: "100%",
-    width: "100%",
+    flex: 1,
   },
   map: {
-    flex: 1,
+    height: "88%",
+    width: "100%",
   },
   navContainer: {
     position: "absolute",
