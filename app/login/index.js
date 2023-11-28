@@ -23,8 +23,8 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async () => {
-    const LOGIN_ENDPOINT = `${process.env.LOCAL_API_URL}${process.env.LOGIN_ENDPOINT}`; // TODO: Change to depend on environment
-
+    const LOGIN_ENDPOINT = `http://10.203.248.13:1337/${process.env.LOGIN_ENDPOINT}`; // TODO: Change to depend on environment
+    console.log(LOGIN_ENDPOINT);
     setIsLoading(true);
 
     const lowerEmail = email.toLowerCase();

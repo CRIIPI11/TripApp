@@ -9,7 +9,8 @@ export const useAlgo = () => {
 
   const callPlaces = async (destLat, destLng, categories) => {
     console.log("Algorithm Use");
-    const places = await axios.get(`${process.env.LOCAL_API_URL}places/plan`, {
+
+    const places = await axios.get(`http://10.203.248.13:1337/places/plan`, {
       params: {
         originLatitude: location?.location?.lat,
         originLongitude: location?.location?.lng,

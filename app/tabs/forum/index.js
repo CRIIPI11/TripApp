@@ -1,12 +1,13 @@
-import React from 'react';
-import { SafeAreaView } from 'react-native';
-import { View, Text, StyleSheet } from 'react-native';
-import TripCard from '../../../components/trips/tripCard';
-import { icons } from '../../../constants';
-import { useState, useEffect } from 'react';
+import React from "react";
+import { SafeAreaView } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import TripCard from "../../../components/trips/tripCard";
+import { icons } from "../../../constants";
+import { useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ForumPage = () => {
-  const TRIPS_URL = `${process.env.LOCAL_API_URL}${process.env.TRIPS_ENDPOINT}`;
+  const TRIPS_URL = `http://10.203.248.13:1337/Trips/getTrip`;
   const [userTrips, setUserTrips] = useState([]);
 
   const storePlacesData = async (key, placesData) => {
@@ -23,18 +24,17 @@ const ForumPage = () => {
   useEffect(() => {
     const fetchUserTrips = async () => {
       try {
-        const response = await fetch(TRIPS_URL, { method: 'GET' });
+        const response = await fetch(TRIPS_URL, { method: "GET" });
         const data = await response.json();
         setUserTrips(data.trips);
       } catch (error) {
         console.error(error);
       }
     };
-  
+
     fetchUserTrips();
   }, []);
 
-  
   return (
     <SafeAreaView>
       <Text style={styles.header}>My Trips</Text>
@@ -45,21 +45,18 @@ const ForumPage = () => {
   );
 };
 
-
 //gonna clean up the styling later, need to set the functionality up first
 const styles = StyleSheet.create({
-  header:{
-    textAlign: 'center',
+  header: {
+    textAlign: "center",
     fontSize: 30,
-    fontWeight: 'bold',
-    color: '#fff',
-    backgroundColor: '#000',
+    fontWeight: "bold",
+    color: "#fff",
+    backgroundColor: "#000",
     marginTop: 20,
     padding: 20,
     marginBottom: 10,
-  }
-
-
+  },
 });
 
 export default ForumPage;

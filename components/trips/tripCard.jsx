@@ -4,20 +4,25 @@ import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
 import { setInfo } from "../../redux/infoSlice";
 import { useDispatch } from "react-redux";
+import axios from "axios";
 
 const TripCard = ({ userTrips }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  //TODO: need to call for user info to get the user's trips
-
-  const handlePress = () => {
-    console.log("Trip card pressed!");
-    console.log(dest);
-
-    //TODO: Add logic to navigate to the trip info page
-
-    //router.push('/tripInfo', { dest: dest });
+  const fetchUserTrips = async (id) => {
+    try {
+      const response = await fetch(
+        `http://10.203.248.13:1337/Trips/getTrip/${id}`,
+        {
+          method: "GET",
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -32,19 +37,8 @@ const TripCard = ({ userTrips }) => {
             activeOpacity={1}
             onPress={() => {
               //TODO: Get info from DB and send it to cache
-              dispatch(
-                setInfo({
-                  tripName: item.tripName,
-                  stopCount: item.stopCount,
-                  stops: item.stops,
-                  Destination: item.Destination,
-                  objectId: item.objectId,
-                })
-              );
-              router.push({
-                pathname: `/routeList/`,
-                params: { view: true },
-              }); //TODO: need to make the trip info page
+              fetchUserTrips(item.objectId);
+              //TODO: need to make the trip info page
             }}
           >
             <Text style={styles.title}>{item.tripName}</Text>

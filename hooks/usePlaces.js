@@ -23,7 +23,7 @@ export const usePlaces = () => {
   const callPlaces = async (type, par) => {
     if (type === "popular") {
       const places = await axios.get(
-        `${process.env.LOCAL_API_URL}places/popular`
+        `http://10.203.248.13:1337/places/popular`
       );
       if (places.data.status === "success") {
         setPlaces(places.data.data);
@@ -34,7 +34,7 @@ export const usePlaces = () => {
     // if (type === "location") {
     //   console.log("location", location, filter);
     //   const places = await axios.get(
-    //     `${process.env.LOCAL_API_URL}places/location`,
+    //     `http://10.203.248.13:1337/places/location`,
     //     {
     //       params: {
     //         latitude: location?.location?.lat,
@@ -48,10 +48,10 @@ export const usePlaces = () => {
     //     setLoading(false);
     //   }
     // }
-    
+
     if (type === "recommended") {
       const places = await axios.get(
-        `${process.env.LOCAL_API_URL}places/recommended`,
+        `http://10.203.248.13:1337/places/recommended`,
         {
           params: {
             latitude: par.lat,
@@ -67,7 +67,7 @@ export const usePlaces = () => {
 
     // if (type === "search") {
     //   const places = await axios.get(
-    //     `${process.env.LOCAL_API_URL}places/search`,
+    //     `http://10.203.248.13:1337/places/search`,
     //     {
     //       params: {
     //         text: par,
