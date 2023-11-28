@@ -1,25 +1,12 @@
-import React from "react";
-import { SafeAreaView } from "react-native";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import TripCard from "../../../components/trips/tripCard";
-import { icons } from "../../../constants";
 import { useState, useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const ForumPage = () => {
-  const TRIPS_URL = `http://10.203.248.13:1337/Trips/getTrip`;
+  const TRIPS_URL = `${process.env.LOCAL_API_URL}Trips/getTrip`;
   const [userTrips, setUserTrips] = useState([]);
-
-  const storePlacesData = async (key, placesData) => {
-    try {
-      const jsonValue = JSON.stringify(placesData);
-      await AsyncStorage.setItem(key, jsonValue);
-    } catch (e) {
-      console.error("Error storing places data", e);
-    }
-  };
-
-  storePlacesData("userTrips", userTrips);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserTrips = async () => {
@@ -27,6 +14,7 @@ const ForumPage = () => {
         const response = await fetch(TRIPS_URL, { method: "GET" });
         const data = await response.json();
         setUserTrips(data.trips);
+        setLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -39,7 +27,11 @@ const ForumPage = () => {
     <SafeAreaView>
       <Text style={styles.header}>My Trips</Text>
       <View>
-        <TripCard userTrips={userTrips} />
+        {loading ? (
+          <ActivityIndicator size="large" color="#0000ff" />
+        ) : (
+          <TripCard userTrips={userTrips} />
+        )}
       </View>
     </SafeAreaView>
   );
