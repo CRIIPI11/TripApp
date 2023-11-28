@@ -1,74 +1,47 @@
-import { View, Text, Image } from "react-native";
-// import {
-//   Camera,
-//   MapView,
-//   MarkerView,
-//   PointAnnotation,
-//   UserLocation,
-// } from "@rnmapbox/maps";
-// import Mapbox from "@rnmapbox/maps";
+import { View } from "react-native";
 import { useLocationStore } from "../../hooks";
-import { TouchableOpacity } from "react-native";
-import { useRef, useState } from "react";
-import { icons } from "../../constants";
+import { useRef } from "react";
 import styles from "./map.styles";
-import PermissionDenied from "../common/permissionModal/PermissionDenied";
-
-// Mapbox.setAccessToken(process.env.mapbox_pk);
+//---
+import MapView from "react-native-maps";
+import { Marker } from "react-native-maps";
+import { PROVIDER_GOOGLE } from "react-native-maps/lib/ProviderConstants";
+import { useActiveTripStore } from "../../hooks/useActiveTripStore";
 
 const Map = () => {
   const { location } = useLocationStore();
-  const [alert, setAlert] = useState(false);
+  const { trip } = useActiveTripStore();
 
-  // const camRef = useRef(null);
-
-  // const centerCamera = () => {
-  //   location.permission === "granted"
-  //     ? camRef.current.setCamera({
-  //         centerCoordinate: [
-  //           location?.location?.lng,
-  //           location?.location?.lat - 0.02,
-  //         ],
-  //         zoomLevel: 12,
-  //         animationDuration: 2000,
-  //       })
-  //     : setAlert(true);
-  // };
+  const camRef = useRef(null);
 
   return (
-    <View style={styles.mapContainer}>
-      {/* <Mapbox.MapView
+    <View>
+      <MapView
+        ref={camRef}
         style={styles.map}
-        preferredFramesPerSecond={60}
+        provider={PROVIDER_GOOGLE}
+        region={{
+          latitude: location.location.lat,
+          longitude: location.location.lng,
+          latitudeDelta: 1.5922,
+          longitudeDelta: 0.0821,
+        }}
+        showsUserLocation={true}
+        followsUserLocation={true}
         rotateEnabled={false}
-        pitchEnabled={false}
-        scrollEnabled={!alert}
-        zoomEnabled={!alert}
-        styleURL="mapbox://styles/criipi11/clmwhuawa05wa01qb87amba3x"
-        scaleBarEnabled={false}
-        onMapIdle={(e) => {}}
       >
-        {location.permission === "granted" && (
-          <>
-            <UserLocation />
-            <Camera
-              ref={camRef}
-              zoomLevel={10}
-              centerCoordinate={[
-                location?.location?.lng,
-                location?.location?.lat,
-              ]}
-            />
-          </>
-        )}
-      </Mapbox.MapView>
-      {!alert && (
-        <TouchableOpacity onPress={centerCamera} style={styles.navContainer}>
-          <Image source={icons.navigationfill} style={styles.nav}></Image>
-        </TouchableOpacity>
-      )}
-      {alert && <PermissionDenied onPress={setAlert} />} */}
-      <Text>Map</Text>
+        {trip.places.map((place, index) => (
+          <Marker
+            key={index}
+            coordinate={{
+              latitude: place.location.lat,
+              longitude: place.location.lng,
+            }}
+            title={place.name}
+            description={place.address}
+          ></Marker>
+        ))}
+      </MapView>
     </View>
   );
 };

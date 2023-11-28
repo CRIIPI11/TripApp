@@ -2,6 +2,7 @@ import { TouchableOpacity, Text, View } from "react-native";
 import styles from "./viewButtons.style";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useActiveTripStore } from "../../../hooks/useActiveTripStore";
 
 const getStoredPlacesData = async () => {
   try {
@@ -14,6 +15,7 @@ const getStoredPlacesData = async () => {
 
 export const ViewButtons = () => {
   const router = useRouter();
+  const { ActivateTrip } = useActiveTripStore();
 
   return (
     <View style={styles.container}>
@@ -22,6 +24,7 @@ export const ViewButtons = () => {
           //get first place's location from local storage and pass it to navigation
           getStoredPlacesData().then((data) => {
             console.log(data);
+            ActivateTrip({ places: data, name: "test" });
             router.push({
               pathname: "/navigation/",
               params: {
