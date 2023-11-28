@@ -90,6 +90,7 @@ router.put("/update/stops", (req, res) => {
     .then((trip) => {
       if (trip) {
         trip.set("stops", req.body.stops);
+        trip.set("stopCount", req.body.stopCount);
 
         trip
           .save()

@@ -33,7 +33,7 @@ const Results = (props) => {
                     location: item.item.location,
                   })
                 );
-                router.push(`discover/(info)/${item.item.place}`);
+                router.push(`../${item.item.place}`);
               }}
             >
               <View style={styles.cardContainer}>
@@ -67,7 +67,7 @@ const Results = (props) => {
         indicatorStyle={"black"}
       />
     </View>
-    );
+  );
 };
 
 export default Results;

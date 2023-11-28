@@ -29,9 +29,9 @@ const Options = ({ location }) => {
       >
         <Text style={styles.optionText}>Visit</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => {}} style={styles.buttonContainer}>
+      {/* <TouchableOpacity onPress={() => {}} style={styles.buttonContainer}>
         <Text style={styles.optionText}>Save</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

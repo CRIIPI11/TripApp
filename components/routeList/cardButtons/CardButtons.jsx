@@ -12,9 +12,6 @@ const CardButtons = ({ delet, name }) => {
       >
         <Text style={styles.text}>Remove</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => {}} style={styles.buttonContainer}>
-        <Text style={styles.text}>View</Text>
-      </TouchableOpacity>
     </View>
   );
 };

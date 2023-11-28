@@ -4,7 +4,7 @@ import { COLORS } from "../../../constants";
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
     marginHorizontal: 50,
     marginTop: 20,
   },

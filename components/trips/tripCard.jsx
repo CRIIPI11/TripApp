@@ -27,6 +27,7 @@ const TripCard = ({ userTrips }) => {
       console.log(data.trip.stops);
       await storePlacesData("selPlaces", data.trip.stops);
       await storePlacesData("TripName", data.trip.tripName);
+      await storePlacesData("TripId", id);
       router.push({ pathname: "/routeList/", params: { view: true } });
     } catch (error) {
       console.error(error);
