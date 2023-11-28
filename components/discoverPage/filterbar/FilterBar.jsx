@@ -33,11 +33,6 @@ const DATA = [
     icon: icons.sign,
   },
   {
-    id: "restaurant",
-    title: "Food & Drink",
-    icon: icons.fork,
-  },
-  {
     id: "park",
     title: "Nature",
     icon: icons.nature,
