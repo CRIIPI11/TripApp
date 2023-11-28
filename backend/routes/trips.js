@@ -48,6 +48,7 @@ router.get("/getTrip", (req, res) => {
 
   query.equalTo("User", user);
   query.find().then((results) => {
+    console.log(results);
     res.json({
       result: "success",
       trips: results.map((trip) => trip.toJSON()),
@@ -58,9 +59,6 @@ router.get("/getTrip", (req, res) => {
 //endpoint to get a specific trip from the database
 router.get("/getTrip/:tripId", (req, res) => {
   const query = new Parse.Query("Trips");
-  const user = Parse.User.current();
-
-  query.equalTo("User", user);
   query.equalTo("objectId", req.params.tripId);
 
   query.first().then((trip) => {

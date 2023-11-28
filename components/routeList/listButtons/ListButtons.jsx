@@ -39,7 +39,7 @@ export const ListButtons = () => {
         onPress={() => {
           getStoredPlacesData().then((data) => {
             axios
-              .post(`${process.env.LOCAL_API_URL}Trips/create`, {
+              .post(`http://10.203.248.13:1337/Trips/create`, {
                 tripName: data.returnName,
                 destination: JSON.stringify(
                   data.returnPlaces[data.returnPlaces.length - 1].location

@@ -9,6 +9,7 @@ export const useAlgo = () => {
 
   const callPlaces = async (destLat, destLng, categories) => {
     console.log("Algorithm Use");
+
     const places = await axios.get(`${process.env.LOCAL_API_URL}places/plan`, {
       params: {
         originLatitude: location?.location?.lat,

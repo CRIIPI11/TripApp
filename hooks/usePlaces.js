@@ -48,7 +48,7 @@ export const usePlaces = () => {
     //     setLoading(false);
     //   }
     // }
-    
+
     if (type === "recommended") {
       const places = await axios.get(
         `${process.env.LOCAL_API_URL}places/recommended`,
