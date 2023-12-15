@@ -5,15 +5,14 @@ import { useRouter } from "expo-router";
 import { images } from "../../../constants";
 import styles from "./results.style";
 
-const Results = (props) => {
+const Results = ({ places }) => {
   const dispatch = useDispatch();
   const router = useRouter();
-  // console.log("props: ", props.img);
 
   return (
     <View style={styles.cardsConatiner}>
       <FlatList
-        data={props.places}
+        data={places}
         horizontal={false}
         renderItem={(item) => {
           return (

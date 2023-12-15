@@ -2,16 +2,14 @@ import {
   Text,
   View,
   Dimensions,
-  Platform,
   StyleSheet,
   ActivityIndicator,
 } from "react-native";
 import { Stack, useRouter, useSearchParams } from "expo-router";
-import { COLORS, FONT, icons, SIZES } from "../../../../../constants";
+import { COLORS, FONT, icons } from "../../../../../constants";
 import ScreenHeaderBtn from "../../../../../components/common/stackheader/ScreenHeaderBtn";
 import Recomended from "../../../../../components/infoPage/recomended/Recomended";
 import Results from "../../../../../components/infoPage/results/Results";
-import SearchBar from "../../../../../components/common/searchBar/SearchBar";
 import { usePlaces } from "../../../../../hooks";
 import { useLocationStore } from "../../../../../hooks/useLocationStore";
 import { useEffect, useState } from "react";
@@ -25,7 +23,6 @@ const SearchResult = () => {
   const { places, loading, getPlaces } = usePlaces();
   var noResult = false;
 
-  console.log("user coordinates: ", userLocation.location.location);
   useEffect(() => {
     getPlaces("search", params.id);
     const timer = setTimeout(() => {
@@ -42,7 +39,7 @@ const SearchResult = () => {
     <View
       style={{
         alignSelf: "center",
-        width: Platform.OS === "web" ? width * 0.6 : width,
+        width: width,
       }}
     >
       <Stack.Screen
@@ -59,7 +56,6 @@ const SearchResult = () => {
           headerTitle: "",
         }}
       />
-      {Platform.OS === "web" && <SearchBar />}
       {loading && !timerFinished ? (
         <ActivityIndicator size="large" color="#00ff00" />
       ) : (
@@ -71,7 +67,7 @@ const SearchResult = () => {
               </View>
               <View style={styles.bottomContainer}>
                 <Recomended
-                  places={places[0].location}
+                  placeLocation={places[0].location}
                   name={places[0].place}
                 />
               </View>
@@ -92,7 +88,7 @@ const SearchResult = () => {
               </View>
               <View style={styles.bottomContainer}>
                 <Recomended
-                  places={userLocation.location.location}
+                  placeLocation={userLocation.location.location}
                   name={"null"}
                 />
               </View>

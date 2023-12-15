@@ -2,6 +2,7 @@ import React from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 import styles from "./options.style";
 import { useRouter } from "expo-router";
+
 const Options = ({ location }) => {
   const router = useRouter();
 

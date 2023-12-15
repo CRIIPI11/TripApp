@@ -14,18 +14,18 @@ import { useRouter } from "expo-router";
 import { images } from "../../../constants";
 import styles from "./recomended.style";
 
-const Recomended = (props) => {
+const Recomended = ({ placeLocation, name }) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
   const { places, loading, getPlaces } = usePlaces();
   useEffect(() => {
-    getPlaces("recommended", props.places);
+    getPlaces("recommended", placeLocation);
   }, []);
 
-  //TODO: add logic that does not show the current location being looked at in the recomended places
+  //logic that does not show the current location being looked at in the recomended places
   const recommendedPlaces = places.filter((place) => {
-    return place.place !== props.name;
+    return place.place !== name;
   });
 
   return (
@@ -55,7 +55,7 @@ const Recomended = (props) => {
                         location: item.item.location,
                       })
                     );
-                    router.replace(`tabs/discover/(info)/${props.name}`);
+                    router.replace(`tabs/discover/(info)/${name}`);
                   }}
                 >
                   <View style={styles.cardContainer}>
@@ -70,8 +70,7 @@ const Recomended = (props) => {
                         style={styles.image}
                       ></Image>
                     )}
-
-                    <View style={{}}>
+                    <View>
                       <Text style={styles.nameText} numberOfLines={1}>
                         {item.item.place}
                       </Text>

@@ -1,6 +1,5 @@
 import { Text, Image, View } from "react-native";
 import styles from "./optionCard.style";
-import Tags from "../../infoPage/tags/tags";
 import CardButtons from "../cardButtons/CardButtons";
 
 const OptionCard = ({ name, img, types, vicinity, delet }) => {

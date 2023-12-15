@@ -28,7 +28,6 @@ export const ViewButtons = () => {
         onPress={() => {
           //get first place's location from local storage and pass it to navigation
           getStoredPlacesData().then((data) => {
-            console.log(data);
             ActivateTrip({ places: data.returnPlaces, name: data.returnName });
             router.push({
               pathname: "/navigation/",

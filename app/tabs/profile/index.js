@@ -1,5 +1,5 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ScrollView, View, Text } from "react-native";
+import { ScrollView } from "react-native";
 import {
   ProfileHeader,
   SettingsCard,

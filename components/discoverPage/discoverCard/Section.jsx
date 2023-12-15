@@ -17,15 +17,7 @@ import { useEffect } from "react";
 
 const { width } = Dimensions.get("screen");
 
-export const SubCard = ({
-  name,
-  desc,
-  img,
-  rating,
-  types,
-  location,
-  vicinity,
-}) => {
+const SubCard = ({ name, desc, img, rating, types, location, vicinity }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -72,19 +64,19 @@ export const SubCard = ({
   );
 };
 
-const Section = (props) => {
+const Section = ({ id, title, permission }) => {
   const { places, loading, getPlaces } = usePlaces();
   const filter = useSelector((state) => state.filter.filter);
 
   useEffect(() => {
-    getPlaces(props.id);
-  }, [props.id === "location" ? filter : null]);
+    getPlaces(id);
+  }, [id === "location" ? filter : null]);
 
   return (
     <View style={styles.cardContainer}>
-      <Text style={styles.titletext}>{props.title}</Text>
+      <Text style={styles.titletext}>{title}</Text>
       <View style={styles.subCardsCont}>
-        {props.permission && props.permission !== "granted" ? (
+        {permission && permission !== "granted" ? (
           <View style={styles.errorConatainer}>
             <Text style={styles.errortexttitle}>
               Please Allow Location Permission

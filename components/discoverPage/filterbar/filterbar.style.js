@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS, SIZES, SHADOWS } from "../../../constants";
+import { COLORS, SIZES } from "../../../constants";
 
 const styles = StyleSheet.create({
   barContainer: {
@@ -25,24 +25,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const stylesWeb = StyleSheet.create({
-  barContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    backgroundColor: COLORS.accents8,
-    margin: SIZES.medium,
-    flexWrap: "wrap",
-    height: 60,
-    ...SHADOWS.bar,
-  },
-  itemWrapper: {
-    marginEnd: SIZES.xxLarge,
-    padding: SIZES.xSmall,
-  },
-  icon: {
-    width: 40,
-    height: 40,
-  },
-});
-
-export { styles, stylesWeb };
+export { styles };

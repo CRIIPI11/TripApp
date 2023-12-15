@@ -3,7 +3,7 @@ import TripCard from "../../../components/trips/tripCard";
 import { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const ForumPage = () => {
+const SavedTripsPage = () => {
   const TRIPS_URL = `${process.env.LOCAL_API_URL}Trips/getTrip`;
   const [userTrips, setUserTrips] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ForumPage;
+export default SavedTripsPage;

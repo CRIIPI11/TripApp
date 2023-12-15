@@ -2,7 +2,7 @@ import { View, TextInput, Image } from "react-native";
 import styles from "./searchBar.style";
 import { COLORS, icons } from "../../../constants";
 
-const SearchBar = (props) => {
+const SearchBar = ({ search, onChange, onclick }) => {
   return (
     <View style={styles.searchContainer}>
       <View style={styles.searchWrapper}>
@@ -12,12 +12,12 @@ const SearchBar = (props) => {
           placeholderTextColor={COLORS.accents6}
           clearButtonMode="always"
           style={styles.searchInput}
-          value={props.search}
+          value={search}
           onChange={(text) => {
-            props.onchange(text.nativeEvent.text);
+            onChange(text.nativeEvent.text);
           }}
           onSubmitEditing={() => {
-            props.onclick();
+            onclick();
           }}
         />
       </View>

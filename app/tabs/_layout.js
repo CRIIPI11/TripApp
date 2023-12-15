@@ -1,7 +1,6 @@
-import { Image } from "react-native";
+import { Image, StyleSheet } from "react-native";
 import { Tabs } from "expo-router";
-import style from "../../components/common/navBar/navBar.style";
-import { COLORS, icons } from "../../constants";
+import { COLORS, icons, SIZES } from "../../constants";
 
 export default function Layout() {
   return (
@@ -23,11 +22,7 @@ export default function Layout() {
               style={style.tabIcon(size)}
             />
           ),
-          // tabBarIconStyle: { color: "red" },
           tabBarActiveTintColor: "#8e0387",
-          // tabBarInactiveTintColor: "green",
-          // tabBarActiveBackgroundColor: "accents6",
-          // tabBarInactiveBackgroundColor: "#fb7061",
         }}
       />
       <Tabs.Screen
@@ -45,12 +40,12 @@ export default function Layout() {
         }}
       />
       <Tabs.Screen
-        name="forum"
+        name="savedTrips"
         options={{
           title: "Trips",
           tabBarIcon: ({ focused, color, size }) => (
             <Image
-              source={focused ? icons.forumFocused : icons.forum}
+              source={focused ? icons.forumFocused : icons.savedTrips}
               resize="cover"
               style={style.tabIcon(size)}
             />
@@ -75,3 +70,11 @@ export default function Layout() {
     </Tabs>
   );
 }
+
+const style = StyleSheet.create({
+  tabIcon: (dimension) => ({
+    width: dimension,
+    height: dimension,
+    borderRadius: SIZES.small / 1.25,
+  }),
+});

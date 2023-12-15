@@ -17,7 +17,7 @@ const Home = () => {
       <Stack.Screen options={{ headerShown: false }} />
       <View style={{ padding: 12 }}>
         <SearchBar
-          onchange={setSearchInput}
+          onChange={setSearchInput}
           search={searchInput}
           onclick={() => {
             if (searchInput) {

@@ -13,10 +13,8 @@ const getStoredPlacesData = async () => {
     const jsonCategroies = await AsyncStorage.getItem("categories");
     const returnPlaces = jsonPlaces != null ? JSON.parse(jsonPlaces) : null;
     const returnName = jsonNames != null ? JSON.parse(jsonNames) : null;
-    // console.log("sin", jsonCategroies, "con", jsonCategroies.replace(/"/, ""));
     const returnCategories =
       jsonCategroies != null ? JSON.parse(jsonCategroies) : null;
-    console.log("buttons: ", returnName, returnCategories);
     return { returnPlaces, returnName, returnCategories };
   } catch (e) {
     console.error("Error retrieving data", e);
@@ -53,7 +51,7 @@ export const ListButtons = () => {
               .then(function (response) {
                 console.log(response.status);
                 Alert.alert("Trip Successfully Saved");
-                router.push("tabs/forum/");
+                router.push("tabs/savedTrips/");
               })
               .catch(function (error) {
                 console.log(error);
@@ -68,7 +66,6 @@ export const ListButtons = () => {
         onPress={() => {
           //get first place's location from local storage and pass it to navigation
           getStoredPlacesData().then((data) => {
-            console.log(data);
             ActivateTrip({ places: data.returnPlaces, name: data.returnName });
             router.push({
               pathname: "/navigation/",

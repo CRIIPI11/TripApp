@@ -1,7 +1,5 @@
-import { Text, View } from "react-native";
-
+import { View } from "react-native";
 import { styles } from "./discoversection.style";
-
 import Section from "../discoverCard/Section";
 import { useLocationStore } from "../../../hooks";
 
@@ -17,11 +15,6 @@ const DiscoverSection = () => {
         permission={location.permission}
       />
       <Section key={"popular"} id={"popular"} title={"Top Destinations"} />
-      {/* <Section
-        key={"Based on Previous Places"}
-        title={"Based on Previous Places"}
-        places={DATA3}
-      /> */}
     </View>
   );
 };
