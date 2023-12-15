@@ -31,23 +31,23 @@ export const usePlaces = () => {
       }
     }
 
-    if (type === "location") {
-      console.log("location", location, filter);
-      const places = await axios.get(
-        `${process.env.LOCAL_API_URL}places/location`,
-        {
-          params: {
-            latitude: location?.location?.lat,
-            longitude: location?.location?.lng,
-            filter: filter,
-          },
-        }
-      );
-      if (places.data.status === "success") {
-        setPlaces(places.data.data);
-        setLoading(false);
-      }
-    }
+    // if (type === "location") {
+    //   console.log("location", location, filter);
+    //   const places = await axios.get(
+    //     `${process.env.LOCAL_API_URL}places/location`,
+    //     {
+    //       params: {
+    //         latitude: location?.location?.lat,
+    //         longitude: location?.location?.lng,
+    //         filter: filter,
+    //       },
+    //     }
+    //   );
+    //   if (places.data.status === "success") {
+    //     setPlaces(places.data.data);
+    //     setLoading(false);
+    //   }
+    // }
 
     if (type === "recommended") {
       const places = await axios.get(
@@ -65,20 +65,20 @@ export const usePlaces = () => {
       }
     }
 
-    if (type === "search") {
-      const places = await axios.get(
-        `${process.env.LOCAL_API_URL}places/search`,
-        {
-          params: {
-            text: par,
-          },
-        }
-      );
-      if (places.data.status === "success") {
-        setPlaces(places.data.data);
-        setLoading(false);
-      }
-    }
+    // if (type === "search") {
+    //   const places = await axios.get(
+    //     `${process.env.LOCAL_API_URL}places/search`,
+    //     {
+    //       params: {
+    //         text: par,
+    //       },
+    //     }
+    //   );
+    //   if (places.data.status === "success") {
+    //     setPlaces(places.data.data);
+    //     setLoading(false);
+    //   }
+    // }
   };
 
   const getPlaces = async (type, par) => {
