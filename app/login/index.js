@@ -24,7 +24,6 @@ const Login = () => {
 
   const handleLogin = async () => {
     const LOGIN_ENDPOINT = `${process.env.LOCAL_API_URL}${process.env.LOGIN_ENDPOINT}`; // TODO: Change to depend on environment
-    console.log(LOGIN_ENDPOINT);
     setIsLoading(true);
 
     const lowerEmail = email.toLowerCase();

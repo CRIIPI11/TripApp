@@ -10,7 +10,6 @@ const navigation = () => {
   const { lat, lng } = useSearchParams();
   const { location } = useLocationStore();
   const [start, setStart] = useState(true);
-  console.log(lat, lng, location.location.lat, location.location.lng);
   const router = useRouter();
 
   useEffect(() => {
@@ -18,7 +17,7 @@ const navigation = () => {
       Alert.alert("Cancel", "Navigation Was Canceled", [
         {
           text: "ok",
-          onPress: () => router.push("tabs/forum/"),
+          onPress: () => router.push("tabs/savedTrips/"),
           style: "cancel",
         },
       ]);

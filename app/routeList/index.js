@@ -246,16 +246,12 @@ const RouteList = () => {
   const params = useLocalSearchParams();
   const router = useRouter();
   const [places, setPlaces] = useState(undefined);
-  console.log(params);
 
   useEffect(() => {
     getStoredPlacesData().then((data) => {
-      console.log(`Places in routeList: ${JSON.stringify(data)}`);
       setPlaces(data);
     });
   }, []);
-
-  console.log(`Places: ${places}`);
 
   return (
     <SafeAreaView>
@@ -268,7 +264,7 @@ const RouteList = () => {
                   headerLeft: () => (
                     <TouchableOpacity
                       onPress={() => {
-                        router.replace("tabs/forum");
+                        router.replace("tabs/savedTrips");
                       }}
                       style={styles.buttonContainer}
                     >

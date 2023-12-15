@@ -1,11 +1,4 @@
-import {
-  Text,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  View,
-} from "react-native";
+import { Text, StyleSheet, TouchableOpacity, Image, View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -82,7 +75,7 @@ const TripSettingPage = () => {
         <View style={styles.counter}>
           <TouchableOpacity
             onPress={() => {
-              if(stopCount > 0){
+              if (stopCount > 0) {
                 setStopCount(stopCount - 1);
               }
             }}
@@ -95,7 +88,7 @@ const TripSettingPage = () => {
           <Text style={styles.catname}>{stopCount}</Text>
           <TouchableOpacity
             onPress={() => {
-              if (stopCount < 20){
+              if (stopCount < 20) {
                 setStopCount(stopCount + 1);
               }
             }}
@@ -107,7 +100,6 @@ const TripSettingPage = () => {
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          console.log(categories);
           router.push({
             pathname: "../../../setup/tripSetup",
             params: {

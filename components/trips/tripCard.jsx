@@ -24,7 +24,6 @@ const TripCard = ({ userTrips }) => {
         }
       );
       const data = await response.json();
-      console.log(data.trip.stops);
       await storePlacesData("selPlaces", data.trip.stops);
       await storePlacesData("TripName", data.trip.tripName);
       await storePlacesData("TripId", id);

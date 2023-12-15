@@ -13,7 +13,6 @@ import Cover from "../../../../components/infoPage/cover/Cover";
 import { useSelector } from "react-redux";
 import Options from "../../../../components/infoPage/options/Options";
 import Recomended from "../../../../components/infoPage/recomended/Recomended";
-import SearchBar from "../../../../components/common/searchBar/SearchBar";
 const { width, height } = Dimensions.get("screen");
 
 const SearchResult = () => {
@@ -25,7 +24,7 @@ const SearchResult = () => {
     <View
       style={{
         alignSelf: "center",
-        width: Platform.OS === "web" ? width * 0.6 : width,
+        width: width,
       }}
     >
       <Stack.Screen
@@ -42,7 +41,6 @@ const SearchResult = () => {
           headerTitle: "",
         }}
       />
-      {Platform.OS === "web" && <SearchBar />}
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.topContainer}>
           <View
@@ -58,7 +56,7 @@ const SearchResult = () => {
               {info.place}
             </Text>
           </View>
-          <Cover img={info.img} pop={info.types} add={info.vicinity} />
+          <Cover img={info.img} types={info.types} vicinity={info.vicinity} />
           <View style={{ marginStart: SIZES.xLarge, marginEnd: SIZES.xLarge }}>
             <Text
               style={{
@@ -73,7 +71,7 @@ const SearchResult = () => {
           <Options location={info.location} />
         </View>
         <View style={styles.bottomContainer}>
-          <Recomended places={info.location} name={info.place} />
+          <Recomended placeLocation={info.location} name={info.place} />
         </View>
       </ScrollView>
     </View>

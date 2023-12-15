@@ -1,12 +1,5 @@
-import {
-  Image,
-  Platform,
-  FlatList,
-  TouchableOpacity,
-  View,
-  Text,
-} from "react-native";
-import { styles, stylesWeb } from "./filterbar.style";
+import { Image, FlatList, TouchableOpacity, View, Text } from "react-native";
+import { styles } from "./filterbar.style";
 import { icons } from "../../../constants";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilter } from "../../../redux/filterSlice";
@@ -50,14 +43,7 @@ const Item = ({ icon, category, id }) => {
   return (
     <TouchableOpacity
       style={
-        Platform.OS == "web"
-          ? filter === id
-            ? [
-                stylesWeb.itemWrapper,
-                { borderBottomWidth: 2, borderColor: "#ff" },
-              ]
-            : stylesWeb.itemWrapper
-          : filter === id
+        filter === id
           ? [styles.itemWrapper, { borderBottomWidth: 2, borderColor: "#ff" }]
           : styles.itemWrapper
       }
@@ -71,23 +57,7 @@ const Item = ({ icon, category, id }) => {
   );
 };
 
-const FilterBar = (props) => {
-  //Web version
-  if (Platform.OS === "web") {
-    return (
-      <View style={stylesWeb.barContainer}>
-        {DATA.map((it) => (
-          <Item
-            key={it.title}
-            onPress={props.onPress}
-            icon={it.icon}
-            category={it.title}
-          />
-        ))}
-      </View>
-    );
-  }
-  //Mobile version
+const FilterBar = ({}) => {
   return (
     <View style={styles.barContainer}>
       <FlatList
