@@ -21,13 +21,16 @@ Explore local flavors! Find traditional foods in each area and savor the unique 
 
 # 🌍 Join `NaviNomad` and Explore the Extraordinary!
 
-- [Download Now]
-- [Learn More]
-- [Subscribe for Premium]
+**Copyright © 2024 NaviNomad. All Rights Reserved.**
 
-## License
+The software and associated documentation files (the "Software") are made available for viewing and use but not for modification, redistribution, or commercial use. Permission is hereby granted, free of charge, to any person obtaining a copy of this Software to use the Software without restriction, including the rights to use and view the Software, subject to the following conditions:
 
-📝 This project is licensed under [Your License] - see the [LICENSE.md](LICENSE.md) file for details.
+1. The Software shall not be modified, merged, published, distributed, sublicensed, or sold in any form or by any means.
+2. The Software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement.
+3. In no event shall the authors or copyright holders be liable for any claim, damages, or other liability, whether in an action of contract, tort or otherwise, arising from, out of, or in connection with the Software or the use or other dealings in the Software.
+
+This permission notice shall be included in all copies or substantial portions of the Software.
+
 
 ---
 
