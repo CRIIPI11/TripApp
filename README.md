@@ -9,18 +9,11 @@ Embark on unforgettable journeys with **`NaviNomad`**, the road trip planner app
 🗺️ **Destination Discovery:**
 Discover popular and hidden places based on your location. `NaviNomad` recommends places tailored to your preferences and even allows custom searches.
 
-![discovery](https://github.com/CRIIPI11/TripApp/assets/60235905/b4580c2c-e25a-47c7-8040-e7524e86d362)
-
 🛣️ **Customized Routes:**
 Plan your road trip effortlessly! Choose your destination, set preferences, and let our app create a personalized route with stops along the way.
 
-![plan](https://github.com/CRIIPI11/TripApp/assets/60235905/5b0a648c-3aeb-40ef-bad7-54accee653cf)
-
-
 📖 **Detailed Information:**
 Get to know each stop intimately. `NaviNomad` acts as your personal tourist guide, providing detailed descriptions, cultural backgrounds, budget estimates, recommended visiting times, and more.
-
-![image](https://github.com/CRIIPI11/TripApp/assets/60235905/ced826a3-0853-4d3c-8a7f-3e4933f961eb)
 
 🍔 **Culinary Adventures:**
 Explore local flavors! Find traditional foods in each area and savor the unique tastes of your journey.
