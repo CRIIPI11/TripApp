@@ -1,5 +1,7 @@
 # 🚗 Introducing **`NaviNomad`**: Your Ultimate Road Trip Companion!
 
+https://github.com/CRIIPI11/TripApp/assets/60235905/db6c65ca-d032-41bd-b5ae-c4726161b4e9
+
 Embark on unforgettable journeys with **`NaviNomad`**, the road trip planner app designed for true explorers. Unlike traditional navigation apps, we focus on making your travel experience seamless and filled with hidden gems.
 
 ## Key Features
